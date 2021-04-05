@@ -16,10 +16,12 @@ a
 TESTS:
 a. Verify that the user can enter a password to attempt to log in as an administrator.
 
-ESTIMATION: 1
+ESTIMATION:
+
 ASSUMPTIONS:
 a.
 
 PRIORITY:
+
 DONE:
 a.
