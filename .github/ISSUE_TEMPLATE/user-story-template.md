@@ -14,7 +14,7 @@ TASKS:
 a
 
 TESTS:
-a. Verify that the user can enter a password to attempt to log in as an administrator.
+a.
 
 ESTIMATION:
 
