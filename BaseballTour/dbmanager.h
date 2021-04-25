@@ -8,6 +8,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include <QTableView>
+#include <QCryptographicHash>
 
 #include <vector>
 #include <algorithm>
@@ -25,6 +26,8 @@ public:
     dbManager(const QString& path);
 
     QSqlTableModel* getTeams() const;
+
+    bool authenticate(const QString& username, const QString& password) const;
 
 private:
     //!

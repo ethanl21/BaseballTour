@@ -34,13 +34,25 @@
     </property>
     <addaction name="actionView_Database"/>
    </widget>
+   <widget class="QMenu" name="menuAdministrator">
+    <property name="title">
+     <string>Administrator</string>
+    </property>
+    <addaction name="actionLog_In"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDatabase"/>
+   <addaction name="menuAdministrator"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionView_Database">
    <property name="text">
     <string>View Database</string>
+   </property>
+  </action>
+  <action name="actionLog_In">
+   <property name="text">
+    <string>Log In</string>
    </property>
   </action>
  </widget>

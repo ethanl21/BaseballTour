@@ -11,16 +11,19 @@ CONFIG += c++11
 SOURCES += \
     databaseviewform.cpp \
     dbmanager.cpp \
+    logindialog.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     databaseviewform.h \
     dbmanager.h \
+    logindialog.h \
     mainwindow.h
 
 FORMS += \
     databaseviewform.ui \
+    logindialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.
