@@ -107,49 +107,17 @@ void databaseNameView::on_teamsComboBox_currentIndexChanged(const QString &arg1)
 {
    teamData a = database->getTeamData(arg1);
 
-   ui->tableWidget->removeRow(0);
-   QString columnNames[] = {"Team", "Stadium", "Stadium Capacity", "Stadium Location",
-                          "Playing Surface", "League", "Stadium Date Opened", "Distance to Center Field",
-                          "Stadium Typology", "Stadium Roof Type"};
-
-   QTableWidgetItem* member;
-
    qDebug() << a.team_name << a.stadium_name << a.stadium_seating_capacity << a.stadium_location << a.stadium_playing_surface << a.team_league << a.stadium_date_opened << a.stadium_dist_ctrfield << a.stadium_typology << a.stadium_roof_type;
 
-
-  ui->tableWidget->insertRow(0);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.team_name);
-   ui->tableWidget->setItem(0,0,member);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.stadium_name);
-   ui->tableWidget->setItem(0,1,member);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.stadium_seating_capacity);
-   ui->tableWidget->setItem(0,2,member);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.stadium_location);
-   ui->tableWidget->setItem(0,3,member);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.stadium_playing_surface);
-   ui->tableWidget->setItem(0,4,member);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.team_league);
-   ui->tableWidget->setItem(0,5,member);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.stadium_date_opened);
-   ui->tableWidget->setItem(0,6,member);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.stadium_dist_ctrfield);
-   ui->tableWidget->setItem(0,7,member);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.stadium_typology);
-   ui->tableWidget->setItem(0,8,member);
-   member = NewItem();
-   member->setData(Qt::DisplayRole,a.stadium_roof_type);
-   ui->tableWidget->setItem(0,9,member);
-   member = NewItem();
-
-   ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->teamLineEdit->setText(a.team_name);
+    ui->stadiumNameLineEdit->setText(a.stadium_name);
+    ui->stadiumCapacityLineEdit->setText(QString::number(a.stadium_seating_capacity));
+    ui->stadiumLocationLineEdit->setText(a.stadium_location);
+    ui->stadiumPlayingSurfaceLineEdit->setText(a.stadium_playing_surface);
+    ui->leagueLineEdit->setText(a.team_league);
+    ui->dateOpenedLineEdit->setText(QString::number(a.stadium_date_opened));
+    ui->distCtrFieldLineEdit->setText(a.stadium_dist_ctrfield);
+    ui->typologyLineEdit->setText(a.stadium_typology);
+    ui->roofTypeLineEdit->setText(a.stadium_roof_type);
 
 }
