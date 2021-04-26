@@ -32,18 +32,23 @@ bool dbManager::authenticate(const QString& username, const QString& password) c
     query.prepare("SELECT * FROM login WHERE username=:usr");
     query.bindValue(":usr", username);
     query.exec();
+    query.first();
 
     // if a matching username is found, compare password hash
     if(query.isValid()) {
 
-        qDebug() << "Returned: " << query.value(0).toString() << query.value(1).toString();
+        qDebug() << "Returned login from db: " << query.value(0).toString() << query.value(1).toString();
 
         auto inputHash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256); // calculate sha256 hash
         QString inputHashStr = QString(inputHash.toHex());
 
+        qDebug() << "Comparing against:" << username << inputHashStr;
+
         if(inputHashStr == query.value(1).toString()) { // if passwords match
             return true;
         }
+    }else {
+        qDebug() << "login not found.";
     }
 
     return false;

@@ -15,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     // open database with file path
     database = new dbManager(dbPath);
     qDebug() << "Database should be located at: " << dbPath;
+
+    // user is not admin on program start
+    isAdmin = false;
 }
 
 MainWindow::~MainWindow()
@@ -27,4 +30,32 @@ void MainWindow::on_actionView_Database_triggered()
 {
     dbView = new databaseviewform(database);
     dbView->exec();
+    delete dbView;
+}
+
+void MainWindow::on_actionLog_In_triggered()
+{
+    lDialog = new logindialog(database);
+    lDialog->exec();
+    isAdmin = lDialog->userIsAdmin();
+    delete lDialog;
+}
+
+void MainWindow::on_actionDBG_Is_User_Admin_triggered()
+{
+    if(isAdmin) {
+        QMessageBox::information(this, "Success", "User is admin.");
+    }else {
+        QMessageBox::information(this, "Error", "User is NOT admin.");
+    }
+}
+
+void MainWindow::on_actionLog_Out_triggered()
+{
+    if(isAdmin) {
+        isAdmin = false;
+        QMessageBox::information(this, "Success", "Logged out.");
+    }else {
+        QMessageBox::information(this, "Error", "User is not logged in.");
+    }
 }

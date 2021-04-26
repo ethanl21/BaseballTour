@@ -39,6 +39,8 @@
      <string>Administrator</string>
     </property>
     <addaction name="actionLog_In"/>
+    <addaction name="actionLog_Out"/>
+    <addaction name="actionDBG_Is_User_Admin"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDatabase"/>
@@ -53,6 +55,16 @@
   <action name="actionLog_In">
    <property name="text">
     <string>Log In</string>
+   </property>
+  </action>
+  <action name="actionDBG_Is_User_Admin">
+   <property name="text">
+    <string>DBG: Is User Admin?</string>
+   </property>
+  </action>
+  <action name="actionLog_Out">
+   <property name="text">
+    <string>Log Out</string>
    </property>
   </action>
  </widget>

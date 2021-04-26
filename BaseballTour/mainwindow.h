@@ -6,6 +6,7 @@
 
 #include "dbmanager.h"
 #include "databaseviewform.h"
+#include "logindialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,10 +23,20 @@ public:
 private slots:
     void on_actionView_Database_triggered();
 
+    void on_actionLog_In_triggered();
+
+    void on_actionDBG_Is_User_Admin_triggered();
+
+    void on_actionLog_Out_triggered();
+
 private:
     Ui::MainWindow *ui;
 
+    // forms
     dbManager* database;
     databaseviewform* dbView;
+    logindialog* lDialog;
+
+    bool isAdmin;
 };
 #endif // MAINWINDOW_H
