@@ -53,3 +53,33 @@ bool dbManager::authenticate(const QString& username, const QString& password) c
 
     return false;
 }
+
+teamData dbManager::getTeamData(const QString& teamName) const
+{
+    teamData team;
+    QSqlQuery query;
+
+    query.prepare("SELECT * FROM login WHERE team_name=:teamname");
+    query.bindValue(":teamname", teamName);
+
+    query.exec();
+    query.first();
+
+    if(query.isValid()) { // if matching team found
+        team.team_name = query.value(0).toString();
+        team.stadium_name = query.value(1).toString();
+        team.stadium_seating_capacity = query.value(2).toInt();
+        team.stadium_location = query.value(3).toString();
+        team.stadium_playing_surface = query.value(4).toString();
+        team.team_league = query.value(5).toString();
+        team.stadium_date_opened = query.value(6).toInt();
+        team.stadium_dist_ctrfield = query.value(7).toString();
+        team.stadium_typology = query.value(8).toString();
+        team.stadium_roof_type = query.value(9).toString();
+    }else {
+        qDebug() << "team not found";
+        team.team_name = "ERROR";
+    }
+
+    return team;
+}
