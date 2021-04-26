@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>570</height>
+    <width>451</width>
+    <height>379</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -19,94 +19,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>180</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Search</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>150</y>
-     <width>133</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="tableWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>10</y>
-     <width>1191</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <column>
-    <property name="text">
-     <string>Team</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Stadium</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Stadium Capacity</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Stadium Location</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Playing Surface</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>League</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Stadium Date Open</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Distance to Center Field</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Stadium Typology</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Stadium Roof Type</string>
-    </property>
-   </column>
-  </widget>
   <widget class="QComboBox" name="teamsComboBox">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>120</y>
+     <x>10</x>
+     <y>330</y>
      <width>231</width>
      <height>24</height>
     </rect>
@@ -115,8 +32,8 @@
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>90</y>
+     <x>10</x>
+     <y>10</y>
      <width>421</width>
      <height>311</height>
     </rect>
