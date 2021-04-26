@@ -59,13 +59,16 @@ teamData dbManager::getTeamData(const QString& teamName) const
     teamData team;
     QSqlQuery query;
 
-    query.prepare("SELECT * FROM login WHERE team_name=:teamname");
+    query.prepare("SELECT * FROM teams WHERE team_name=:teamname");
     query.bindValue(":teamname", teamName);
 
     query.exec();
     query.first();
 
     if(query.isValid()) { // if matching team found
+
+        qDebug() << "returning data from team: " << query.value(0).toString();
+
         team.team_name = query.value(0).toString();
         team.stadium_name = query.value(1).toString();
         team.stadium_seating_capacity = query.value(2).toInt();
