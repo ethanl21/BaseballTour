@@ -24,6 +24,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_teamsComboBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::databaseNameView *ui;
     dbManager* database;

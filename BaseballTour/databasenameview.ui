@@ -102,6 +102,16 @@
     </property>
    </column>
   </widget>
+  <widget class="QComboBox" name="teamsComboBox">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>120</y>
+     <width>231</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

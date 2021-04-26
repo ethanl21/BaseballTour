@@ -45,6 +45,8 @@ public:
 
     bool authenticate(const QString& username, const QString& password) const;
 
+    vector<QString> getTeamNames() const;
+
 private:
     //!
     //! \brief m_db

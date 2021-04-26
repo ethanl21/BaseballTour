@@ -83,3 +83,19 @@ bool dbManager::authenticate(const QString& username, const QString& password) c
 
     return false;
 }
+
+vector<QString> dbManager::getTeamNames() const
+{
+    vector<QString> teams;
+
+    // query database for campus names
+    QSqlQuery query("SELECT DISTINCT team_name FROM teams");
+
+     // add campus names to vector (unique)
+    while(query.next()) {
+        QString out = query.value(0).toString();
+        teams.push_back(out);
+    }
+
+    return teams;
+}
