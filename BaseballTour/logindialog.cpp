@@ -25,7 +25,8 @@ void logindialog::on_logInButton_clicked()
     if(db->authenticate(username, password)) {
         isAdmin = true;
         QMessageBox::information(this, "Success", "Logged in as Administrator.");
-        this->close();
+        hide();
+
     }else {
         QMessageBox::information(this, "Error", "Incorrect username or password.");
     }
