@@ -6,6 +6,7 @@
 
 #include "dbmanager.h"
 #include "databaseviewform.h"
+#include "databasenameview.h"
 #include "logindialog.h"
 
 QT_BEGIN_NAMESPACE
@@ -29,13 +30,17 @@ private slots:
 
     void on_actionLog_Out_triggered();
 
+    void on_actionView_Database_by_Name_triggered();
+
 private:
     Ui::MainWindow *ui;
 
     // forms
     dbManager* database;
     databaseviewform* dbView;
+    databaseNameView* dbNameView;
     logindialog* lDialog;
+
 
     bool isAdmin;
 };

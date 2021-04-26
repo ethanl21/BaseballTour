@@ -59,3 +59,10 @@ void MainWindow::on_actionLog_Out_triggered()
         QMessageBox::information(this, "Error", "User is not logged in.");
     }
 }
+
+void MainWindow::on_actionView_Database_by_Name_triggered()
+{
+    dbNameView = new databaseNameView(database);
+    dbNameView->exec();
+    delete dbNameView;
+}
