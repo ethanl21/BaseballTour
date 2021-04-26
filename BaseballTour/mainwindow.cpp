@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "admin.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,9 +36,17 @@ void MainWindow::on_actionView_Database_triggered()
 
 void MainWindow::on_actionLog_In_triggered()
 {
+    Admin *admin;
     lDialog = new logindialog(database);
     lDialog->exec();
+    isAdmin = false;
     isAdmin = lDialog->userIsAdmin();
+    qDebug() << isAdmin;
+    if(isAdmin == true)
+    {
+        admin = new Admin(this);
+        admin->show();
+    }
     delete lDialog;
 }
 

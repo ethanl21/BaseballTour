@@ -6,6 +6,7 @@
 #include <QMessageBox>
 
 #include <dbmanager.h>
+#include <admin.h>
 
 namespace Ui {
 class logindialog;
@@ -20,7 +21,10 @@ public:
     ~logindialog();
 
     // used outside the logindialog window
-    bool userIsAdmin() const { return isAdmin;}
+    bool userIsAdmin() const
+    {
+        return isAdmin;
+    }
 
 private slots:
     void on_logInButton_clicked();
@@ -32,7 +36,9 @@ private:
     dbManager* db;
 
     // true if user has authenticated successfully
-    bool isAdmin;
+    bool isAdmin = false;
+
+    Admin *admin;
 };
 
 #endif // LOGINDIALOG_H
