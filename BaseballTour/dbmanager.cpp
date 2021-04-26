@@ -44,7 +44,7 @@ bool dbManager::authenticate(const QString& username, const QString& password) c
 
         qDebug() << "Comparing against:" << username << inputHashStr;
 
-        if(inputHashStr == query.value(1).toString()) { // if passwords match
+        if(inputHashStr.toUpper() == (query.value(1).toString()).toUpper()) { // if passwords match (case insensitive)
             return true;
         }
     }else {
