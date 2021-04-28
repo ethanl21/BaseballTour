@@ -16,6 +16,8 @@
 
 using namespace std;
 
+
+
 struct teamData {
     QString team_name;
     QString stadium_name;
@@ -27,10 +29,10 @@ struct teamData {
     QString stadium_dist_ctrfield;
     QString stadium_typology;
     QString stadium_roof_type;
-
 };
 
 static const QString PROJECT_PATH = "D:/Qt Projects/CS1D/BaseballTour";         // Alan's Path
+
 
 class dbManager
 {
@@ -45,6 +47,8 @@ public:
 
     bool authenticate(const QString& username, const QString& password) const;
 
+    vector<QString> getTeamNames() const;
+  
     //!
     //! \brief getTeamData
     //! \param teamName name of team to return data from
