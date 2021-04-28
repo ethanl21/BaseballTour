@@ -45,8 +45,6 @@ public:
 
     QSqlTableModel* getTeams() const;
 
-    teamData getTeamData(const QString& teamName) const;
-
     bool authenticate(const QString& username, const QString& password) const;
 
     vector<QString> getTeamNames() const;
