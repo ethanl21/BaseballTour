@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     databasenameview.cpp \
+    admin.cpp \
     databaseviewform.cpp \
     dbmanager.cpp \
     logindialog.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     databasenameview.h \
+    admin.h \
     databaseviewform.h \
     dbmanager.h \
     logindialog.h \
@@ -25,6 +27,7 @@ HEADERS += \
 
 FORMS += \
     databasenameview.ui \
+    admin.ui \
     databaseviewform.ui \
     logindialog.ui \
     mainwindow.ui

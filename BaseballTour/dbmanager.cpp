@@ -77,12 +77,15 @@ bool dbManager::authenticate(const QString& username, const QString& password) c
         if(inputHashStr.toUpper() == (query.value(1).toString()).toUpper()) { // if passwords match (case insensitive)
             return true;
         }
-    }else {
-        qDebug() << "login not found.";
     }
-
+    else
+    {
+        qDebug() << "login not found.";
+        return false;
+    }
     return false;
 }
+
 
 vector<QString> dbManager::getTeamNames() const
 {
@@ -98,4 +101,135 @@ vector<QString> dbManager::getTeamNames() const
     }
 
     return teams;
+
+teamData dbManager::getTeamData(const QString& teamName) const
+{
+    teamData team;
+    QSqlQuery query;
+
+    query.prepare("SELECT * FROM teams WHERE team_name=:teamname");
+    query.bindValue(":teamname", teamName);
+
+    query.exec();
+    query.first();
+
+    if(query.isValid()) { // if matching team found
+
+        qDebug() << "returning data from team: " << query.value(0).toString();
+
+        team.team_name = query.value(0).toString();
+        team.stadium_name = query.value(1).toString();
+        team.stadium_seating_capacity = query.value(2).toInt();
+        team.stadium_location = query.value(3).toString();
+        team.stadium_playing_surface = query.value(4).toString();
+        team.team_league = query.value(5).toString();
+        team.stadium_date_opened = query.value(6).toInt();
+        team.stadium_dist_ctrfield = query.value(7).toString();
+        team.stadium_typology = query.value(8).toString();
+        team.stadium_roof_type = query.value(9).toString();
+    }else {
+        qDebug() << "team not found";
+        team.team_name = "ERROR";
+    }
+
+    return team;
+}
+
+void dbManager::removeSouvenir(const QString &souvenirName, const QString &college)
+{
+    QSqlQuery *query = new QSqlQuery(m_db);
+
+    if(souvenirExists(souvenirName, college))
+    {
+        if(m_db.open())
+        {
+            query->prepare("DELETE FROM souvenirs WHERE (souvenirs) = (:souvenirs)");
+            query->bindValue(":souvenirs", souvenirName);
+
+            if(query->exec())
+                qDebug() << "souvenir delete success!";
+            else
+                qDebug() << "souvenir delete failed!";
+        }
+    }
+
+}
+
+void dbManager::addSouvenir(const QString &college, const QString &souvenirName, const QString &cost)
+{
+    QSqlQuery *query = new QSqlQuery(m_db);
+
+    if(!souvenirExists(souvenirName, college))
+    {
+        if(m_db.open())
+        {
+            query->prepare("INSERT INTO souvenirs(college, souvenirs, cost) VALUES(:college, :souvenirs, :cost)");
+            query->bindValue(":college", college);
+            query->bindValue(":souvenirs", souvenirName);
+            query->bindValue(":cost", cost);
+
+            if(query->exec())
+                qDebug() << "souvenir add success!";
+            else
+                qDebug() << "souvenir add failed!";
+        }
+    }
+    else
+    {
+        qDebug() << "name exists!";
+    }
+}
+
+void dbManager::updateSouvenir(const QString &souvenirName, const QString &college, const QString &spin, const QString &newsouvenir)
+{
+    QSqlQuery *query = new QSqlQuery(m_db);
+
+
+    if(m_db.open())
+    {
+        query->prepare("UPDATE souvenirs SET (souvenirs, cost) = (:newsouvenirName, :cost) "
+                       "WHERE (college, souvenirs) = (:college, :souvenirs)");
+        query->bindValue(":newsouvenirName", newsouvenir);
+        query->bindValue(":college", college);
+        query->bindValue(":souvenirs", souvenirName);
+        query->bindValue(":cost", spin);
+
+        if(query->exec())
+        {
+            qDebug() << "UPDATE WORKED" << Qt::endl;
+        }
+        else
+        {
+            qDebug() << "UPDATE failed: " << query->lastError() << Qt::endl;
+        }
+    }
+}
+
+bool dbManager::souvenirExists(const QString &name, const QString &college)
+{
+    bool exists = false;
+
+    QSqlQuery *checkQuery = new QSqlQuery(m_db);
+
+    checkQuery->prepare("SELECT souvenirs FROM souvenirs WHERE (college, souvenirs) = (:college, :souvenirs)");
+    checkQuery->bindValue(":souvenirs", name);
+    checkQuery->bindValue(":college", college);
+
+
+    if(checkQuery->exec())
+    {
+        if(checkQuery->next())
+        {
+            exists = true;
+            QString souvenirName = checkQuery->value("souvenirs").toString();
+            QString college = checkQuery->value("college").toString();
+            qDebug() << souvenirName << " " << college;
+        }
+    }
+    else
+    {
+        qDebug() << "souvenir exists failed: " << checkQuery->lastError();
+    }
+
+    return exists;
 }
