@@ -10,6 +10,8 @@ databaseviewform::databaseviewform(dbManager* db, QWidget *parent) :
 
     auto model = db->getTeams();
     populateTable(model);
+
+    ui->dbViewStack->setCurrentIndex(0);
 }
 
 databaseviewform::~databaseviewform()
