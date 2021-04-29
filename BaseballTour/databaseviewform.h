@@ -34,7 +34,9 @@ private:
     // !! DO NOT delete in destructor
     dbManager* database;
 
-    void populateTable(QSqlTableModel* model) const;
+    void populateAllTeamsTable(QSqlTableModel* model) const;
+
+    void populateLeaguesTables(const vector<teamData>& americanTeams, const vector<teamData>& nationalTeams) const;
 };
 
 #endif // DATABASEVIEWFORM_H

@@ -12,48 +12,10 @@ databaseviewform::databaseviewform(dbManager* db, QWidget *parent) :
     ui->dbViewStack->setCurrentIndex(0);
 
     // view all teams
-    auto model = db->getTeams();
-    populateTable(model);
+    populateAllTeamsTable(db->getTeams());
 
-    // populate american teams tab
-    QStringList headerLabels;
-    headerLabels.append("Team");
-    headerLabels.append("Stadium");
-
-    ui->americanTeamsTableWidget->setColumnCount(2);
-    ui->americanTeamsTableWidget->setHorizontalHeaderLabels(headerLabels);
-    ui->americanTeamsTableWidget->setColumnWidth(0, 200);
-    ui->americanTeamsTableWidget->setColumnWidth(1, 200);
-
-    vector<teamData> americanTeams = db->getTeamsByLeague("American");
-    for(auto i : americanTeams) {
-        ui->americanTeamsTableWidget->insertRow(ui->americanTeamsTableWidget->rowCount());
-
-        // row, column, item
-        ui->americanTeamsTableWidget->setItem(ui->americanTeamsTableWidget->rowCount()-1, 0, new QTableWidgetItem(i.team_name));
-        ui->americanTeamsTableWidget->setItem(ui->americanTeamsTableWidget->rowCount()-1, 1, new QTableWidgetItem(i.stadium_name));
-    }
-
-    // sort the rows by name
-    ui->americanTeamsTableWidget->sortItems(0);
-
-    // populate national teams tab
-    ui->nationalTeamsTableWidget->setColumnCount(2);
-    ui->nationalTeamsTableWidget->setHorizontalHeaderLabels(headerLabels);
-    ui->nationalTeamsTableWidget->setColumnWidth(0, 200);
-    ui->nationalTeamsTableWidget->setColumnWidth(1, 200);
-
-    vector<teamData> nationalTeams = db->getTeamsByLeague("National");
-    for(auto i : nationalTeams) {
-        ui->nationalTeamsTableWidget->insertRow(ui->nationalTeamsTableWidget->rowCount());
-
-        // row, column, item
-        ui->nationalTeamsTableWidget->setItem(ui->nationalTeamsTableWidget->rowCount()-1, 0, new QTableWidgetItem(i.team_name));
-        ui->nationalTeamsTableWidget->setItem(ui->nationalTeamsTableWidget->rowCount()-1, 1, new QTableWidgetItem(i.stadium_name));
-    }
-
-    // sort the rows by name
-    ui->nationalTeamsTableWidget->sortItems(0);
+    // view by league
+    populateLeaguesTables(db->getTeamsByLeague("American"), db->getTeamsByLeague("National"));
 
 
 }
@@ -63,7 +25,7 @@ databaseviewform::~databaseviewform()
     delete ui;
 }
 
-void databaseviewform::populateTable(QSqlTableModel* model) const
+void databaseviewform::populateAllTeamsTable(QSqlTableModel* model) const
 {
     QString columnNames[] = {"Team", "Stadium", "Stadium Capacity", "Stadium Location",
                            "Playing Surface", "League", "Stadium Date Opened", "Distance to Center Field",
@@ -74,6 +36,46 @@ void databaseviewform::populateTable(QSqlTableModel* model) const
     }
 
     ui->teamviewModel->setModel(model);
+}
+
+void databaseviewform::populateLeaguesTables(const vector<teamData>& americanTeams, const vector<teamData>& nationalTeams) const
+{
+    // table headers
+    QStringList headerLabels;
+    headerLabels.append("Team");
+    headerLabels.append("Stadium");
+
+    // set up table ui parameters
+    ui->americanTeamsTableWidget->setColumnCount(2);
+    ui->americanTeamsTableWidget->setHorizontalHeaderLabels(headerLabels);
+    ui->americanTeamsTableWidget->setColumnWidth(0, 220);
+    ui->americanTeamsTableWidget->setColumnWidth(1, 255);
+
+    ui->nationalTeamsTableWidget->setColumnCount(2);
+    ui->nationalTeamsTableWidget->setHorizontalHeaderLabels(headerLabels);
+    ui->nationalTeamsTableWidget->setColumnWidth(0, 220);
+    ui->nationalTeamsTableWidget->setColumnWidth(1, 255);
+
+    // populate the tables
+    for(const auto &i : americanTeams) {
+        ui->americanTeamsTableWidget->insertRow(ui->americanTeamsTableWidget->rowCount());
+
+        // row, column, item
+        ui->americanTeamsTableWidget->setItem(ui->americanTeamsTableWidget->rowCount()-1, 0, new QTableWidgetItem(i.team_name));
+        ui->americanTeamsTableWidget->setItem(ui->americanTeamsTableWidget->rowCount()-1, 1, new QTableWidgetItem(i.stadium_name));
+    }
+
+    for(const auto &i : nationalTeams) {
+        ui->nationalTeamsTableWidget->insertRow(ui->nationalTeamsTableWidget->rowCount());
+
+        // row, column, item
+        ui->nationalTeamsTableWidget->setItem(ui->nationalTeamsTableWidget->rowCount()-1, 0, new QTableWidgetItem(i.team_name));
+        ui->nationalTeamsTableWidget->setItem(ui->nationalTeamsTableWidget->rowCount()-1, 1, new QTableWidgetItem(i.stadium_name));
+    }
+
+    // sort the rows by name
+    ui->nationalTeamsTableWidget->sortItems(0);
+    ui->americanTeamsTableWidget->sortItems(0);
 }
 
 void databaseviewform::on_allTeamsButton_clicked()
