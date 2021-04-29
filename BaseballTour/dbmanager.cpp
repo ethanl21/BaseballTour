@@ -232,3 +232,43 @@ vector<teamData> dbManager::getTeamsByLeague(const QString& league) const
 
     return teams;
 }
+
+vector<teamData> dbManager::getTeamsByMaxCtrField() const
+{
+    QSqlQuery query;
+    teamData temp;
+    vector<teamData> teams;
+
+    query.prepare("SELECT team_name, stadium_name, MAX(stadium_dist_ctrfield) FROM teams");
+
+    query.first();
+    while(query.isValid()) {
+        temp.team_name = query.value(0).toString();
+        temp.stadium_name = query.value(1).toString();
+        temp.stadium_dist_ctrfield = query.value(2).toString();
+
+        teams.push_back(temp);
+    }
+
+    return teams;
+}
+
+vector<teamData> dbManager::getTeamsByMinCtrField() const
+{
+    QSqlQuery query;
+    teamData temp;
+    vector<teamData> teams;
+
+    query.prepare("SELECT team_name, stadium_name, MIN(stadium_dist_ctrfield) FROM teams");
+
+    query.first();
+    while(query.isValid()) {
+        temp.team_name = query.value(0).toString();
+        temp.stadium_name = query.value(1).toString();
+        temp.stadium_dist_ctrfield = query.value(2).toString();
+
+        teams.push_back(temp);
+    }
+
+    return teams;
+}
