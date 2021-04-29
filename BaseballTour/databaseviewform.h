@@ -23,6 +23,11 @@ public:
     explicit databaseviewform(dbManager* db = nullptr, QWidget *parent = nullptr);
     ~databaseviewform();
 
+private slots:
+    void on_allTeamsButton_clicked();
+
+    void on_leagueButton_clicked();
+
 private:
     Ui::databaseviewform *ui;
 

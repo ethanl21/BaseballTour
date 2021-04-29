@@ -108,13 +108,13 @@
       <attribute name="title">
        <string>American</string>
       </attribute>
-      <widget class="QColumnView" name="americanTeamsColumnView">
+      <widget class="QTableWidget" name="americanTeamsTableWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>10</y>
          <width>1031</width>
-         <height>531</height>
+         <height>521</height>
         </rect>
        </property>
       </widget>
@@ -123,13 +123,13 @@
       <attribute name="title">
        <string>National</string>
       </attribute>
-      <widget class="QColumnView" name="nationalTeamsColumnView">
+      <widget class="QTableWidget" name="nationalTeamsTableWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>10</y>
          <width>1031</width>
-         <height>531</height>
+         <height>521</height>
         </rect>
        </property>
       </widget>
