@@ -24,10 +24,25 @@ public:
     ~databaseviewform();
 
 private slots:
+    //!
+    //! \brief on_allTeamsButton_clicked
+    //!
+    //! change to window all view all teams
+    //!
     void on_allTeamsButton_clicked();
 
+    //!
+    //! \brief on_leagueButton_clicked
+    //!
+    //! change window to view teams by league
+    //!
     void on_leagueButton_clicked();
 
+    //!
+    //! \brief on_distCtrButton_clicked
+    //!
+    //! change window to view by distance to center field
+    //!
     void on_distCtrButton_clicked();
 
 private:
@@ -36,10 +51,24 @@ private:
     // !! DO NOT delete in destructor
     dbManager* database;
 
+    //!
+    //! \brief populateAllTeamsTable
+    //! \param model model of all teams, unsorted
+    //!
     void populateAllTeamsTable(QSqlTableModel* model) const;
 
+    //!
+    //! \brief populateLeaguesTables
+    //! \param americanTeams vector of american league teams, unsorted
+    //! \param nationalTeams vector of national league teams, unsorted
+    //!
     void populateLeaguesTables(const vector<teamData>& americanTeams, const vector<teamData>& nationalTeams) const;
 
+    //!
+    //! \brief populateCtrFldTables
+    //! \param greatest vector of team(s) with the greatest distance to center field
+    //! \param least vector of team(s) with the least distance to center field
+    //!
     void populateCtrFldTables(const vector<teamData>& greatest, const vector<teamData>& least) const;
 };
 

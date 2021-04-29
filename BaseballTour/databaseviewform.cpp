@@ -140,6 +140,13 @@ void databaseviewform::populateCtrFldTables(const vector<teamData>& greatest, co
         ui->leastCenterFldWidget->setItem(ui->leastCenterFldWidget->rowCount()-1, 2, new QTableWidgetItem(i.stadium_dist_ctrfield));
     }
 
-    ui->greatestCenterFldWidget->sortItems(0);
-    ui->leastCenterFldWidget->sortItems(0);
+    // only sort if there's more than one team for greatest or least dist to ctr fld
+    if(greatest.size() > 1) {
+        ui->greatestCenterFldWidget->sortItems(0);
+    }
+
+    if(least.size() > 1) {
+        ui->leastCenterFldWidget->sortItems(0);
+    }
+
 }
