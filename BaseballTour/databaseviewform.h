@@ -28,6 +28,8 @@ private slots:
 
     void on_leagueButton_clicked();
 
+    void on_distCtrButton_clicked();
+
 private:
     Ui::databaseviewform *ui;
 
@@ -37,6 +39,8 @@ private:
     void populateAllTeamsTable(QSqlTableModel* model) const;
 
     void populateLeaguesTables(const vector<teamData>& americanTeams, const vector<teamData>& nationalTeams) const;
+
+    void populateCtrFldTables(const vector<teamData>& greatest, const vector<teamData>& least) const;
 };
 
 #endif // DATABASEVIEWFORM_H

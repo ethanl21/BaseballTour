@@ -239,7 +239,10 @@ vector<teamData> dbManager::getTeamsByMaxCtrField() const
     teamData temp;
     vector<teamData> teams;
 
+    qDebug() << "getTeamsByMaxCtrField";
+
     query.prepare("SELECT team_name, stadium_name, MAX(stadium_dist_ctrfield) FROM teams");
+    query.exec();
 
     query.first();
     while(query.isValid()) {
@@ -248,6 +251,8 @@ vector<teamData> dbManager::getTeamsByMaxCtrField() const
         temp.stadium_dist_ctrfield = query.value(2).toString();
 
         teams.push_back(temp);
+
+        query.next();
     }
 
     return teams;
@@ -259,15 +264,21 @@ vector<teamData> dbManager::getTeamsByMinCtrField() const
     teamData temp;
     vector<teamData> teams;
 
+    qDebug() << "getTeamsByMinCtrField";
+
     query.prepare("SELECT team_name, stadium_name, MIN(stadium_dist_ctrfield) FROM teams");
+    query.exec();
 
     query.first();
     while(query.isValid()) {
+        qDebug() << "Query is valid";
         temp.team_name = query.value(0).toString();
         temp.stadium_name = query.value(1).toString();
         temp.stadium_dist_ctrfield = query.value(2).toString();
 
         teams.push_back(temp);
+
+        query.next();
     }
 
     return teams;

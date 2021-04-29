@@ -17,6 +17,9 @@ databaseviewform::databaseviewform(dbManager* db, QWidget *parent) :
     // view by league
     populateLeaguesTables(db->getTeamsByLeague("American"), db->getTeamsByLeague("National"));
 
+    // view by center field
+    populateCtrFldTables(db->getTeamsByMaxCtrField(), db->getTeamsByMinCtrField());
+
 
 }
 
@@ -88,4 +91,55 @@ void databaseviewform::on_leagueButton_clicked()
 {
     // change to the leagues tab
     ui->dbViewStack->setCurrentIndex(1);
+}
+
+void databaseviewform::on_distCtrButton_clicked()
+{
+    // change to the dist ctr fld tab
+    ui->dbViewStack->setCurrentIndex(3);
+}
+
+void databaseviewform::populateCtrFldTables(const vector<teamData>& greatest, const vector<teamData>& least) const
+{
+    // set table headers
+    QStringList labels;
+    labels.append("Team");
+    labels.append("Stadium");
+    labels.append("Distance to Center Field");
+
+    qDebug() << "populateCtrFldTables";
+
+    // set up table ui parameters
+    ui->greatestCenterFldWidget->setColumnCount(3);
+    ui->greatestCenterFldWidget->setHorizontalHeaderLabels(labels);
+    ui->greatestCenterFldWidget->setColumnWidth(0, 350);
+    ui->greatestCenterFldWidget->setColumnWidth(1, 350);
+    ui->greatestCenterFldWidget->setColumnWidth(2, 340);
+
+    ui->leastCenterFldWidget->setColumnCount(3);
+    ui->leastCenterFldWidget->setHorizontalHeaderLabels(labels);
+    ui->leastCenterFldWidget->setColumnWidth(0, 350);
+    ui->leastCenterFldWidget->setColumnWidth(1, 350);
+    ui->leastCenterFldWidget->setColumnWidth(2, 340);
+
+    for(const auto &i : greatest) {
+        ui->greatestCenterFldWidget->insertRow(ui->greatestCenterFldWidget->rowCount());
+
+        // row, column, item
+        ui->greatestCenterFldWidget->setItem(ui->greatestCenterFldWidget->rowCount()-1, 0, new QTableWidgetItem(i.team_name));
+        ui->greatestCenterFldWidget->setItem(ui->greatestCenterFldWidget->rowCount()-1, 1, new QTableWidgetItem(i.stadium_name));
+        ui->greatestCenterFldWidget->setItem(ui->greatestCenterFldWidget->rowCount()-1, 2, new QTableWidgetItem(i.stadium_dist_ctrfield));
+    }
+
+    for(const auto &i : least) {
+        ui->leastCenterFldWidget->insertRow(ui->leastCenterFldWidget->rowCount());
+
+        // row, column, item
+        ui->leastCenterFldWidget->setItem(ui->leastCenterFldWidget->rowCount()-1, 0, new QTableWidgetItem(i.team_name));
+        ui->leastCenterFldWidget->setItem(ui->leastCenterFldWidget->rowCount()-1, 1, new QTableWidgetItem(i.stadium_name));
+        ui->leastCenterFldWidget->setItem(ui->leastCenterFldWidget->rowCount()-1, 2, new QTableWidgetItem(i.stadium_dist_ctrfield));
+    }
+
+    ui->greatestCenterFldWidget->sortItems(0);
+    ui->leastCenterFldWidget->sortItems(0);
 }
