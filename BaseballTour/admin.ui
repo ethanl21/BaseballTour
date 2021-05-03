@@ -74,7 +74,7 @@
     <attribute name="title">
      <string>View Stadiums</string>
     </attribute>
-    <widget class="QTableView" name="college_tableView">
+    <widget class="QTableView" name="stadium_tableView">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -373,7 +373,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_collegeName">
+    <widget class="QLabel" name="label_stadiumName">
      <property name="geometry">
       <rect>
        <x>10</x>

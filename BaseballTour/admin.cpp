@@ -54,14 +54,14 @@ void Admin::on_pushButton_updateSouvenir_clicked()
         success = false;
     }
 
-    if(!m_db.souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_collegeName->text()))
+    if(!m_db.souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()))
     {
         if(success)
         {
             double costToString = ui->doubleSpinBox_cost->value();
             QString cost = QString::number(costToString);
             cost = "$" + cost;
-            m_db.updateSouvenir(tempSouvenir, ui->label_collegeName->text(),cost, ui->lineEdit_souvenirName->text());
+            m_db.updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
         }
         else
         {
@@ -75,7 +75,7 @@ void Admin::on_pushButton_updateSouvenir_clicked()
             double costToString = ui->doubleSpinBox_cost->value();
             QString cost = QString::number(costToString);
             cost = "$" + cost;
-            m_db.updateSouvenir(tempSouvenir, ui->label_collegeName->text(),cost, ui->lineEdit_souvenirName->text());
+            m_db.updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
         }
         else
         {
@@ -95,16 +95,16 @@ void Admin::on_pushButton_removeSouvenir_clicked()
         success = false;
     }
 
-    if(!m_db.souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_collegeName->text()))
+    if(!m_db.souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()))
     {
        ui->lineEdit_souvenirName->setText("");
        ui->lineEdit_souvenirName->setPlaceholderText("souvenir doesn't exist!");
        success = false;
     }
 
-    if(m_db.souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_collegeName->text()) && success)
+    if(m_db.souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()) && success)
     {
-        m_db.removeSouvenir(ui->lineEdit_souvenirName->text(), ui->label_collegeName->text());
+        m_db.removeSouvenir(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text());
         ui->lineEdit_souvenirName->setText("");
         ui->lineEdit_souvenirName->setPlaceholderText("souvenir name");
     }
@@ -128,7 +128,7 @@ void Admin::on_souvenir_tableView_clicked(const QModelIndex &index)
         double thirdText = index.sibling(row, 2).data().toString().replace("$", "").toDouble();
 
         ui->lineEdit_souvenirName->setText(secondText);
-        ui->label_collegeName->setText(firstText);
+        ui->label_stadiumName->setText(firstText);
         ui->doubleSpinBox_cost->setValue(thirdText);
     }
 }
