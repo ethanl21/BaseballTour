@@ -33,7 +33,6 @@ struct teamData {
 
 static const QString PROJECT_PATH = "D:/Qt Projects/CS1D/BaseballTour";         // Alan's Path
 
-
 class dbManager
 {
 public:
@@ -43,8 +42,18 @@ public:
     //!
     dbManager(const QString& path);
 
+    //!
+    //! \brief getTeams
+    //! \return QSqlTableModel containing all of the teams and their data
+    //!
     QSqlTableModel* getTeams() const;
 
+    //!
+    //! \brief authenticate
+    //! \param username - administrator username
+    //! \param password - administrator password
+    //! \return true if username and password are correct
+    //!
     bool authenticate(const QString& username, const QString& password) const;
 
     vector<QString> getTeamNames() const;
@@ -91,11 +100,24 @@ public:
 
     bool souvenirExists(const QString &name, const QString &college);
 
-    /**
-    * @brief Method to clear all colleges
-    *
-    * clears all colleges from database
-    */
+    //!
+    //! \brief getTeamsByLeague
+    //! \param league American or National
+    //! \return vector of teams and stadiums according to the league given
+    //!
+    vector<teamData> getTeamsByLeague(const QString& league="American") const;
+
+    //!
+    //! \brief getTeamsByCtrField
+    //! \return vector containing team(s) with largest dist to center field
+    //!
+    vector<teamData> getTeamsByMaxCtrField() const;
+
+    //!
+    //! \brief getTeamsByCtrField
+    //! \return vector containing team(s) with smallest dist to center field
+    //!
+    vector<teamData> getTeamsByMinCtrField() const;
 
 private:
     //!
