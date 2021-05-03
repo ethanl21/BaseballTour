@@ -68,52 +68,11 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
-   <widget class="QWidget" name="ViewColleges">
+   <widget class="QWidget" name="ModifyStadiums">
     <attribute name="title">
-     <string>View Stadiums</string>
-    </attribute>
-    <widget class="QTableView" name="college_tableView">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>10</y>
-       <width>861</width>
-       <height>501</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_addNewColleges">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>520</y>
-       <width>121</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add Colleges</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_clearColleges">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>520</y>
-       <width>121</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Clear Colleges</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="AddStadiums">
-    <attribute name="title">
-     <string>Add Stadiums</string>
+     <string>Modify Stadiums</string>
     </attribute>
     <widget class="QLabel" name="teamName">
      <property name="geometry">
