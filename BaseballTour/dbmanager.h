@@ -16,6 +16,21 @@
 
 using namespace std;
 
+
+
+struct teamData {
+    QString team_name;
+    QString stadium_name;
+    int stadium_seating_capacity;
+    QString stadium_location;
+    QString stadium_playing_surface;
+    QString team_league;
+    int stadium_date_opened;
+    QString stadium_dist_ctrfield;
+    QString stadium_typology;
+    QString stadium_roof_type;
+};
+
 static const QString PROJECT_PATH = "D:/Qt Projects/CS1D/BaseballTour";         // Alan's Path
 
 class dbManager
@@ -27,9 +42,28 @@ public:
     //!
     dbManager(const QString& path);
 
+    //!
+    //! \brief getTeams
+    //! \return QSqlTableModel containing all of the teams and their data
+    //!
     QSqlTableModel* getTeams() const;
 
+    //!
+    //! \brief authenticate
+    //! \param username - administrator username
+    //! \param password - administrator password
+    //! \return true if username and password are correct
+    //!
     bool authenticate(const QString& username, const QString& password) const;
+
+    vector<QString> getTeamNames() const;
+  
+    //!
+    //! \brief getTeamData
+    //! \param teamName name of team to return data from
+    //! \return teamData struct with teamName's data or team_name "ERROR" if team not found
+    //!
+    teamData getTeamData(const QString& teamName) const;
 
     void addSouvenir(const QString &college, const QString &souvenirName, const QString &cost);
 
@@ -66,11 +100,25 @@ public:
 
     bool souvenirExists(const QString &name, const QString &college);
 
-    /**
-    * @brief Method to clear all colleges
-    *
-    * clears all colleges from database
-    */
+    //!
+    //! \brief getTeamsByLeague
+    //! \param league American or National
+    //! \return vector of teams and stadiums according to the league given
+    //!
+    vector<teamData> getTeamsByLeague(const QString& league="American") const;
+
+    //!
+    //! \brief getTeamsByCtrField
+    //! \return vector containing team(s) with largest dist to center field
+    //!
+    vector<teamData> getTeamsByMaxCtrField() const;
+
+    //!
+    //! \brief getTeamsByCtrField
+    //! \return vector containing team(s) with smallest dist to center field
+    //!
+    vector<teamData> getTeamsByMinCtrField() const;
+
 private:
     //!
     //! \brief m_db

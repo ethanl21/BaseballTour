@@ -6,6 +6,7 @@
 
 #include "dbmanager.h"
 #include "databaseviewform.h"
+#include "databasenameview.h"
 #include "logindialog.h"
 
 QT_BEGIN_NAMESPACE
@@ -29,13 +30,27 @@ private slots:
 
     void on_actionLog_Out_triggered();
 
+    void on_actionView_Database_by_Name_triggered();
+
+    void on_addPushButton_clicked();
+
+    void on_removePushButton_clicked();
+
+    void on_simpleStartButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     // forms
     dbManager* database;
     databaseviewform* dbView;
+    databaseNameView* dbNameView;
     logindialog* lDialog;
+
+    // contains list of team names for combo boxes
+    vector<QString> nameList;
+    vector<QString> tempList;
+    vector<QString> selectedList;
 
     bool isAdmin;
 };
