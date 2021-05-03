@@ -32,6 +32,12 @@ private slots:
 
     void on_actionView_Database_by_Name_triggered();
 
+    void on_addPushButton_clicked();
+
+    void on_removePushButton_clicked();
+
+    void on_simpleStartButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -41,6 +47,10 @@ private:
     databaseNameView* dbNameView;
     logindialog* lDialog;
 
+    // contains list of team names for combo boxes
+    vector<QString> nameList;
+    vector<QString> tempList;
+    vector<QString> selectedList;
 
     bool isAdmin;
 };
