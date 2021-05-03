@@ -24,6 +24,36 @@ QSqlTableModel* dbManager::getTeams() const
     return model;
 }
 
+teamData dbManager::getTeamData(const QString& teamName) const
+{
+    teamData team;
+    QSqlQuery query;
+
+    query.prepare("SELECT * FROM teams WHERE team_name=:teamname");
+    query.bindValue(":teamname", teamName);
+
+    query.exec();
+    query.first();
+
+    if(query.isValid()) { // if matching team found
+        team.team_name = query.value(1).toString();
+        team.stadium_name = query.value(2).toString();
+        team.stadium_seating_capacity = query.value(3).toInt();
+        team.stadium_location = query.value(4).toString();
+        team.stadium_playing_surface = query.value(5).toString();
+        team.team_league = query.value(6).toString();
+        team.stadium_date_opened = query.value(7).toInt();
+        team.stadium_dist_ctrfield = query.value(8).toString();
+        team.stadium_typology = query.value(9).toString();
+        team.stadium_roof_type = query.value(10).toString();
+    }else {
+        qDebug() << "team not found";
+        team.team_name = "ERROR";
+    }
+
+    return team;
+}
+
 bool dbManager::authenticate(const QString& username, const QString& password) const
 {
     QSqlQuery query;
@@ -56,38 +86,23 @@ bool dbManager::authenticate(const QString& username, const QString& password) c
     return false;
 }
 
-teamData dbManager::getTeamData(const QString& teamName) const
+
+vector<QString> dbManager::getTeamNames() const
 {
-    teamData team;
-    QSqlQuery query;
+    vector<QString> teams;
 
-    query.prepare("SELECT * FROM teams WHERE team_name=:teamname");
-    query.bindValue(":teamname", teamName);
+    // query database for campus names
+    QSqlQuery query("SELECT DISTINCT team_name FROM teams");
 
-    query.exec();
-    query.first();
-
-    if(query.isValid()) { // if matching team found
-
-        qDebug() << "returning data from team: " << query.value(0).toString();
-
-        team.team_name = query.value(0).toString();
-        team.stadium_name = query.value(1).toString();
-        team.stadium_seating_capacity = query.value(2).toInt();
-        team.stadium_location = query.value(3).toString();
-        team.stadium_playing_surface = query.value(4).toString();
-        team.team_league = query.value(5).toString();
-        team.stadium_date_opened = query.value(6).toInt();
-        team.stadium_dist_ctrfield = query.value(7).toString();
-        team.stadium_typology = query.value(8).toString();
-        team.stadium_roof_type = query.value(9).toString();
-    }else {
-        qDebug() << "team not found";
-        team.team_name = "ERROR";
+     // add campus names to vector (unique)
+    while(query.next()) {
+        QString out = query.value(0).toString();
+        teams.push_back(out);
     }
 
-    return team;
+    return teams;
 }
+
 
 void dbManager::removeSouvenir(const QString &souvenirName, const QString &college)
 {
@@ -186,4 +201,85 @@ bool dbManager::souvenirExists(const QString &name, const QString &college)
     }
 
     return exists;
+}
+
+vector<teamData> dbManager::getTeamsByLeague(const QString& league) const
+{
+    QSqlQuery query;
+    vector<teamData> teams;
+    teamData temp;
+
+    query.prepare("SELECT team_name, stadium_name FROM teams WHERE team_league = :league");
+    query.bindValue(":league", league); // league defaults to "American"
+
+    query.exec();
+    query.first();
+
+    while(query.isValid()) {
+        temp.team_name = query.value(0).toString();
+        temp.stadium_name = query.value(1).toString();
+
+        teams.push_back(temp);
+
+        query.next();
+    }
+
+//    // sort the teams alphabetically by name
+//    sort(teams.begin(), teams.end(),
+//         [] (teamData a, teamData b)
+//    { return (a.team_name < b.team_name); }
+//    );
+
+    return teams;
+}
+
+vector<teamData> dbManager::getTeamsByMaxCtrField() const
+{
+    QSqlQuery query;
+    teamData temp;
+    vector<teamData> teams;
+
+    qDebug() << "getTeamsByMaxCtrField";
+
+    query.prepare("SELECT team_name, stadium_name, MAX(stadium_dist_ctrfield) FROM teams");
+    query.exec();
+
+    query.first();
+    while(query.isValid()) {
+        temp.team_name = query.value(0).toString();
+        temp.stadium_name = query.value(1).toString();
+        temp.stadium_dist_ctrfield = query.value(2).toString();
+
+        teams.push_back(temp);
+
+        query.next();
+    }
+
+    return teams;
+}
+
+vector<teamData> dbManager::getTeamsByMinCtrField() const
+{
+    QSqlQuery query;
+    teamData temp;
+    vector<teamData> teams;
+
+    qDebug() << "getTeamsByMinCtrField";
+
+    query.prepare("SELECT team_name, stadium_name, MIN(stadium_dist_ctrfield) FROM teams");
+    query.exec();
+
+    query.first();
+    while(query.isValid()) {
+        qDebug() << "Query is valid";
+        temp.team_name = query.value(0).toString();
+        temp.stadium_name = query.value(1).toString();
+        temp.stadium_dist_ctrfield = query.value(2).toString();
+
+        teams.push_back(temp);
+
+        query.next();
+    }
+
+    return teams;
 }

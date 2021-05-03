@@ -19,6 +19,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     // user is not admin on program start
     isAdmin = false;
+
+
+    // populate vectors and comboBox
+    nameList = database->getTeamNames();
+    tempList = nameList;
+
+    for (auto teamName : nameList) {
+        ui->simpleFromComboBox->addItem(teamName);
+        ui->simpleToComboBox->addItem(teamName);
+        ui->addComboBox->addItem(teamName);
+    }
 }
 
 MainWindow::~MainWindow()
@@ -67,4 +78,41 @@ void MainWindow::on_actionLog_Out_triggered()
     }else {
         QMessageBox::information(this, "Error", "User is not logged in.");
     }
+}
+
+void MainWindow::on_actionView_Database_by_Name_triggered()
+{
+    dbNameView = new databaseNameView(database);
+    dbNameView->exec();
+    delete dbNameView;
+}
+
+void MainWindow::on_addPushButton_clicked()
+{
+    if (ui->addComboBox->count() != 0) {
+        QString team = ui->addComboBox->currentText();
+        selectedList.push_back(team);
+
+        ui->teamListWidget->addItem(team);
+        ui->addComboBox->removeItem(ui->addComboBox->currentIndex());
+        ui->startComboBox->addItem(team);
+    }
+}
+
+void MainWindow::on_removePushButton_clicked()
+{
+    if (ui->teamListWidget->currentItem() != NULL) {
+        QListWidgetItem *item = ui->teamListWidget->currentItem();
+        int index = ui->teamListWidget->row(item);
+        selectedList.erase(selectedList.begin() + index);
+
+        ui->addComboBox->addItem(item->text());
+        ui->startComboBox->removeItem(index);
+        ui->teamListWidget->takeItem(index);
+    }
+}
+
+void MainWindow::on_simpleStartButton_clicked()
+{
+
 }
