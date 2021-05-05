@@ -14,6 +14,7 @@ SOURCES += \
     admin.cpp \
     databaseviewform.cpp \
     dbmanager.cpp \
+    graph.cpp \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp
@@ -24,6 +25,7 @@ HEADERS += \
     admin.h \
     databaseviewform.h \
     dbmanager.h \
+    graph.h \
     logindialog.h \
     mainwindow.h
 
