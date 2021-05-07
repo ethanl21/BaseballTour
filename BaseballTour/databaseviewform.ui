@@ -46,9 +46,12 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>1081</width>
-     <height>671</height>
+     <width>1400</width>
+     <height>661</height>
     </rect>
+   </property>
+   <property name="currentIndex">
+    <number>2</number>
    </property>
    <widget class="QWidget" name="allTeamsPage">
     <widget class="QLabel" name="label">
@@ -124,6 +127,64 @@
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt; font-weight:600;&quot;&gt;MLB Teams by Roof Type&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>110</y>
+       <width>432</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_9">
+        <property name="styleSheet">
+         <string notr="true">font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Number of Teams With Open Roof Type:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="styleSheet">
+         <string notr="true">font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>70</y>
+       <width>401</width>
+       <height>591</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_10">
+        <property name="styleSheet">
+         <string notr="true">font: 75 12pt &quot;MS Shell Dlg 2&quot;;
+font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Teams With Open Roof Type</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="openRoofTeamsTableWidget"/>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="distCtrPage">

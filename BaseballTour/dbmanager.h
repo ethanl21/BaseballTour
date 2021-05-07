@@ -119,6 +119,13 @@ public:
     //!
     vector<teamData> getTeamsByMinCtrField() const;
 
+    //!
+    //! \brief getTeamsWithOpenRoof
+    //! \param roof type to return
+    //! \return vector containing team(s) with open roof type
+    //!
+    vector<teamData> getTeamsWithOpenRoof(const QString& roofType="Open") const;
+
 private:
     //!
     //! \brief m_db
