@@ -14,7 +14,7 @@ class Admin : public QDialog
     Q_OBJECT
 
 public:
-    explicit Admin(QWidget *parent = nullptr);
+    explicit Admin(dbManager* db = nullptr, QWidget *parent = nullptr);
     ~Admin();
 
     /**
@@ -62,7 +62,7 @@ private slots:
 
 private:
     Ui::Admin *ui;
-    dbManager m_db = dbManager(PROJECT_PATH + "/build-BaseballTour-Desktop_x86_windows_msys_pe_64bit-Debug/debug/mlb_data");
+    dbManager* m_db;
     QString tempSouvenir;
 };
 

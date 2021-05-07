@@ -55,7 +55,7 @@ void MainWindow::on_actionLog_In_triggered()
     qDebug() << isAdmin;
     if(isAdmin == true)
     {
-        admin = new Admin(this);
+        admin = new Admin(database, this);
         admin->show();
     }
     delete lDialog;

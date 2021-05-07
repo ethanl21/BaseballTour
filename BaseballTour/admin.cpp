@@ -3,7 +3,7 @@
 #include "dbmanager.h"
 //#include "fileselector.h"
 
-Admin::Admin(QWidget *parent) :
+Admin::Admin(dbManager* db, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Admin)
 {
@@ -11,6 +11,7 @@ Admin::Admin(QWidget *parent) :
 //    m_db.setDatabaseName(path);
 
     ui->setupUi(this);
+    m_db = db;
     updateSouvenirs();
 }
 
@@ -54,14 +55,14 @@ void Admin::on_pushButton_updateSouvenir_clicked()
         success = false;
     }
 
-    if(!m_db.souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()))
+    if(!m_db->souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()))
     {
         if(success)
         {
             double costToString = ui->doubleSpinBox_cost->value();
             QString cost = QString::number(costToString);
             cost = "$" + cost;
-            m_db.updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
+            m_db->updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
         }
         else
         {
@@ -75,7 +76,7 @@ void Admin::on_pushButton_updateSouvenir_clicked()
             double costToString = ui->doubleSpinBox_cost->value();
             QString cost = QString::number(costToString);
             cost = "$" + cost;
-            m_db.updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
+            m_db->updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
         }
         else
         {
@@ -95,16 +96,16 @@ void Admin::on_pushButton_removeSouvenir_clicked()
         success = false;
     }
 
-    if(!m_db.souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()))
+    if(!m_db->souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()))
     {
        ui->lineEdit_souvenirName->setText("");
        ui->lineEdit_souvenirName->setPlaceholderText("souvenir doesn't exist!");
        success = false;
     }
 
-    if(m_db.souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()) && success)
+    if(m_db->souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()) && success)
     {
-        m_db.removeSouvenir(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text());
+        m_db->removeSouvenir(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text());
         ui->lineEdit_souvenirName->setText("");
         ui->lineEdit_souvenirName->setPlaceholderText("souvenir name");
     }
