@@ -62,7 +62,7 @@ private slots:
 
 private:
     Ui::Admin *ui;
-    dbManager* m_db;
+    dbManager *m_db;
     QString tempSouvenir;
 };
 

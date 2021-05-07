@@ -31,8 +31,6 @@ struct teamData {
     QString stadium_roof_type;
 };
 
-static const QString PROJECT_PATH = "D:/Qt Projects/CS1D/BaseballTour";         // Alan's Path
-
 class dbManager
 {
 public:
