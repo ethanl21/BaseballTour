@@ -283,3 +283,27 @@ vector<teamData> dbManager::getTeamsByMinCtrField() const
 
     return teams;
 }
+
+vector<teamData> dbManager::getTeamsWithOpenRoof(const QString& roofType) const
+{
+    QSqlQuery query;
+    vector<teamData> teams;
+    teamData team;
+    query.prepare("SELECT team_name, stadium_name FROM teams WHERE stadium_rooftype =:roofType");
+    query.bindValue(":roofType", roofType);
+    query.exec();
+
+    qDebug() << "getTeamsWithOpenRoof";
+
+    query.first();
+    while(query.isValid()) {
+        team.team_name = query.value(0).toString();
+        team.stadium_name = query.value(1).toString();
+        teams.push_back(team);
+
+        query.next();
+    }
+
+
+    return teams;
+}

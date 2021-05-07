@@ -45,6 +45,8 @@ private slots:
     //!
     void on_distCtrButton_clicked();
 
+    void on_roofTypeButton_clicked();
+
 private:
     Ui::databaseviewform *ui;
 
@@ -70,6 +72,12 @@ private:
     //! \param least vector of team(s) with the least distance to center field
     //!
     void populateCtrFldTables(const vector<teamData>& greatest, const vector<teamData>& least) const;
+
+    //!
+    //! \brief populateOpenRoofTeamsTable
+    //! \param openRoofTeams vector of team(s) with an open roof type
+    //!
+    void populateOpenRoofTeamsTable(const vector<teamData>& openRoofTeams) const;
 };
 
 #endif // DATABASEVIEWFORM_H
