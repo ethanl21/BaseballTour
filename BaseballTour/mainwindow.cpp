@@ -50,7 +50,10 @@ void MainWindow::on_actionLog_In_triggered()
     lDialog = new logindialog(database);
     lDialog->exec();
     isAdmin = false;
+
     isAdmin = lDialog->userIsAdmin();
+    qDebug() << isAdmin;
+
     delete lDialog;
 }
 
@@ -118,5 +121,14 @@ void MainWindow::on_actionModify_Database_triggered()
         delete adminWindow;
     }else {
         QMessageBox::information(this, "Error", "You must be an administrator to modify the database.");
+
+void MainWindow::on_actionImport_Teams_triggered()
+{
+    if(!isAdmin) {
+        QMessageBox::information(this, "Error", "You must be an administrator to modify the database.");
+    }else {
+        qDebug() << "Home location: " << QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        QString addTeams = QFileDialog::getOpenFileName(this, tr("Open Teams File"), QStandardPaths::writableLocation(QStandardPaths::HomeLocation), tr("Teams (*.csv)"));
+        qDebug() << addTeams;
     }
 }

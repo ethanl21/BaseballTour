@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QFileDialog>
+#include <QStandardPaths>
 
 #include "dbmanager.h"
 #include "databaseviewform.h"
@@ -39,6 +41,8 @@ private slots:
     void on_simpleStartButton_clicked();
 
     void on_actionModify_Database_triggered();
+    
+    void on_actionImport_Teams_triggered();
 
 private:
     Ui::MainWindow *ui;
