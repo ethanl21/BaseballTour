@@ -38,6 +38,8 @@ private slots:
 
     void on_simpleStartButton_clicked();
 
+    void on_actionModify_Database_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -46,6 +48,7 @@ private:
     databaseviewform* dbView;
     databaseNameView* dbNameView;
     logindialog* lDialog;
+    Admin* adminWindow;
 
     // contains list of team names for combo boxes
     vector<QString> nameList;

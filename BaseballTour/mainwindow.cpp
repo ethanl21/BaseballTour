@@ -47,17 +47,10 @@ void MainWindow::on_actionView_Database_triggered()
 
 void MainWindow::on_actionLog_In_triggered()
 {
-    Admin *admin;
     lDialog = new logindialog(database);
     lDialog->exec();
     isAdmin = false;
     isAdmin = lDialog->userIsAdmin();
-    qDebug() << isAdmin;
-    if(isAdmin == true)
-    {
-        admin = new Admin(database, this);
-        admin->show();
-    }
     delete lDialog;
 }
 
@@ -115,4 +108,15 @@ void MainWindow::on_removePushButton_clicked()
 void MainWindow::on_simpleStartButton_clicked()
 {
 
+}
+
+void MainWindow::on_actionModify_Database_triggered()
+{
+    if(isAdmin) {
+        adminWindow = new Admin(database, this);
+        adminWindow->exec();
+        delete adminWindow;
+    }else {
+        QMessageBox::information(this, "Error", "You must be an administrator to modify the database.");
+    }
 }

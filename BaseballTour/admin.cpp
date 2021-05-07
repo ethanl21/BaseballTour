@@ -30,16 +30,16 @@ void Admin::updateSouvenirs()
 {
     QSqlQueryModel* model=new QSqlQueryModel();
 
-    QSqlQuery* qry=new QSqlQuery();
+    QSqlQuery qry;
 
-    qry->prepare("SELECT * FROM Souvenirs");
+    qry.prepare("SELECT * FROM Souvenirs");
 
-    if(qry->exec())
+    if(qry.exec())
     {
         qDebug() << "Souvenirs updated";
     }
 
-    model->setQuery(*qry);
+    model->setQuery(qry);
 
     ui->souvenir_tableView->setModel(model);
     ui->souvenir_tableView->setColumnWidth(0, 180);
