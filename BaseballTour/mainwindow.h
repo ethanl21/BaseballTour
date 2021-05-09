@@ -10,6 +10,7 @@
 #include "databaseviewform.h"
 #include "databasenameview.h"
 #include "logindialog.h"
+#include "csvparser.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

@@ -128,7 +128,23 @@ void MainWindow::on_actionImport_Teams_triggered()
         QMessageBox::information(this, "Error", "You must be an administrator to modify the database.");
     }else {
         qDebug() << "Home location: " << QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-        QString addTeams = QFileDialog::getOpenFileName(this, tr("Open Teams File"), QStandardPaths::writableLocation(QStandardPaths::HomeLocation), tr("Teams (*.csv)"));
-        qDebug() << addTeams;
+        QString addTeamsFilePath = QFileDialog::getOpenFileName(this, tr("Open Teams File"), QStandardPaths::writableLocation(QStandardPaths::HomeLocation), tr("Teams (*.csv)"));
+        qDebug() << "path: " << addTeamsFilePath;
+
+        csvParser parser(addTeamsFilePath);
+
+        vector<teamData> newTeams = parser.parseTeamsFromFile();
+        vector<QString> existingTeams = database->getTeamNames();
+
+        // make sure new teams are unique
+        for(const auto &i : newTeams) {
+            if(std::find(existingTeams.begin(), existingTeams.end(), i.team_name) != existingTeams.end()) {
+                // if new team exists in database already, remove it
+                newTeams.erase(vector<teamData>::const_iterator(&i));
+            }
+        }
+
+        // add the team to database here (TODO)
+
     }
 }

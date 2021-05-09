@@ -237,6 +237,8 @@
      <string>File</string>
     </property>
     <addaction name="actionImport_Teams"/>
+    <addaction name="actionImport_Distances"/>
+    <addaction name="separator"/>
     <addaction name="actionImport_Souvenirs"/>
    </widget>
    <widget class="QMenu" name="menuDatabase">
@@ -300,6 +302,9 @@
   <action name="actionModify_Database">
    <property name="text">
     <string>Modify Database</string>
+  <action name="actionImport_Distances">
+   <property name="text">
+    <string>Import Distances</string>
    </property>
   </action>
  </widget>
