@@ -91,7 +91,7 @@ vector<QString> dbManager::getTeamNames() const
 {
     vector<QString> teams;
 
-    // query database for campus names
+    // query database for team names
     QSqlQuery query("SELECT DISTINCT team_name FROM teams");
 
      // add campus names to vector (unique)
@@ -104,16 +104,17 @@ vector<QString> dbManager::getTeamNames() const
 }
 
 
-void dbManager::removeSouvenir(const QString &souvenirName, const QString &college)
+void dbManager::removeSouvenir(const QString &souvenirName, const QString &teamName)
 {
     QSqlQuery query;
 
-    if(souvenirExists(souvenirName, college))
+    if(souvenirExists(souvenirName, teamName))
     {
         if(m_db.open())
         {
-            query.prepare("DELETE FROM souvenirs WHERE (souvenirs) = (:souvenirs)");
+            query.prepare("DELETE FROM Souvenirs WHERE (Souvenirs) = (:souvenirs) AND Teams = (:teamName)");
             query.bindValue(":souvenirs", souvenirName);
+            query.bindValue(":teamName", teamName);
 
             if(query.exec())
                 qDebug() << "souvenir delete success!";
@@ -157,9 +158,9 @@ void dbManager::updateSouvenir(const QString &souvenirName, const QString &team,
     if(m_db.open())
     {
         query.prepare("UPDATE souvenirs SET (souvenirs, cost) = (:newsouvenirName, :cost) "
-                       "WHERE (team, souvenirs) = (:team, :souvenirs)");
+                       "WHERE (teams, souvenirs) = (:teams, :souvenirs)");
         query.bindValue(":newsouvenirName", newsouvenir);
-        query.bindValue(":team", team);
+        query.bindValue(":teams", team);
         query.bindValue(":souvenirs", souvenirName);
         query.bindValue(":cost", spin);
 
@@ -174,15 +175,15 @@ void dbManager::updateSouvenir(const QString &souvenirName, const QString &team,
     }
 }
 
-bool dbManager::souvenirExists(const QString &name, const QString &team)
+bool dbManager::souvenirExists(const QString &name, const QString &teams)
 {
     bool exists = false;
 
     QSqlQuery checkQuery;
 
-    checkQuery.prepare("SELECT souvenirs FROM souvenirs WHERE (team, souvenirs) = (:team, :souvenirs)");
+    checkQuery.prepare("SELECT souvenirs FROM souvenirs WHERE (teams, souvenirs) = (:teams, :souvenirs)");
     checkQuery.bindValue(":souvenirs", name);
-    checkQuery.bindValue(":team", team);
+    checkQuery.bindValue(":teams", teams);
 
 
     if(checkQuery.exec())
@@ -191,8 +192,8 @@ bool dbManager::souvenirExists(const QString &name, const QString &team)
         {
             exists = true;
             QString souvenirName = checkQuery.value("souvenirs").toString();
-            QString college = checkQuery.value("team").toString();
-            qDebug() << souvenirName << " " << college;
+            QString teamName = checkQuery.value("teams").toString();
+            qDebug() << souvenirName << " " << teamName;
         }
     }
     else

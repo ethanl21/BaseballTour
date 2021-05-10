@@ -345,7 +345,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Stadium Name</string>
+      <string>Team Name</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
