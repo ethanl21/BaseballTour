@@ -36,16 +36,16 @@ teamData dbManager::getTeamData(const QString& teamName) const
     query.first();
 
     if(query.isValid()) { // if matching team found
-        team.team_name = query.value(1).toString();
-        team.stadium_name = query.value(2).toString();
-        team.stadium_seating_capacity = query.value(3).toInt();
-        team.stadium_location = query.value(4).toString();
-        team.stadium_playing_surface = query.value(5).toString();
-        team.team_league = query.value(6).toString();
-        team.stadium_date_opened = query.value(7).toInt();
-        team.stadium_dist_ctrfield = query.value(8).toString();
-        team.stadium_typology = query.value(9).toString();
-        team.stadium_roof_type = query.value(10).toString();
+        team.team_name = query.value(0).toString();
+        team.stadium_name = query.value(1).toString();
+        team.stadium_seating_capacity = query.value(2).toInt();
+        team.stadium_location = query.value(3).toString();
+        team.stadium_playing_surface = query.value(4).toString();
+        team.team_league = query.value(5).toString();
+        team.stadium_date_opened = query.value(6).toInt();
+        team.stadium_dist_ctrfield = query.value(7).toString();
+        team.stadium_typology = query.value(8).toString();
+        team.stadium_roof_type = query.value(9).toString();
     }else {
         qDebug() << "team not found";
         team.team_name = "ERROR";
@@ -150,7 +150,31 @@ void dbManager::addSouvenir(const QString &team, const QString &souvenirName, co
     }
 }
 
-void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &spin, const QString &newsouvenir)
+void dbManager::addTeam(const teamData &newTeam)
+{
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO teams VALUES(:teamname, :stadname, :stadiumcap, :location, :playsurface, :league, :dateopened, :distctr, :topology, :rooftype)");
+    query.bindValue(":teamname", newTeam.team_name);
+    query.bindValue(":stadname", newTeam.stadium_name);
+    query.bindValue(":stadiumcap", newTeam.stadium_seating_capacity);
+    query.bindValue(":location", newTeam.stadium_location);
+    query.bindValue(":playsurface", newTeam.stadium_playing_surface);
+    query.bindValue(":league", newTeam.team_league);
+    query.bindValue(":dateopened", newTeam.stadium_date_opened);
+    query.bindValue(":distctr", newTeam.stadium_dist_ctrfield);
+    query.bindValue(":topology", newTeam.stadium_typology);
+    query.bindValue(":rooftype", newTeam.stadium_roof_type);
+
+    if(query.exec()) {
+        qDebug() << "added:" << newTeam.team_name;
+    } else {
+        qDebug() << "could not add:" << newTeam.team_name;
+    }
+
+}
+
+void dbManager::updateSouvenir(const QString &souvenirName, const QString &college, const QString &spin, const QString &newsouvenir)
 {
     QSqlQuery query;
 

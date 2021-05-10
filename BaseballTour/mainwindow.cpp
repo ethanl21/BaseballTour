@@ -145,6 +145,11 @@ void MainWindow::on_actionImport_Teams_triggered()
         }
 
         // add the team to database here (TODO)
+        if(newTeams.size() > 0) {
+            for(const auto &i : newTeams) {
+                database->addTeam(i);
+            }
+        }
 
     }
 }

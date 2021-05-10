@@ -65,6 +65,8 @@ public:
 
     void addSouvenir(const QString &college, const QString &souvenirName, const QString &cost);
 
+    void addTeam(const teamData& newTeam);
+
     /**
     * @brief Method to remove a Souvenir
     *

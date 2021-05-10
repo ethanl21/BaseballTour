@@ -12,10 +12,20 @@ vector<teamData> csvParser::parseTeamsFromFile() const {
   // link stream to file
   QTextStream csvStream(&iFile);
 
+  csvStream.readLine(); // ignore heading
+
   // parse teams from file
   while (!csvStream.atEnd()) {
     QString s = csvStream.readLine();
+
+    s.replace("\\,", QChar(QChar::SoftHyphen));
+
     row.append(s.split(","));
+
+    for(auto &i : row) {
+        i.replace(QChar(QChar::SoftHyphen), ',');
+        i.replace("\"", "");
+    }
 
     temp.team_name = row[0];
     temp.stadium_name = row[1];
