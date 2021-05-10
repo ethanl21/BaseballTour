@@ -20,7 +20,8 @@ databaseviewform::databaseviewform(dbManager* db, QWidget *parent) :
     // view by center field
     populateCtrFldTables(db->getTeamsByMaxCtrField(), db->getTeamsByMinCtrField());
 
-
+    // view teams with open roof
+    populateOpenRoofTeamsTable(db->getTeamsWithOpenRoof("Open"));
 }
 
 databaseviewform::~databaseviewform()
@@ -93,6 +94,12 @@ void databaseviewform::on_leagueButton_clicked()
     ui->dbViewStack->setCurrentIndex(1);
 }
 
+void databaseviewform::on_roofTypeButton_clicked()
+{
+    // change to the roof type tab
+    ui->dbViewStack->setCurrentIndex(2);
+}
+
 void databaseviewform::on_distCtrButton_clicked()
 {
     // change to the dist ctr fld tab
@@ -150,3 +157,24 @@ void databaseviewform::populateCtrFldTables(const vector<teamData>& greatest, co
     }
 
 }
+
+void databaseviewform::populateOpenRoofTeamsTable(const vector<teamData>& openRoofTeams) const
+{
+    QStringList label;
+    label.append("Teams");
+    ui->openRoofTeamsTableWidget->setColumnCount(1);
+    ui->openRoofTeamsTableWidget->setHorizontalHeaderLabels(label);
+    ui->openRoofTeamsTableWidget->setColumnWidth(0,350);
+
+    //qDebug() << openRoofTeams[0].team_name;
+    for(const auto &i : openRoofTeams) {
+        ui->openRoofTeamsTableWidget->insertRow(ui->openRoofTeamsTableWidget->rowCount());
+
+        // row, column, item
+        ui->openRoofTeamsTableWidget->setItem(ui->openRoofTeamsTableWidget->rowCount()-1, 0, new QTableWidgetItem(i.team_name));
+
+    }
+
+    ui->label_8->setText(QString::number(openRoofTeams.size()));
+}
+
