@@ -7,8 +7,7 @@ Admin::Admin(dbManager* db, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Admin)
 {
-//    m_db = QSqlDatabase::addDatabase("QSQLITE");
-//    m_db.setDatabaseName(path);
+    m_db = db;
 
     ui->setupUi(this);
     m_db = db;
@@ -75,6 +74,7 @@ void Admin::on_pushButton_updateSouvenir_clicked()
         {
             double costToString = ui->doubleSpinBox_cost->value();
             QString cost = QString::number(costToString);
+            cost = "$" + cost;
             m_db->updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
         }
         else

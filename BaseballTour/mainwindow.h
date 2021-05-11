@@ -3,11 +3,14 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QFileDialog>
+#include <QStandardPaths>
 
 #include "dbmanager.h"
 #include "databaseviewform.h"
 #include "databasenameview.h"
 #include "logindialog.h"
+#include "csvparser.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -39,6 +42,10 @@ private slots:
     void on_simpleStartButton_clicked();
 
     void on_actionModify_Database_triggered();
+    
+    void on_actionImport_Teams_triggered();
+
+    void on_actionImport_Distances_triggered();
 
 private:
     Ui::MainWindow *ui;

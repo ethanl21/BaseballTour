@@ -50,7 +50,10 @@ void MainWindow::on_actionLog_In_triggered()
     lDialog = new logindialog(database);
     lDialog->exec();
     isAdmin = false;
+
     isAdmin = lDialog->userIsAdmin();
+    qDebug() << isAdmin;
+
     delete lDialog;
 }
 
@@ -118,5 +121,67 @@ void MainWindow::on_actionModify_Database_triggered()
         delete adminWindow;
     }else {
         QMessageBox::information(this, "Error", "You must be an administrator to modify the database.");
+    }
+}
+
+void MainWindow::on_actionImport_Teams_triggered()
+{
+    if(!isAdmin) {
+        QMessageBox::information(this, "Error", "You must be an administrator to modify the database.");
+    }else {
+        qDebug() << "Home location: " << QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        QString addTeamsFilePath = QFileDialog::getOpenFileName(this, tr("Open Teams File"), QStandardPaths::writableLocation(QStandardPaths::HomeLocation), tr("Teams (*.csv)"));
+        qDebug() << "path: " << addTeamsFilePath;
+
+        csvParser parser(addTeamsFilePath);
+
+        vector<teamData> newTeams = parser.parseTeamsFromFile();
+        vector<QString> existingTeams = database->getTeamNames();
+
+        // make sure new teams are unique
+        for(const auto &i : newTeams) {
+            if(std::find(existingTeams.begin(), existingTeams.end(), i.team_name) != existingTeams.end()) {
+                // if new team exists in database already, remove it
+                newTeams.erase(vector<teamData>::const_iterator(&i));
+            }
+        }
+
+        // add the team to database here (TODO)
+        if(newTeams.size() > 0) {
+            for(const auto &i : newTeams) {
+                database->addTeam(i);
+
+                // add default souvenirs
+                database->addSouvenir(i.team_name, "Baseball Cap", "19.99");
+                database->addSouvenir(i.team_name, "Baseball Bat", "89.39");
+                database->addSouvenir(i.team_name, "Team Pennant", "17.99");
+                database->addSouvenir(i.team_name, "Autographed Baseball", "29.99");
+                database->addSouvenir(i.team_name, "Team Jersey", "199.99");
+            }
+        }
+
+    }
+}
+
+void MainWindow::on_actionImport_Distances_triggered()
+{
+    if(!isAdmin) {
+        QMessageBox::information(this, "Error", "You must be an administrator to modify the database.");
+    }else {
+        qDebug() << "Home location: " << QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        QString addDistFilePath = QFileDialog::getOpenFileName(this, tr("Open Distances File"), QStandardPaths::writableLocation(QStandardPaths::HomeLocation), tr("Distances (*.csv)"));
+        qDebug() << "path: " << addDistFilePath;
+
+        csvParser parser(addDistFilePath);
+
+        vector<distanceEdge> newDist = parser.parseDistancesFromFile();
+
+        // add the distances to database
+        if(newDist.size() > 0) {
+            for(const auto &i : newDist) {
+                database->addDist(i);
+            }
+        }
+
     }
 }
