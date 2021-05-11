@@ -60,6 +60,10 @@ public:
     //!
     bool authenticate(const QString& username, const QString& password) const;
 
+    //!
+    //! \brief getTeamNames
+    //! \return vector of team names from database
+    //!
     vector<QString> getTeamNames() const;
   
     //!
@@ -71,8 +75,16 @@ public:
 
     void addSouvenir(const QString &college, const QString &souvenirName, const QString &cost);
 
+    //!
+    //! \brief addTeam adds a new team from a teamData object
+    //! \param newTeam - populated teamData object containing a team's data
+    //!
     void addTeam(const teamData& newTeam);
 
+    //!
+    //! \brief addDist adds a distance between stadiums (edge)
+    //! \param newDist obj containing edge information (origin, dest, dist)
+    //!
     void addDist(const distanceEdge& newDist);
 
     /**
