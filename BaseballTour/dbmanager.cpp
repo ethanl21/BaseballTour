@@ -174,6 +174,35 @@ void dbManager::addTeam(const teamData &newTeam)
 
 }
 
+void dbManager::addDist(const distanceEdge &newDist)
+{
+    QSqlQuery query;
+    int rowCount;
+
+    query.prepare("SELECT Count(*) FROM distances");
+
+    if(query.exec()) {
+        query.first();
+        qDebug() << "row count:" << query.value(0).toInt();
+    }else {
+        qDebug() << "could not get count:" << query.lastError();
+    }
+    rowCount = query.value(0).toInt();
+
+    query.prepare("INSERT INTO distances VALUES(:id, :origin, :dest, :dist)");
+    query.bindValue(":id", rowCount);
+    query.bindValue(":origin", newDist.team_name_origin);
+    query.bindValue(":dest", newDist.team_name_destination);
+    query.bindValue(":dist", newDist.distance);
+
+    if(query.exec()) {
+        qDebug() << "added:" << newDist.team_name_origin << "to" << newDist.team_name_destination;
+    } else {
+        qDebug() << "could not add:" << newDist.team_name_origin << "to" << newDist.team_name_destination;
+        qDebug() << "reason:" << query.lastError();
+    }
+}
+
 void dbManager::updateSouvenir(const QString &souvenirName, const QString &college, const QString &spin, const QString &newsouvenir)
 {
     QSqlQuery query;

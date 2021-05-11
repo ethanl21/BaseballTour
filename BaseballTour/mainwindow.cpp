@@ -153,3 +153,26 @@ void MainWindow::on_actionImport_Teams_triggered()
 
     }
 }
+
+void MainWindow::on_actionImport_Distances_triggered()
+{
+    if(!isAdmin) {
+        QMessageBox::information(this, "Error", "You must be an administrator to modify the database.");
+    }else {
+        qDebug() << "Home location: " << QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        QString addDistFilePath = QFileDialog::getOpenFileName(this, tr("Open Distances File"), QStandardPaths::writableLocation(QStandardPaths::HomeLocation), tr("Distances (*.csv)"));
+        qDebug() << "path: " << addDistFilePath;
+
+        csvParser parser(addDistFilePath);
+
+        vector<distanceEdge> newDist = parser.parseDistancesFromFile();
+
+        // add the distances to database
+        if(newDist.size() > 0) {
+            for(const auto &i : newDist) {
+                database->addDist(i);
+            }
+        }
+
+    }
+}

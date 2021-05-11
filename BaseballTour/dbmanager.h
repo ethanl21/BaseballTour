@@ -31,6 +31,12 @@ struct teamData {
     QString stadium_roof_type;
 };
 
+struct distanceEdge {
+    QString team_name_origin;
+    QString team_name_destination;
+    int distance;
+};
+
 class dbManager
 {
 public:
@@ -66,6 +72,8 @@ public:
     void addSouvenir(const QString &college, const QString &souvenirName, const QString &cost);
 
     void addTeam(const teamData& newTeam);
+
+    void addDist(const distanceEdge& newDist);
 
     /**
     * @brief Method to remove a Souvenir

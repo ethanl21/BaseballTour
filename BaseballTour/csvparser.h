@@ -19,6 +19,7 @@ public:
     void setFilePath(const QString& path) {filepath = path;}
 
     vector<teamData> parseTeamsFromFile() const;
+    vector<distanceEdge> parseDistancesFromFile() const;
 
 private:
     QString filepath;

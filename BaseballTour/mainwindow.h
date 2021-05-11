@@ -45,6 +45,8 @@ private slots:
     
     void on_actionImport_Teams_triggered();
 
+    void on_actionImport_Distances_triggered();
+
 private:
     Ui::MainWindow *ui;
 

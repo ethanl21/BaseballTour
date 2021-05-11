@@ -46,3 +46,45 @@ vector<teamData> csvParser::parseTeamsFromFile() const {
 
   return teamsOut;
 }
+
+vector<distanceEdge> csvParser::parseDistancesFromFile() const
+{
+    QStringList row;
+    distanceEdge temp;
+    vector<distanceEdge> edgeOut;
+
+    // open the file
+    QFile iFile(filepath);
+    iFile.open(QIODevice::ReadOnly);
+
+    // link stream to file
+    QTextStream csvStream(&iFile);
+
+    csvStream.readLine(); // ignore heading
+
+    // parse distances from file
+    while (!csvStream.atEnd()) {
+      QString s = csvStream.readLine();
+
+      s.replace("\\,", QChar(QChar::SoftHyphen));
+
+      row.append(s.split(","));
+
+      for(auto &i : row) {
+          i.replace(QChar(QChar::SoftHyphen), ',');
+          i.replace("\"", "");
+      }
+
+      temp.team_name_origin = row[0];
+      temp.team_name_destination = row[1];
+      temp.distance = row[2].toInt();
+
+
+      edgeOut.push_back(temp);
+
+      row.clear();
+    }
+    iFile.close();
+
+    return edgeOut;
+}
