@@ -150,6 +150,13 @@ void MainWindow::on_actionImport_Teams_triggered()
         if(newTeams.size() > 0) {
             for(const auto &i : newTeams) {
                 database->addTeam(i);
+
+                // add default souvenirs
+                database->addSouvenir(i.team_name, "Baseball Cap", "19.99");
+                database->addSouvenir(i.team_name, "Baseball Bat", "89.39");
+                database->addSouvenir(i.team_name, "Team Pennant", "17.99");
+                database->addSouvenir(i.team_name, "Autographed Baseball", "29.99");
+                database->addSouvenir(i.team_name, "Team Jersey", "199.99");
             }
         }
 
