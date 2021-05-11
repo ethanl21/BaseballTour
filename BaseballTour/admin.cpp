@@ -41,8 +41,12 @@ void Admin::updateSouvenirs()
 
     model->setQuery(qry);
 
-    ui->souvenir_tableView->setModel(model);
-    ui->souvenir_tableView->setColumnWidth(0, 180);
+    QSortFilterProxyModel *m=new QSortFilterProxyModel(this);
+
+    m->setDynamicSortFilter(true);
+    m->setSourceModel(model);
+    ui->souvenir_tableView->setModel(m);
+    ui->souvenir_tableView->setColumnWidth(0,180);
 }
 
 void Admin::on_pushButton_updateSouvenir_clicked()

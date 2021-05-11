@@ -159,8 +159,8 @@ void dbManager::updateSouvenir(const QString &souvenirName, const QString &team,
     {
         query.prepare("UPDATE souvenirs SET (souvenirs, cost) = (:newsouvenirName, :cost) "
                        "WHERE (teams, souvenirs) = (:teams, :souvenirs)");
-        query.bindValue(":newsouvenirName", newsouvenir);
         query.bindValue(":teams", team);
+        query.bindValue(":newsouvenirName", newsouvenir);
         query.bindValue(":souvenirs", souvenirName);
         query.bindValue(":cost", spin);
 
