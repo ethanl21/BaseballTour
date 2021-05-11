@@ -203,7 +203,7 @@ void dbManager::addDist(const distanceEdge &newDist)
     }
 }
 
-void dbManager::updateSouvenir(const QString &souvenirName, const QString &college, const QString &spin, const QString &newsouvenir)
+void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &spin, const QString &newsouvenir)
 {
     QSqlQuery query;
 

@@ -121,6 +121,8 @@ void MainWindow::on_actionModify_Database_triggered()
         delete adminWindow;
     }else {
         QMessageBox::information(this, "Error", "You must be an administrator to modify the database.");
+    }
+}
 
 void MainWindow::on_actionImport_Teams_triggered()
 {

@@ -302,6 +302,8 @@
   <action name="actionModify_Database">
    <property name="text">
     <string>Modify Database</string>
+   </property>
+   </action>
   <action name="actionImport_Distances">
    <property name="text">
     <string>Import Distances</string>
