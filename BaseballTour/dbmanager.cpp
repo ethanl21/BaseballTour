@@ -19,8 +19,6 @@ QSqlTableModel* dbManager::getTeams() const
     model->setTable("teams");
     model->select();
 
-    model->removeColumn(0);
-
     return model;
 }
 
