@@ -116,3 +116,19 @@ void MainWindow::on_simpleStartButton_clicked()
 {
 
 }
+
+
+void MainWindow::on_BFSpushButton_clicked()
+{
+
+}
+
+void MainWindow::on_DFSpushButton_clicked()
+{
+
+}
+
+void MainWindow::on_MSTpushButton_clicked()
+{
+
+}

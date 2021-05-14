@@ -38,6 +38,12 @@ private slots:
 
     void on_simpleStartButton_clicked();
 
+    void on_DFSpushButton_clicked();
+
+    void on_BFSpushButton_clicked();
+
+    void on_MSTpushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
