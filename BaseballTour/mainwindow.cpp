@@ -185,3 +185,18 @@ void MainWindow::on_actionImport_Distances_triggered()
 
     }
 }
+
+void MainWindow::on_BFSpushButton_clicked()
+{
+
+}
+
+void MainWindow::on_DFSpushButton_clicked()
+{
+
+}
+
+void MainWindow::on_MSTpushButton_clicked()
+{
+
+}
