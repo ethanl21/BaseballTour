@@ -93,3 +93,63 @@ int Graph<Type>::startBFS(Type& start) {
 
     return distTraveled;
 }
+
+template<class Type>
+int** Graph<Type>::DijkstraPaths(Type start) {
+    int T[nodeList.size()][3];
+
+    for (unsigned int i = 0; i < nodeList.size(); i++) {
+        T[i][0] = -1;
+        T[i][1] = 100000;
+        T[i][2] = 0;
+    }
+
+    int startIndex = getIndex(start);
+    T[startIndex][0] = startIndex;
+    T[startIndex][1] = 0;
+    T[startIndex][2] = 1;
+
+    for (unsigned int i = 0; i < adjMatrix[startIndex].size(); i++) {
+        T[adjMatrix[startIndex][i].v][0] = startIndex;
+        T[adjMatrix[startIndex][i].v][1] = adjMatrix[startIndex][i].weight;
+    }
+
+    int shortestIndex = -1;
+    int shortest = 1000000;
+    for (int i  = 0; i < (int)nodeList.size(); i++) {
+        if (T[i][2] == 0){
+            if (T[i][1] < shortest) {
+                shortestIndex = i;
+                shortest = T[i][1];
+            }
+        }
+    }
+
+    while (shortestIndex != -1) {
+        for (unsigned int i = 0; i < adjMatrix[shortestIndex].size(); i++) {
+            int current = adjMatrix[shortestIndex][i].v;
+
+            if (T[current][2] == 0) {
+                if ((T[shortestIndex][1] + adjMatrix[shortestIndex][i].weight) < T[current][1]) {
+                    T[current][1] = T[shortestIndex][1] + adjMatrix[shortestIndex][i].weight;
+                    T[current][0] = shortestIndex;
+                }
+            }
+        }
+
+        T[shortestIndex][2] = 1;
+
+        shortestIndex = -1;
+        shortest = 1000000;
+        for (int i  = 0; i < (int)nodeList.size(); i++) {
+            if (T[i][2] == 0){
+                if (T[i][1] < shortest) {
+                    shortestIndex = i;
+                    shortest = T[i][1];
+                }
+            }
+        }
+    }
+
+    return T;
+}
