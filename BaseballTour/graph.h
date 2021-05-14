@@ -107,6 +107,13 @@ private:
     int dfs(int v, vector<bool>& visited);
 
     /**
+     * @brief Dijkstra pathfinding algorithm
+     * @param start Name of starting node
+     * @return Two dimentional array hold data for paths
+     */
+    int** Graph<Type>::DijkstraPaths(Type start);
+
+    /**
      * @brief Compares Edges (sorts in increasing order)
      * @param a Edge a
      * @param b Edge b
@@ -115,6 +122,7 @@ private:
     static bool compareWeight(const Edge& a, const Edge& b) {
         return a.weight < b.weight;
     }
+
 
 };
 
