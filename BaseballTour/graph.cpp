@@ -99,9 +99,9 @@ int** Graph<Type>::DijkstraPaths(Type start) {
     int T[nodeList.size()][3];
 
     for (unsigned int i = 0; i < nodeList.size(); i++) {
-        T[i][0] = -1;
-        T[i][1] = 100000;
-        T[i][2] = 0;
+        T[i][0] = -1;       // parent node
+        T[i][1] = INT_MAX;  // distance
+        T[i][2] = 0;        // in SPT set (0=false, 1=true)
     }
 
     int startIndex = getIndex(start);
@@ -115,8 +115,8 @@ int** Graph<Type>::DijkstraPaths(Type start) {
     }
 
     int shortestIndex = -1;
-    int shortest = 1000000;
-    for (int i  = 0; i < (int)nodeList.size(); i++) {
+    int shortest = INT_MAX;
+    for (int i = 0; i < (int)nodeList.size(); i++) {
         if (T[i][2] == 0){
             if (T[i][1] < shortest) {
                 shortestIndex = i;
@@ -140,7 +140,7 @@ int** Graph<Type>::DijkstraPaths(Type start) {
         T[shortestIndex][2] = 1;
 
         shortestIndex = -1;
-        shortest = 1000000;
+        shortest = INT_MAX;
         for (int i  = 0; i < (int)nodeList.size(); i++) {
             if (T[i][2] == 0){
                 if (T[i][1] < shortest) {

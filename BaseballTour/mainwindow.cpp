@@ -30,6 +30,13 @@ MainWindow::MainWindow(QWidget *parent)
         ui->simpleToComboBox->addItem(teamName);
         ui->addComboBox->addItem(teamName);
     }
+
+    // populate graph
+    for (QString teamName : nameList) {
+        //graph.addNode(teamName.toStdString());
+        graph.addNode(teamName);
+    }
+
 }
 
 MainWindow::~MainWindow()
@@ -59,9 +66,9 @@ void MainWindow::on_actionLog_In_triggered()
 
 void MainWindow::on_actionDBG_Is_User_Admin_triggered()
 {
-    if(isAdmin) {
+    if (isAdmin) {
         QMessageBox::information(this, "Success", "User is admin.");
-    }else {
+    } else {
         QMessageBox::information(this, "Error", "User is NOT admin.");
     }
 }
