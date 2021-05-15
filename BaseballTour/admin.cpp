@@ -11,6 +11,22 @@ Admin::Admin(dbManager* db, QWidget *parent) :
 
     ui->setupUi(this);
     m_db = db;
+    const QString FILE_NAME = "mlb_data.db";
+    QString dbPath = qApp->applicationDirPath();
+    dbPath.append('/' + FILE_NAME);
+
+    database = new dbManager(dbPath);
+
+    nameList = database->getTeamNames();
+    tempList = nameList;
+
+    for (auto teamName : nameList)
+    {
+
+      ui->comboBox->addItem(teamName);
+
+    }
+
     updateSouvenirs();
 }
 
@@ -153,3 +169,19 @@ void Admin::on_souvenir_tableView_clicked(const QModelIndex &index)
 //    m_db.clearColleges();
 //    updateColleges();
 //}
+
+void Admin::on_pushButton_clicked()
+{
+    QString teamName = ui->comboBox->currentText();
+    QString stadiumName = ui->stadiumName_field->text();
+    int capacity = ui->seatingCapacity->text().toInt();
+    QString location = ui->stadiumLocation_field->text();
+    QString playingSurface = ui->playingSurface_field->text();
+    QString league = ui->listWidget->currentItem()->text();
+    int date = ui->dateOpened_field->text().toInt();
+    QString distCenterField = ui->distance_field->text();
+    QString typology = ui->topology_field->text();
+    QString roofType = ui->roof_field->text();
+
+    m_db->updateTeam(teamName,stadiumName,capacity,location,playingSurface,league,date,distCenterField,typology,roofType);
+}

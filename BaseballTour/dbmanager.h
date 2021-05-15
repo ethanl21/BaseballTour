@@ -118,6 +118,11 @@ public:
     * @param &college - name of college
     */
 
+    void updateTeam(QString teamName, QString stadiumName, int capacity,
+                        QString location,QString playingSurface,
+                        QString teamLeague,int dateOpen,QString distCenterField,
+                        QString typology,QString roofType);
+
     bool souvenirExists(const QString &name, const QString &college);
 
     //!

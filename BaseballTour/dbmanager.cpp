@@ -226,6 +226,72 @@ void dbManager::updateSouvenir(const QString &souvenirName, const QString &team,
     }
 }
 
+void dbManager::updateTeam(QString teamName, QString stadiumName, int capacity,
+                           QString location,QString playingSurface,
+                           QString teamLeague,int dateOpen,QString distCenterField,
+                           QString typology,QString roofType)
+{
+
+    QSqlQuery query;
+
+    query.prepare("UPDATE teams SET stadium_name=:stadiumName WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":stadiumName",stadiumName);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_seating_capacity=:stadiumSeatingCapacity WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":stadiumSeatingCapacity",capacity);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_location=:stadiumLocation WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":stadiumLocation",location);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_playing_surface=:stadiumPlayingSurface WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":stadiumPlayingSurface",playingSurface);
+    query.exec();
+
+    query.prepare("UPDATE teams SET team_league=:teamLeague WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":teamLeague",teamLeague);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_date_opened=:dateOpen WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":dateOpen",dateOpen);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_dist_ctrfield=:distCenterField WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":distCenterField",distCenterField);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_typology=:typology WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":typology",typology);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_roof_type=:roofType WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":roofType",roofType);
+    query.exec();
+
+
+    if(query.exec())
+    {
+        qDebug() << "UPDATE WORKED" << Qt::endl;
+    }
+    else
+    {
+        qDebug() << "UPDATE failed: " << query.lastError() << Qt::endl;
+        qDebug() << query.executedQuery();
+        qDebug() << query.boundValues();
+    }
+}
+
 bool dbManager::souvenirExists(const QString &name, const QString &teams)
 {
     bool exists = false;

@@ -60,10 +60,15 @@ private slots:
 //    */
 //    void on_pushButton_addSouvenir_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::Admin *ui;
+    dbManager* database;
     dbManager *m_db;
     QString tempSouvenir;
+    vector<QString> nameList;
+    vector<QString> tempList;
 };
 
 #endif // ADMIN_H
