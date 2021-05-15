@@ -163,7 +163,7 @@ void Admin::populateInformation(const QString &teamName)
 {
     teamData data = m_db->getTeamData(teamName);
 
-    ui->stadiumName_field->setText(data.team_name);
+    ui->stadiumName_field->setText(data.stadium_name);
     ui->seatingCapacity->setValue(data.stadium_seating_capacity);
     ui->stadiumLocation_field->setText(data.stadium_location);
     ui->playingSurface_field->setText(data.stadium_playing_surface);
