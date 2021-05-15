@@ -2,7 +2,8 @@
 #define ADMIN_H
 
 #include <QDialog>
-#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QMessageBox>
 #include "dbmanager.h"
 
 namespace Ui {
@@ -59,8 +60,11 @@ private slots:
 //    * opens addSouvenir UI window
 //    */
 //    void on_pushButton_addSouvenir_clicked();
-
     void on_pushButton_clicked();
+
+    void populateInformation(const QString& teamName);
+
+    void on_comboBox_currentIndexChanged(const QString &arg1);
 
 private:
     Ui::Admin *ui;

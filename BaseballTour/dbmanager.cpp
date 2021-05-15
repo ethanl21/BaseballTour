@@ -152,7 +152,7 @@ void dbManager::addTeam(const teamData &newTeam)
 {
     QSqlQuery query;
 
-    query.prepare("INSERT INTO teams VALUES(:teamname, :stadname, :stadiumcap, :location, :playsurface, :league, :dateopened, :distctr, :topology, :rooftype)");
+    query.prepare("INSERT INTO teams VALUES(:teamname, :stadname, :stadiumcap, :location, :playsurface, :league, :dateopened, :distctr, :typology, :rooftype)");
     query.bindValue(":teamname", newTeam.team_name);
     query.bindValue(":stadname", newTeam.stadium_name);
     query.bindValue(":stadiumcap", newTeam.stadium_seating_capacity);
@@ -161,7 +161,7 @@ void dbManager::addTeam(const teamData &newTeam)
     query.bindValue(":league", newTeam.team_league);
     query.bindValue(":dateopened", newTeam.stadium_date_opened);
     query.bindValue(":distctr", newTeam.stadium_dist_ctrfield);
-    query.bindValue(":topology", newTeam.stadium_typology);
+    query.bindValue(":typology", newTeam.stadium_typology);
     query.bindValue(":rooftype", newTeam.stadium_roof_type);
 
     if(query.exec()) {
@@ -269,7 +269,7 @@ void dbManager::updateTeam(QString teamName, QString stadiumName, int capacity,
     query.bindValue(":distCenterField",distCenterField);
     query.exec();
 
-    query.prepare("UPDATE teams SET stadium_topology=:typology WHERE team_name=:teamName");
+    query.prepare("UPDATE teams SET stadium_typology=:typology WHERE team_name=:teamName");
     query.bindValue(":teamName",teamName);
     query.bindValue(":typology",typology);
     query.exec();

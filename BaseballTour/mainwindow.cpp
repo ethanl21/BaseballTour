@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     nameList = database->getTeamNames();
     tempList = nameList;
 
-    for (auto teamName : nameList) {
+    for (const auto &teamName : nameList) {
         ui->simpleFromComboBox->addItem(teamName);
         ui->simpleToComboBox->addItem(teamName);
         ui->addComboBox->addItem(teamName);
