@@ -269,12 +269,12 @@ void dbManager::updateTeam(QString teamName, QString stadiumName, int capacity,
     query.bindValue(":distCenterField",distCenterField);
     query.exec();
 
-    query.prepare("UPDATE teams SET stadium_typology=:typology WHERE team_name=:teamName");
+    query.prepare("UPDATE teams SET stadium_topology=:typology WHERE team_name=:teamName");
     query.bindValue(":teamName",teamName);
     query.bindValue(":typology",typology);
     query.exec();
 
-    query.prepare("UPDATE teams SET stadium_roof_type=:roofType WHERE team_name=:teamName");
+    query.prepare("UPDATE teams SET stadium_rooftype=:roofType WHERE team_name=:teamName");
     query.bindValue(":teamName",teamName);
     query.bindValue(":roofType",roofType);
     query.exec();
