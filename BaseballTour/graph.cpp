@@ -1,10 +1,5 @@
 #include "graph.h"
-
-template<class Type>
-Graph<Type>::Graph()
-{
-    size = 0;
-}
+#include <QString>
 
 template<class Type>
 void Graph<Type>::addNode(Type obj) {
@@ -95,8 +90,10 @@ int Graph<Type>::startBFS(Type& start) {
 }
 
 template<class Type>
-int** Graph<Type>::DijkstraPaths(Type start) {
-    int T[nodeList.size()][3];
+vector<vector<int>> Graph<Type>::DijkstraPaths(Type start) {
+    vector<vector<int>> T(size);
+    for (auto it = T.begin(); it != T.end(); it++)
+        it->resize(3);
 
     for (unsigned int i = 0; i < nodeList.size(); i++) {
         T[i][0] = -1;       // parent node
@@ -153,3 +150,7 @@ int** Graph<Type>::DijkstraPaths(Type start) {
 
     return T;
 }
+
+
+// explicitly instantiate template so it's compiled
+template class Graph<QString>;

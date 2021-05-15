@@ -402,6 +402,7 @@ vector<teamData> dbManager::getTeamsByMinCtrField() const
     return teams;
 }
 
+
 vector<teamData> dbManager::getTeamsWithOpenRoof(const QString& roofType) const
 {
     QSqlQuery query;
@@ -424,4 +425,9 @@ vector<teamData> dbManager::getTeamsWithOpenRoof(const QString& roofType) const
 
 
     return teams;
+}
+
+vector<int> dbManager::getDistances(const QString& teamName) const
+{
+
 }
