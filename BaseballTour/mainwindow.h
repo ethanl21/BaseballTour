@@ -8,6 +8,7 @@
 #include "databaseviewform.h"
 #include "databasenameview.h"
 #include "logindialog.h"
+#include "graph.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -59,5 +60,7 @@ private:
     vector<QString> selectedList;
 
     bool isAdmin;
+
+    Graph<QString> graph;
 };
 #endif // MAINWINDOW_H

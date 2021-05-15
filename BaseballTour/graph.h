@@ -9,10 +9,6 @@
 using namespace std;
 
 /**
- * @brief Graph class based on undirected adjacency matrix
- */
-
-/**
  * @brief The Edge struct
  */
 struct Edge {
@@ -30,6 +26,9 @@ struct Edge {
     int weight;
 };
 
+/**
+ * @brief Graph class based on undirected adjacency matrix
+ */
 template <class Type>
 class Graph
 {
@@ -111,7 +110,7 @@ private:
      * @param start Name of starting node
      * @return Two dimentional array hold data for paths
      */
-    int** Graph<Type>::DijkstraPaths(Type start);
+    int** DijkstraPaths(Type start);
 
     /**
      * @brief Compares Edges (sorts in increasing order)
