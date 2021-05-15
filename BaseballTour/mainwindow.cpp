@@ -60,7 +60,15 @@ void MainWindow::on_actionLog_In_triggered()
 
     isAdmin = lDialog->userIsAdmin();
     qDebug() << isAdmin;
+<<<<<<< HEAD
 
+=======
+    if (isAdmin == true)
+    {
+        admin = new Admin(this);
+        admin->show();
+    }
+>>>>>>> a569e6500c0bb8e97deffb76efb933e815b53479
     delete lDialog;
 }
 

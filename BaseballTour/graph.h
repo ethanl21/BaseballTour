@@ -33,7 +33,7 @@ template <class Type>
 class Graph
 {
 public:
-    Graph() { size = 0; }
+    Graph();
 
     /**
      * @brief dfsOrder Order of nodes after DFS is run
@@ -110,7 +110,11 @@ private:
      * @param start Name of starting node
      * @return Two dimentional array hold data for paths
      */
+<<<<<<< HEAD
     vector<vector<int>> DijkstraPaths(Type start);
+=======
+    int** DijkstraPaths(Type start);
+>>>>>>> a569e6500c0bb8e97deffb76efb933e815b53479
 
     /**
      * @brief Compares Edges (sorts in increasing order)
