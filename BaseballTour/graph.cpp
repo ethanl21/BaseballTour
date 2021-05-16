@@ -99,6 +99,64 @@ int Graph<Type>::startBFS(const Type& start) {
 }
 
 template<class Type>
+int Graph<Type>::startMST() {
+
+    priority_queue<node, vector<node>, greater<node>> pq;
+
+    // starting node
+    int src = 0;
+
+    // parent of each node in MST
+    vector<int> parent(size, -1);
+    // distance to each node
+    vector<int> distance(size, INT_MAX);
+    vector<bool> inMST(size, false);
+
+    // starting point
+    pq.push(make_pair(0, src));
+    distance[src] = 0;
+
+    // temp adjacency list
+    vector<Edge> adjList;
+
+    while (!pq.empty()) {
+        // look at first node in the priority queue
+        int u = pq.top().second;
+        pq.pop();
+
+        inMST[u] = true;
+
+        // get valid edges
+        for (auto it = adjMatrix[u].begin(); it != adjMatrix[u].end(); it++) {
+            if (it->weight > 0)
+                adjList.push_back(*it);
+        }
+
+        // iterate through all adjacent vertices
+        for (auto i = adjList.begin(); i != adjList.end(); i++)
+        {
+            int v = i->v;
+            int dist = i->weight;
+
+            // if v is valid and closer, push onto pq
+            if (!inMST[v] && distance[v] > dist)
+            {
+                distance[v] = dist;
+                pq.push(make_pair(distance[v], v));
+                parent[v] = u;
+            }
+        }
+
+        adjList.clear();
+    }
+
+    int total = 0;
+    for (int dist : distance)
+            total += dist;
+    return total;
+}
+
+template<class Type>
 vector<vector<int>> Graph<Type>::DijkstraPaths(const Type& start) {
     vector<vector<int>> T(size);
     for (auto it = T.begin(); it != T.end(); it++)

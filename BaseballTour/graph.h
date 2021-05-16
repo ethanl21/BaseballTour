@@ -27,6 +27,13 @@ struct Edge {
 };
 
 /**
+ * @brief node
+ * pair of int to represent node (weight, index)
+ * Used for MST
+ */
+typedef pair<int, int> node;
+
+/**
  * @brief Graph class based on undirected adjacency matrix
  */
 template <class Type>
@@ -58,6 +65,12 @@ public:
      * @param weight Weight of edge
      */
     void addEdge(const Type& objU, const Type& objV, int weight);
+
+    /**
+     * @brief Starts MST (Prim-Jarnik)
+     * @return Total distance
+     */
+    int startMST();
 
     /**
      * @brief Starts DFS and populates dfsOrder

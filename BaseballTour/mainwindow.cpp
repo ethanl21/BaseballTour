@@ -235,5 +235,11 @@ void MainWindow::on_BFSpushButton_clicked()
 
 void MainWindow::on_MSTpushButton_clicked()
 {
+    int distance = graph->startMST();
 
+    QMessageBox msgBox;
+    msgBox.setText("MST");
+    msgBox.setInformativeText("Total distance: " + QString::number(distance));
+    //msgBox.setDetailedText(pathStr);
+    msgBox.exec();
 }
