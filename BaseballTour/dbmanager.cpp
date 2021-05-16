@@ -148,9 +148,33 @@ void dbManager::addSouvenir(const QString &team, const QString &souvenirName, co
     }
 }
 
-<<<<<<< HEAD
 void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &newCost, const QString &newsouvenir)
-=======
+{
+    QSqlQuery query;
+
+
+    if(m_db.open())
+    {
+        query.prepare("UPDATE Souvenirs SET (Souvenirs, Cost) = (:newSouvenir, :newCost)"
+            "WHERE (teams, souvenirs) = (:team, :souvenirs)");
+        query.bindValue(":souvenirs", souvenirName);
+        query.bindValue(":team", team);
+        query.bindValue(":newSouvenir", newsouvenir);
+        query.bindValue(":newCost", newCost);
+
+        qDebug() << souvenirName;
+        qDebug() << newCost;
+        if(query.exec())
+        {
+            qDebug() << "UPDATE WORKED" << Qt::endl;
+        }
+        else
+        {
+            qDebug() << "UPDATE failed: " << query.lastError() << Qt::endl;
+        }
+    }
+}
+
 void dbManager::addTeam(const teamData &newTeam)
 {
     QSqlQuery query;
@@ -204,33 +228,6 @@ void dbManager::addDist(const distanceEdge &newDist)
     }
 }
 
-void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &spin, const QString &newsouvenir)
->>>>>>> 750a546260fd572d3ae7554e39fb08327284e7cf
-{
-    QSqlQuery query;
-
-
-    if(m_db.open())
-    {
-        query.prepare("UPDATE Souvenirs SET (Souvenirs, Cost) = (:newSouvenir, :newCost)"
-            "WHERE (teams, souvenirs) = (:team, :souvenirs)");
-        query.bindValue(":souvenirs", souvenirName);
-        query.bindValue(":team", team);
-        query.bindValue(":newSouvenir", newsouvenir);
-        query.bindValue(":newCost", newCost);
-
-        qDebug() << souvenirName;
-        qDebug() << newCost;
-        if(query.exec())
-        {
-            qDebug() << "UPDATE WORKED" << Qt::endl;
-        }
-        else
-        {
-            qDebug() << "UPDATE failed: " << query.lastError() << Qt::endl;
-        }
-    }
-}
 
 void dbManager::updateTeam(QString teamName, QString stadiumName, int capacity,
                            QString location,QString playingSurface,

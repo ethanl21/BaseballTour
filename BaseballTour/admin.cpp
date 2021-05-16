@@ -86,13 +86,8 @@ void Admin::on_pushButton_updateSouvenir_clicked()
         {
             double costToString = ui->doubleSpinBox_cost->value();
             QString cost = QString::number(costToString);
-<<<<<<< HEAD
             m_db->updateSouvenir(tempSouvenir, ui->label_stadiumName->text(), cost, ui->lineEdit_souvenirName->text());
             qDebug() << ui->lineEdit_souvenirName->text();
-=======
-            cost = "$" + cost;
-            m_db->updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
->>>>>>> 750a546260fd572d3ae7554e39fb08327284e7cf
         }
         else
         {
