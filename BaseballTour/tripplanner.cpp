@@ -92,9 +92,9 @@ void tripPlanner::on_endTripButton_clicked()
 
     on_stadiumComboBox_currentIndexChanged(ui->stadiumComboBox->currentText());
 
-    // set start and end campus
-    ui->startLineEdit->setText(stadiumNames[0]);
-    ui->endLineEdit->setText(*(stadiumNames.end()-1));
+    // set start and end stadium
+    ui->startLineEdit->setText(db->getStadium(stadiumNames[0]));
+    ui->endLineEdit->setText(db->getStadium(*(stadiumNames.end()-1)));
 
     ui->totalPriceSpinBox->setValue(totalSpent);
     ui->distanceSpinBox->setValue(totalDistance);

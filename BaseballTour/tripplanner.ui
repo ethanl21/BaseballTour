@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>721</width>
-     <height>541</height>
+     <height>551</height>
     </rect>
    </property>
    <widget class="QWidget" name="summaryPage">
@@ -326,9 +326,9 @@
     <widget class="QWidget" name="formLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>330</x>
+       <x>243</x>
        <y>400</y>
-       <width>274</width>
+       <width>361</width>
        <height>131</height>
       </rect>
      </property>
@@ -438,19 +438,6 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Souvenir Receipt&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="tripDoneButton">
-     <property name="geometry">
-      <rect>
-       <x>630</x>
-       <y>510</y>
-       <width>80</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>OK</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_19">
      <property name="geometry">
       <rect>
@@ -462,6 +449,19 @@
      </property>
      <property name="text">
       <string>mi</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tripDoneButton">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>510</y>
+       <width>80</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>OK</string>
      </property>
     </widget>
    </widget>
