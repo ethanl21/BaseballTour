@@ -58,7 +58,8 @@ int Graph<Type>::dfs(int v, vector<bool>& visited) {
     sort(adjList.begin(), adjList.end(), compareWeight);
 
     for (auto it = adjList.begin(); it != adjList.end(); it++) {
-         distTraveled += it->weight + dfs(it->v, visited);
+        distTraveled += it->weight;
+        distTraveled += dfs(it->v, visited);
     }
     return distTraveled;
 }
@@ -167,6 +168,52 @@ int Graph<Type>::startMST() {
 }
 
 template<class Type>
+int Graph<Type>::startDijkstra(const Type& start, const Type& dest) {
+    vector<vector<int>> T;
+    T = DijkstraPaths(start);
+    return T[getIndex(dest)][1];
+}
+
+template<class Type>
+int Graph<Type>::startMultiDijkstra(vector<Type> nodes, const Type& start) {
+    dijkstraOrder.clear();
+    return multiDijkstra(nodes, start);
+}
+
+template<class Type>
+int Graph<Type>::multiDijkstra(vector<Type> nodes, const Type& start) {
+
+    dijkstraOrder.push_back(start);
+
+    // remove starting point from nodes
+    auto pos = find(nodes.begin(), nodes.end(), start);
+    if (pos != nodes.end())
+        nodes.erase(pos);
+
+    // base case
+    if (nodes.size() < 1)
+        return 0;
+
+    vector<vector<int>> T;
+    T = DijkstraPaths(start);
+
+    // find closest in selected nodes
+    int distance = INT_MAX;
+    int closest = getIndex(start);
+    int i = 0;
+    for (Type node : nodes) {
+        i = getIndex(node);
+        if (T[i][1] < distance) {
+            closest = i;
+            distance = T[i][1];
+        }
+    }
+
+    distance += multiDijkstra(nodes, nodeList[closest]);
+    return distance;
+}
+
+template<class Type>
 vector<vector<int>> Graph<Type>::DijkstraPaths(const Type& start) {
     vector<vector<int>> T(size);
     for (auto it = T.begin(); it != T.end(); it++)
@@ -226,6 +273,38 @@ vector<vector<int>> Graph<Type>::DijkstraPaths(const Type& start) {
     }
 
     return T;
+}
+
+template<class Type>
+int Graph<Type>::startShortestPath(const Type& start) {
+    shortestOrder.clear();
+    return shortestPath(start);
+}
+
+template<class Type>
+int Graph<Type>::shortestPath(const Type& start) {
+
+    int curr = getIndex(start);
+    int next = 0;
+    vector<bool> visited(size, false);
+
+    int distance = 0;
+    int min;
+    do {
+        visited[curr] = true;
+        shortestOrder.push_back(nodeList[curr]);
+        min = INT_MAX;
+        for (int j = 0; j < size; j++) {
+            if (adjMatrix[curr][j].weight > 0 && !visited[j]
+                    && adjMatrix[curr][j].weight < min) {
+                next = j;
+                min = adjMatrix[curr][next].weight;
+            }
+        }
+        distance += adjMatrix[curr][next].weight;
+        curr = next;
+    } while(!visited[curr]);
+    return distance;
 }
 
 

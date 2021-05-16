@@ -54,6 +54,17 @@ public:
     vector<Type> bfsOrder;
 
     /**
+     * @brief shortestOrder Visit all nodes in shortest order.
+     * Populated by shortestPath()
+     */
+    vector<Type> shortestOrder;
+
+    /**
+     * @brief dijkstraOrder Order of nodes for multiDijkstra()
+     */
+    vector<Type> dijkstraOrder;
+
+    /**
      * @brief Output edges in MST
      */
     QString mstString;
@@ -91,6 +102,31 @@ public:
      * @return Total cost (distance)
      */
     int startBFS(const Type& start);
+
+    /**
+     * @brief Start Dijkstra from starting point to destination
+     * @param start Starting node
+     * @param dest Destination
+     * @return Total distance travelled
+     */
+    int startDijkstra(const Type& start, const Type& dest);
+
+    /**
+     * @brief Start recursive Dijkstra (visits all given nodes)
+     * Saves path order to dijkstraOrder
+     * @param nodes All nodes to visit
+     * @param start Starting node
+     * @return Total distance travelled
+     */
+    int startMultiDijkstra(vector<Type> nodes, const Type& start);
+
+    /**
+     * @brief Finds shortest path to all nodes
+     * Saves path in shortestOrder
+     * @param start Starting node
+     * @return Distance travelled
+     */
+    int startShortestPath(const Type& start);
 
 private:
 
@@ -130,6 +166,21 @@ private:
      * @return Two dimentional array hold data for paths
      */
     vector<vector<int>> DijkstraPaths(const Type& start);
+
+    /**
+     * @brief Recursively runs Dijkstra over nodes
+     * @param nodes List of nodes to visit
+     * @param start Starting node
+     * @return Total distance
+     */
+    int multiDijkstra(vector<Type> nodes, const Type& start);
+
+    /**
+     * @brief Finds shortest path from node to node
+     * @param start Starting node
+     * @return Total distance
+     */
+    int shortestPath(const Type& start);
 
     /**
      * @brief Compares Edges (sorts in increasing order)
