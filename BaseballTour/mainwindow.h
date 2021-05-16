@@ -10,10 +10,8 @@
 #include "databaseviewform.h"
 #include "databasenameview.h"
 #include "logindialog.h"
-<<<<<<< HEAD
 #include "csvparser.h"
-=======
->>>>>>> a569e6500c0bb8e97deffb76efb933e815b53479
+
 #include "graph.h"
 
 QT_BEGIN_NAMESPACE
@@ -74,6 +72,6 @@ private:
 
     bool isAdmin;
 
-    Graph<QString> graph;
+    Graph<QString>* graph;
 };
 #endif // MAINWINDOW_H

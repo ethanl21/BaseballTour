@@ -49,7 +49,7 @@ public:
      * @brief Adds node to graph
      * @param obj Object to add to graph
      */
-    void addNode(Type obj);
+    void addNode(const Type obj);
 
     /**
      * @brief Add edge between two nodes
@@ -57,21 +57,21 @@ public:
      * @param objV Name of second node
      * @param weight Weight of edge
      */
-    void addEdge(Type& objU, Type& objV, int weight);
+    void addEdge(const Type& objU, const Type& objV, int weight);
 
     /**
      * @brief Starts DFS and populates dfsOrder
      * @param start Starting node
      * @return Total cost (distance)
      */
-    int startDFS(Type& start);
+    int startDFS(const Type& start);
 
     /**
      * @brief Starts BFS and populates bfsOrder
      * @param start Starting node
      * @return Total cost (distance)
      */
-    int startBFS(Type& start);
+    int startBFS(const Type& start);
 
 private:
 
@@ -95,7 +95,7 @@ private:
      * @param obj Object to be found
      * @return Index of obj
      */
-    int getIndex(Type& obj);
+    int getIndex(const Type& obj);
 
     /**
      * @brief DFS recursive function
@@ -110,11 +110,7 @@ private:
      * @param start Name of starting node
      * @return Two dimentional array hold data for paths
      */
-<<<<<<< HEAD
-    vector<vector<int>> DijkstraPaths(Type start);
-=======
-    int** DijkstraPaths(Type start);
->>>>>>> a569e6500c0bb8e97deffb76efb933e815b53479
+    vector<vector<int>> DijkstraPaths(const Type& start);
 
     /**
      * @brief Compares Edges (sorts in increasing order)

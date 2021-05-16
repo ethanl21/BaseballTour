@@ -152,10 +152,23 @@ public:
     vector<teamData> getTeamsWithOpenRoof(const QString& roofType="Open") const;
 
     //!
+    //! \brief getStadium
+    //! \param teamName Name of team
+    //! \return name of stadium
+    //!
+    QString getStadium(const QString& teamName) const;
+
+    //!
+    //! \brief getStadiumNames
+    //! \return vector of stadium names from database
+    //!
+    vector<QString> getStadiumNames() const;
+
+    //!
     //! \brief getDistances
     //! \return vector containing distances to other stadiums
     //!
-    vector<int> getDistances(const QString& teamName) const;
+    vector<distanceEdge> getDistances(const QString& teamName) const;
 
 private:
     //!

@@ -32,15 +32,25 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     // populate graph
-    for (QString teamName : nameList) {
-        //graph.addNode(teamName.toStdString());
-        graph.addNode(teamName);
+    graph = new Graph<QString>();
+    vector<distanceEdge> edges;
+    vector<QString> stadiumList = database->getStadiumNames();
+    for (QString stadium : stadiumList)
+        graph->addNode(stadium);
+    for (QString stadium : stadiumList) {
+        edges = database->getDistances(stadium);
+        for (auto edge : edges) {
+            graph->addEdge(edge.team_name_origin, edge.team_name_destination,
+                           edge.distance);
+        }
     }
+
 
 }
 
 MainWindow::~MainWindow()
 {
+    delete graph;
     delete ui;
 }
 
@@ -60,15 +70,7 @@ void MainWindow::on_actionLog_In_triggered()
 
     isAdmin = lDialog->userIsAdmin();
     qDebug() << isAdmin;
-<<<<<<< HEAD
 
-=======
-    if (isAdmin == true)
-    {
-        admin = new Admin(this);
-        admin->show();
-    }
->>>>>>> a569e6500c0bb8e97deffb76efb933e815b53479
     delete lDialog;
 }
 
@@ -201,14 +203,34 @@ void MainWindow::on_actionImport_Distances_triggered()
     }
 }
 
-void MainWindow::on_BFSpushButton_clicked()
-{
-
-}
-
 void MainWindow::on_DFSpushButton_clicked()
 {
+    int distance = graph->startDFS("Oracle Park");
+    QString pathStr;
+    for (auto dest : graph->dfsOrder) {
+        pathStr += dest + "\n";
+    }
 
+    QMessageBox msgBox;
+    msgBox.setText("DFS: Starting from Oracle Park (San Francisco Giants)");
+    msgBox.setInformativeText("Total distance: " + QString::number(distance));
+    msgBox.setDetailedText(pathStr);
+    msgBox.exec();
+}
+
+void MainWindow::on_BFSpushButton_clicked()
+{
+    int distance = graph->startBFS("Target Field");
+    QString pathStr;
+    for (auto dest : graph->bfsOrder) {
+        pathStr += dest + "\n";
+    }
+
+    QMessageBox msgBox;
+    msgBox.setText("BFS: Starting from Target Field (Minnesota Twins)");
+    msgBox.setInformativeText("Total distance: " + QString::number(distance));
+    msgBox.setDetailedText(pathStr);
+    msgBox.exec();
 }
 
 void MainWindow::on_MSTpushButton_clicked()

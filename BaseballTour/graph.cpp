@@ -1,4 +1,5 @@
 #include "graph.h"
+#include <QDebug>
 #include <QString>
 
 template<class Type>
@@ -17,23 +18,24 @@ void Graph<Type>::addNode(Type obj) {
 }
 
 template<class Type>
-void Graph<Type>::addEdge(Type& objU, Type& objV, int weight) {
+void Graph<Type>::addEdge(const Type& objU, const Type& objV, int weight) {
     int u = getIndex(objU);
     int v = getIndex(objV);
     Edge uEdge = {u, v, weight};
     Edge vEdge = {v, u, weight};
     adjMatrix[u][v] = uEdge;
     adjMatrix[v][u] = vEdge;
+
 }
 
 template<class Type>
-int Graph<Type>::getIndex(Type& obj) {
+int Graph<Type>::getIndex(const Type& obj) {
     auto it = find(nodeList.begin(), nodeList.end(), obj);
     return it - nodeList.begin();
 }
 
 template<class Type>
-int Graph<Type>::startDFS(Type& start) {
+int Graph<Type>::startDFS(const Type& start) {
     vector<bool> visited(size, false);
     dfsOrder.resize(0);
     return dfs(getIndex(start), visited);
@@ -41,6 +43,7 @@ int Graph<Type>::startDFS(Type& start) {
 
 template<class Type>
 int Graph<Type>::dfs(int v, vector<bool>& visited) {
+
     int distTraveled = 0;
     visited[v] = true;
     dfsOrder.push_back(nodeList[v]);
@@ -62,7 +65,7 @@ int Graph<Type>::dfs(int v, vector<bool>& visited) {
 }
 
 template<class Type>
-int Graph<Type>::startBFS(Type& start) {
+int Graph<Type>::startBFS(const Type& start) {
     vector<bool> visited(size, false);
     queue<int> queue;
     int distTraveled = 0;
@@ -96,15 +99,10 @@ int Graph<Type>::startBFS(Type& start) {
 }
 
 template<class Type>
-<<<<<<< HEAD
-vector<vector<int>> Graph<Type>::DijkstraPaths(Type start) {
+vector<vector<int>> Graph<Type>::DijkstraPaths(const Type& start) {
     vector<vector<int>> T(size);
     for (auto it = T.begin(); it != T.end(); it++)
         it->resize(3);
-=======
-int** Graph<Type>::DijkstraPaths(Type start) {
-    int T[nodeList.size()][3];
->>>>>>> a569e6500c0bb8e97deffb76efb933e815b53479
 
     for (unsigned int i = 0; i < nodeList.size(); i++) {
         T[i][0] = -1;       // parent node
@@ -161,10 +159,7 @@ int** Graph<Type>::DijkstraPaths(Type start) {
 
     return T;
 }
-<<<<<<< HEAD
 
 
 // explicitly instantiate template so it's compiled
 template class Graph<QString>;
-=======
->>>>>>> a569e6500c0bb8e97deffb76efb933e815b53479

@@ -427,7 +427,52 @@ vector<teamData> dbManager::getTeamsWithOpenRoof(const QString& roofType) const
     return teams;
 }
 
-vector<int> dbManager::getDistances(const QString& teamName) const
+QString dbManager::getStadium(const QString& teamName) const
 {
+    QString stadiumName;
+    QSqlQuery query;
+    query.prepare("SELECT stadium_name FROM teams WHERE team_name=:teamName");
+    query.bindValue(":teamName", teamName);
+    query.exec();
 
+    query.first();
+
+    return query.value(0).toString();
+}
+
+vector<QString> dbManager::getStadiumNames() const
+{
+    vector<QString> stadiums;
+
+    // query database for names
+    QSqlQuery query("SELECT DISTINCT origin FROM distances");
+
+    while(query.next()) {
+        QString out = query.value(0).toString();
+        stadiums.push_back(out);
+    }
+
+    return stadiums;
+}
+
+vector<distanceEdge> dbManager::getDistances(const QString& teamName) const
+{
+    QSqlQuery query;
+    vector<distanceEdge> distances;
+    distanceEdge edge;
+    query.prepare("SELECT destination, distance FROM distances WHERE origin=:origin");
+    query.bindValue(":origin", teamName);
+    query.exec();
+
+    query.first();
+    edge.team_name_origin = teamName;
+    while (query.isValid()) {
+        edge.team_name_destination = query.value(0).toString();
+        edge.distance = query.value(1).toInt();
+        distances.push_back(edge);
+
+        query.next();
+    }
+
+    return distances;
 }
