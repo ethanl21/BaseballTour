@@ -144,7 +144,7 @@ void dbManager::removeSouvenir(const QString &souvenirName, const QString &teamN
     {
         if(m_db.open())
         {
-            query.prepare("DELETE FROM Souvenirs WHERE (Souvenirs, Teams) = (:souvenirs, :teamName)");
+            query.prepare("DELETE FROM Souvenirs WHERE (Souvenirs, team) = (:souvenirs, :teamName)");
             query.bindValue(":souvenirs", souvenirName);
             query.bindValue(":teamName", teamName);
 
