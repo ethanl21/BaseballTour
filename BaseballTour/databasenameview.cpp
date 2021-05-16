@@ -13,7 +13,7 @@ databaseNameView::databaseNameView(dbManager* db,QWidget *parent) :
 
     // Populate teams combo box
     vector<QString> teamNames = db->getTeamNames();
-    for(auto i : teamNames) {
+    for(const auto &i : teamNames) {
         ui->teamsComboBox->addItem(i);
     }
 

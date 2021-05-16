@@ -20,32 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     // user is not admin on program start
     isAdmin = false;
 
-
-    // populate vectors and comboBox
-    nameList = database->getTeamNames();
-    tempList = nameList;
-
-    for (const auto &teamName : nameList) {
-        ui->simpleFromComboBox->addItem(teamName);
-        ui->simpleToComboBox->addItem(teamName);
-        ui->addComboBox->addItem(teamName);
-    }
-
-    // populate graph
-    graph = new Graph<QString>();
-    vector<distanceEdge> edges;
-    vector<QString> stadiumList = database->getStadiumNames();
-    for (QString stadium : stadiumList)
-        graph->addNode(stadium);
-    for (QString stadium : stadiumList) {
-        edges = database->getDistances(stadium);
-        for (auto edge : edges) {
-            graph->addEdge(edge.team_name_origin, edge.team_name_destination,
-                           edge.distance);
-        }
-    }
-
-
+    // populate graph and combo boxes
+    graph = nullptr;
+    rebuildGraph();
 }
 
 MainWindow::~MainWindow()
@@ -127,7 +104,112 @@ void MainWindow::on_removePushButton_clicked()
 
 void MainWindow::on_simpleStartButton_clicked()
 {
+    int distance = 0;
+    vector<QString> route;
+    if (ui->simpleToComboBox->currentIndex() == 0) { // visit all option
+        //distance = graph->startShortestPath(ui->simpleFromComboBox->currentText());
+        distance = graph->startMultiDijkstra(nameList,
+                                         ui->simpleFromComboBox->currentText());
+        //route = graph->shortestOrder;
+        route = graph->dijkstraOrder;
+    } else {
+        QString start = ui->simpleFromComboBox->currentText();
+        QString dest = ui->simpleToComboBox->currentText();
+        distance = graph->startDijkstra(start, dest);
+        route.push_back(start);
+        route.push_back(dest);
+    }
 
+    // convert stadium names to team names
+    vector<QString> teams;
+    QString teamName;
+    for (const QString &stadium : route) {
+        qDebug() << "[simpleStartPushButton] stadium name: " << stadium;
+        teamName = database->getStadiumData(stadium).team_name;
+        teams.push_back(teamName);
+    }
+
+//    // display total distance
+//    QMessageBox msgBox;
+//    msgBox.setText("Total distance: " + QString::number(distance) + " miles");
+//    msgBox.exec();
+
+    // start trip planner
+    tripWindow = new tripPlanner(teams, database, this);
+    tripWindow->setDist(distance);
+    tripWindow->exec();
+    delete tripWindow;
+}
+
+void MainWindow::on_startPushButton_clicked()
+{
+    QString start = ui->startComboBox->currentText();
+    vector<QString> stadiumNames;
+
+    // get all stadium names selected
+    for (int i = 0; i < ui->teamListWidget->count(); i++) {
+        stadiumNames.push_back(ui->teamListWidget->item(i)->text());
+    }
+
+    // perform dijkstra recursively
+    int distance = graph->startMultiDijkstra(stadiumNames, start);
+
+    // convert stadium names to team names
+    vector<QString> route = graph->dijkstraOrder;
+    vector<QString> teams;
+    QString teamName;
+    for (const QString &stadium : route) {
+        qDebug() << "[startPushButton] stadium name: " << stadium;
+        teamName = database->getStadiumData(stadium).team_name;
+        teams.push_back(teamName);
+    }
+
+    // display total distance
+    QMessageBox msgBox;
+    msgBox.setText("Total distance: " + QString::number(distance) + " miles");
+    msgBox.exec();
+
+    // start trip planner
+    tripWindow = new tripPlanner(teams, database, this);
+    tripWindow->exec();
+    delete tripWindow;
+}
+
+void MainWindow::rebuildGraph()
+{
+    ui->simpleToComboBox->clear();
+    ui->simpleFromComboBox->clear();
+    ui->addComboBox->clear();
+
+    // populate vectors and comboBox
+    nameList = database->getStadiumNames();
+    tempList = nameList;
+    ui->simpleToComboBox->addItem("Visit all"); // visit all option
+
+    for (auto teamName : nameList) {
+        ui->simpleFromComboBox->addItem(teamName);
+        ui->simpleToComboBox->addItem(teamName);
+        ui->addComboBox->addItem(teamName);
+    }
+
+    // populate graph
+    if(graph != nullptr) {
+        delete graph;
+    }
+    graph = new Graph<QString>();
+    vector<distanceEdge> edges;
+    for (const QString &stadium : nameList) {
+        qDebug() << "adding node:" << stadium;
+        graph->addNode(stadium);
+    }
+    for (const QString &stadium : nameList) {
+        edges = database->getDistances(stadium);
+        for (const auto &edge : edges) {
+            qDebug() << "adding edge:" << edge.team_name_origin << edge.team_name_destination << edge.distance;
+            graph->addEdge(edge.team_name_origin, edge.team_name_destination,
+                           edge.distance);
+        }
+    }
 }
 
 void MainWindow::on_actionModify_Database_triggered()
@@ -163,7 +245,6 @@ void MainWindow::on_actionImport_Teams_triggered()
             }
         }
 
-        // add the team to database here (TODO)
         if(newTeams.size() > 0) {
             for(const auto &i : newTeams) {
                 database->addTeam(i);
@@ -175,8 +256,10 @@ void MainWindow::on_actionImport_Teams_triggered()
                 database->addSouvenir(i.team_name, "Autographed Baseball", "29.99");
                 database->addSouvenir(i.team_name, "Team Jersey", "199.99");
             }
+
         }
 
+        rebuildGraph();
     }
 }
 
@@ -200,6 +283,7 @@ void MainWindow::on_actionImport_Distances_triggered()
             }
         }
 
+        rebuildGraph();
     }
 }
 
@@ -207,7 +291,7 @@ void MainWindow::on_DFSpushButton_clicked()
 {
     int distance = graph->startDFS("Oracle Park");
     QString pathStr;
-    for (auto dest : graph->dfsOrder) {
+    for (const auto &dest : graph->dfsOrder) {
         pathStr += dest + "\n";
     }
 
@@ -222,7 +306,7 @@ void MainWindow::on_BFSpushButton_clicked()
 {
     int distance = graph->startBFS("Target Field");
     QString pathStr;
-    for (auto dest : graph->bfsOrder) {
+    for (const auto &dest : graph->bfsOrder) {
         pathStr += dest + "\n";
     }
 

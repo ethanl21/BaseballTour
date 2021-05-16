@@ -73,7 +73,15 @@ public:
     //!
     teamData getTeamData(const QString& teamName) const;
 
+    //!
+    //! \brief getStadiumData
+    //! \param stadium name of stadium to return data from
+    //! \return teamData struct with stadium's data or team_name "ERROR" if team not found
+    //!
+    teamData getStadiumData(const QString& stadium) const;
+
     void addSouvenir(const QString &team, const QString &souvenirName, const QString &cost);
+
 
     //!
     //! \brief addTeam adds a new team from a teamData object
@@ -96,6 +104,13 @@ public:
     * @param &college - name of college
     */
     void removeSouvenir(const QString &souvenirName, const QString &college);
+
+    //!
+    //! \brief getSouvenirs gets the souvenirs for a given stadium
+    //! \param team team to return souvenirs from
+    //! \return souvenir name, souvenir price vector
+    //!
+    vector<std::pair<QString, double>> getSouvenirs(const QString& team) const;
 
     /**
     * @brief Method to update a Souvenir
