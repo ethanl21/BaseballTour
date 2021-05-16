@@ -16,10 +16,18 @@ tripPlanner::tripPlanner(vector<QString> stadiums, dbManager *dbase, QWidget *pa
 
     for(const auto &stadium : stadiumNames) {
         ui->teamsroute_listWidget->addItem(stadium);
+        ui->stadiumComboBox->addItem(stadium);
     }
 
     ui->teamsroute_listWidget->setCurrentRow(0);
+    ui->souvenirsPurchasedTableWidget->setHorizontalHeaderLabels(QStringList{"Stadium", "Souvenir", "Qty", "Price"});
+    ui->souvenirsPurchasedTableWidget_2->setHorizontalHeaderLabels(QStringList{"Souvenir", "Qty", "Price"});
 
+    ui->souvenirsPurchasedTableWidget->setColumnWidth(0, 250);
+    ui->souvenirsPurchasedTableWidget->setColumnWidth(1, 200);
+
+    ui->souvenirsPurchasedTableWidget_2->setColumnWidth(1, 200);
+    ui->souvenirsPurchasedTableWidget_2->setColumnWidth(0, 250);
 
     totalSpent = 0.0;
 }
@@ -70,4 +78,64 @@ void tripPlanner::on_cancelTripButton_clicked()
 void tripPlanner::on_endTripButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+    ui->totalPriceSpinBox->setValue(totalSpent);
+
+    for(const auto&i : shoppingCart) {
+
+        ui->souvenirsPurchasedTableWidget->insertRow(ui->souvenirsPurchasedTableWidget->rowCount());
+        ui->souvenirsPurchasedTableWidget->setItem(ui->souvenirsPurchasedTableWidget->rowCount()-1, 0, new QTableWidgetItem(std::get<0>(i)));
+        ui->souvenirsPurchasedTableWidget->setItem(ui->souvenirsPurchasedTableWidget->rowCount()-1, 1, new QTableWidgetItem(std::get<1>(i)));
+        ui->souvenirsPurchasedTableWidget->setItem(ui->souvenirsPurchasedTableWidget->rowCount()-1, 2, new QTableWidgetItem(QString::number(std::get<2>(i))));
+        ui->souvenirsPurchasedTableWidget->setItem(ui->souvenirsPurchasedTableWidget->rowCount()-1, 3, new QTableWidgetItem(QString::number(std::get<3>(i))));
+
+    }
+
+    on_stadiumComboBox_currentIndexChanged(ui->stadiumComboBox->currentText());
+
+}
+
+void tripPlanner::on_tabWidget_currentChanged(int index)
+{
+    switch(index) {
+    case 0: // all souvenirs
+        ui->totalPriceSpinBox->setValue(totalSpent);
+        break;
+//    case 1: // by stadium
+
+//        break;
+    }
+}
+
+void tripPlanner::on_stadiumComboBox_currentIndexChanged(const QString &arg1)
+{
+    double subtotal = 0.0;
+
+    ui->souvenirsPurchasedTableWidget_2->clear();
+    ui->souvenirsPurchasedTableWidget_2->setColumnCount(3);
+    ui->souvenirsPurchasedTableWidget_2->setColumnWidth(1, 200);
+    ui->souvenirsPurchasedTableWidget_2->setColumnWidth(0, 250);
+    ui->souvenirsPurchasedTableWidget_2->setHorizontalHeaderLabels(QStringList{"Souvenir", "Qty", "Price"});
+
+    for(const auto&i : shoppingCart) {
+        qDebug() << "arg1" << arg1 << "compare:" << std::get<0>(i);
+        if(std::get<0>(i) == arg1) {
+            qDebug() << "adding" << std::get<1>(i);
+            ui->souvenirsPurchasedTableWidget_2->insertRow(ui->souvenirsPurchasedTableWidget_2->rowCount());
+            ui->souvenirsPurchasedTableWidget_2->setItem(ui->souvenirsPurchasedTableWidget_2->rowCount()-1, 0, new QTableWidgetItem(std::get<1>(i)));
+            ui->souvenirsPurchasedTableWidget_2->setItem(ui->souvenirsPurchasedTableWidget_2->rowCount()-1, 1, new QTableWidgetItem(QString::number(std::get<2>(i))));
+            ui->souvenirsPurchasedTableWidget_2->setItem(ui->souvenirsPurchasedTableWidget_2->rowCount()-1, 2, new QTableWidgetItem(QString::number(std::get<3>(i))));
+        }
+    }
+
+    // recount subtotal for just one stadium
+    for(int i = 0; i < ui->souvenirsPurchasedTableWidget_2->rowCount(); i++) {
+        subtotal += ui->souvenirsPurchasedTableWidget_2->item(i, 2)->text().toDouble();
+    }
+
+    ui->totalPriceSpinBox->setValue(subtotal);
+}
+
+void tripPlanner::on_tripDoneButton_clicked()
+{
+    this->close();
 }

@@ -5,8 +5,11 @@
 #include <utility>
 #include <QMessageBox>
 #include <vector>
+#include <tuple>
 
 #include "dbmanager.h"
+
+typedef std::tuple<QString, QString, int, double> shoppingCartItem;
 
 namespace Ui {
 class PurchaseSouvenirs;
@@ -20,7 +23,7 @@ public:
     explicit PurchaseSouvenirs(const QString &stadium, dbManager *db = nullptr, QWidget *parent = nullptr);
     ~PurchaseSouvenirs();
 
-    std::vector<std::pair<QString, double>> getShoppingCart() const {return shoppingCart;}
+    std::vector<shoppingCartItem> getShoppingCart() const {return shoppingCart;}
 
     void updateSubtotal();
 
@@ -36,7 +39,7 @@ private slots:
 private:
     Ui::PurchaseSouvenirs *ui;
 
-    std::vector<std::pair<QString, double>> shoppingCart;
+    std::vector<shoppingCartItem> shoppingCart;
 
     dbManager *database;
 
@@ -44,6 +47,7 @@ private:
 
     bool acceptPurchase;
 
+    QString stadiumName;
 };
 
 #endif // PURCHASESOUVENIRS_H

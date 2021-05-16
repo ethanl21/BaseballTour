@@ -8,13 +8,17 @@ PurchaseSouvenirs::PurchaseSouvenirs(const QString &stadium, dbManager *db, QWid
     ui->setupUi(this);
     database = db;
     ui->stadiumname_label->setText("Purchasing from: " + stadium);
+    stadiumName = stadium;
 
     // populate souvenirs
     auto souvenirs = database->getSouvenirs(stadium);
     qDebug() << "getting souvenirs from" << stadium;
 
     ui->souvenirsListTableWidget->setHorizontalHeaderLabels(QStringList{"Souvenir", "Price"});
-    ui->purchasedCartTableWidget->setHorizontalHeaderLabels(QStringList{"Souvenir", "Price"});
+    ui->purchasedCartTableWidget->setHorizontalHeaderLabels(QStringList{"Souvenir", "Qty", "Price"});
+
+    ui->purchasedCartTableWidget->setColumnWidth(1, 20);
+    ui->purchasedCartTableWidget->setColumnWidth(2, 75);
 
     ui->souvenirsListTableWidget->setCurrentCell(0,0);
     ui->purchasedCartTableWidget->setCurrentCell(0,0);
@@ -41,7 +45,7 @@ void PurchaseSouvenirs::updateSubtotal()
     double subtotal = 0.0;
 
     for(int i = 0; i < ui->purchasedCartTableWidget->rowCount(); i++) {
-        subtotal += ui->purchasedCartTableWidget->item(i, 1)->text().toDouble();
+        subtotal += ui->purchasedCartTableWidget->item(i, 2)->text().toDouble();
     }
 
     ui->subtotalSpinBox->setValue(subtotal);
@@ -51,15 +55,23 @@ void PurchaseSouvenirs::updateSubtotal()
 void PurchaseSouvenirs::on_purchaseButton_clicked()
 {
 
-    auto souv = ui->souvenirsListTableWidget->item(ui->souvenirsListTableWidget->currentRow(), 0);
-    auto price = ui->souvenirsListTableWidget->item(ui->souvenirsListTableWidget->currentRow(), 1);
+    if(ui->souvenirsListTableWidget->currentRow() >= 0) {
+        auto souv = ui->souvenirsListTableWidget->item(ui->souvenirsListTableWidget->currentRow(), 0);
+        auto price = ui->souvenirsListTableWidget->item(ui->souvenirsListTableWidget->currentRow(), 1);
+        double tempPrice = price->text().toDouble();
+        tempPrice *= ui->purchaseAmountSpinBox->value();
 
-    qDebug() << "[PURCHASED] adding:" << souv->text() << price->text();
-    ui->purchasedCartTableWidget->insertRow(ui->purchasedCartTableWidget->rowCount());
-    ui->purchasedCartTableWidget->setItem(ui->purchasedCartTableWidget->rowCount()-1, 0, new QTableWidgetItem(souv->text()));
-    ui->purchasedCartTableWidget->setItem(ui->purchasedCartTableWidget->rowCount()-1, 1, new QTableWidgetItem(price->text()));
 
-    updateSubtotal();
+        qDebug() << "[PURCHASED] adding:" << souv->text() << price->text();
+        ui->purchasedCartTableWidget->insertRow(ui->purchasedCartTableWidget->rowCount());
+        ui->purchasedCartTableWidget->setItem(ui->purchasedCartTableWidget->rowCount()-1, 0, new QTableWidgetItem(souv->text()));
+        ui->purchasedCartTableWidget->setItem(ui->purchasedCartTableWidget->rowCount()-1, 1, new QTableWidgetItem(QString::number(ui->purchaseAmountSpinBox->value())));
+        ui->purchasedCartTableWidget->setItem(ui->purchasedCartTableWidget->rowCount()-1, 2, new QTableWidgetItem(QString::number(tempPrice)));
+
+
+        updateSubtotal();
+        ui->purchaseAmountSpinBox->setValue(1);
+    }
 
 }
 
@@ -76,6 +88,6 @@ void PurchaseSouvenirs::on_buttonBox_accepted()
     acceptPurchase = true;
 
     for(int i = 0; i < ui->purchasedCartTableWidget->rowCount(); i++) {
-        shoppingCart.push_back(std::pair<QString, double>{ui->purchasedCartTableWidget->item(i,0)->text(), ui->purchasedCartTableWidget->item(i,1)->text().toDouble()});
+        shoppingCart.push_back(std::make_tuple(stadiumName, ui->purchasedCartTableWidget->item(i,0)->text(), ui->purchasedCartTableWidget->item(i,1)->text().toInt(), ui->purchasedCartTableWidget->item(i,2)->text().toDouble()));
     }
 }
