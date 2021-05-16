@@ -127,7 +127,12 @@ void MainWindow::on_removePushButton_clicked()
 
 void MainWindow::on_simpleStartButton_clicked()
 {
+    vector<QString> temp {"Arizona Diamondbacks"};
 
+    tripWindow = new tripPlanner(temp, database, this);
+    tripWindow->exec();
+
+    delete tripWindow;
 }
 
 void MainWindow::on_actionModify_Database_triggered()

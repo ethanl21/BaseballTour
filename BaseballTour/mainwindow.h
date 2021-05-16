@@ -10,8 +10,9 @@
 #include "databaseviewform.h"
 #include "databasenameview.h"
 #include "logindialog.h"
-#include "csvparser.h"
+#include "tripplanner.h"
 
+#include "csvparser.h"
 #include "graph.h"
 
 QT_BEGIN_NAMESPACE
@@ -64,6 +65,7 @@ private:
     databaseNameView* dbNameView;
     logindialog* lDialog;
     Admin* adminWindow;
+    tripPlanner* tripWindow;
 
     // contains list of team names for combo boxes
     vector<QString> nameList;

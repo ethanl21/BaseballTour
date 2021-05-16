@@ -52,6 +52,36 @@ teamData dbManager::getTeamData(const QString& teamName) const
     return team;
 }
 
+teamData dbManager::getStadiumData(const QString& stadium) const
+{
+    teamData team;
+    QSqlQuery query;
+
+    query.prepare("SELECT * FROM teams WHERE stadium_name=:stadiumname");
+    query.bindValue(":stadiumname", stadium);
+
+    query.exec();
+    query.first();
+
+    if(query.isValid()) { // if matching team found
+        team.team_name = query.value(0).toString();
+        team.stadium_name = query.value(1).toString();
+        team.stadium_seating_capacity = query.value(2).toInt();
+        team.stadium_location = query.value(3).toString();
+        team.stadium_playing_surface = query.value(4).toString();
+        team.team_league = query.value(5).toString();
+        team.stadium_date_opened = query.value(6).toInt();
+        team.stadium_dist_ctrfield = query.value(7).toString();
+        team.stadium_typology = query.value(8).toString();
+        team.stadium_roof_type = query.value(9).toString();
+    }else {
+        qDebug() << "team not found";
+        team.team_name = "ERROR";
+    }
+
+    return team;
+}
+
 bool dbManager::authenticate(const QString& username, const QString& password) const
 {
     QSqlQuery query;
@@ -121,6 +151,31 @@ void dbManager::removeSouvenir(const QString &souvenirName, const QString &teamN
         }
     }
 
+}
+
+vector<std::pair<QString, double> > dbManager::getSouvenirs(const QString &stadium) const
+{
+    QSqlQuery query;
+
+    vector<std::pair<QString, double> > souvenirs;
+
+    query.prepare("SELECT * FROM Souvenirs WHERE (Stadium) = (:stadium)");
+    query.bindValue(":stadium", stadium);
+
+    query.exec();
+    query.first();
+
+    if(!query.isValid()) {
+        qDebug() << "[DATABASE] no souvenirs found";
+    }
+
+    while(query.isValid()) {
+        qDebug() << "[DATABASE] getting souvenir" << query.value(1) << query.value(2);
+        souvenirs.push_back(std::pair<QString, double>{query.value(1).toString(), query.value(2).toDouble()});
+        query.next();
+    }
+
+    return souvenirs;
 }
 
 void dbManager::addSouvenir(const QString &team, const QString &souvenirName, const QString &cost)

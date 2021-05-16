@@ -42,12 +42,18 @@
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>Campus Souvenirs</string>
+       <string>Stadium Souvenirs</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QTableWidget" name="souvenirsListTableWidget"/>
+     <widget class="QTableWidget" name="souvenirsListTableWidget">
+      <property name="columnCount">
+       <number>2</number>
+      </property>
+      <column/>
+      <column/>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -69,7 +75,13 @@
      </widget>
     </item>
     <item>
-     <widget class="QTableWidget" name="purchasedCartTableWidget"/>
+     <widget class="QTableWidget" name="purchasedCartTableWidget">
+      <property name="columnCount">
+       <number>2</number>
+      </property>
+      <column/>
+      <column/>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -132,6 +144,19 @@
    </property>
    <property name="text">
     <string>Remove</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="stadiumname_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>440</y>
+     <width>391</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Placeholder&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>
