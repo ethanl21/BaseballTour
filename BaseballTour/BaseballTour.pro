@@ -17,7 +17,9 @@ SOURCES += \
     graph.cpp \
     logindialog.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    purchasesouvenirs.cpp \
+    tripplanner.cpp
 
 HEADERS += \
     csvparser.h \
@@ -27,14 +29,18 @@ HEADERS += \
     dbmanager.h \
     graph.h \
     logindialog.h \
-    mainwindow.h
+    mainwindow.h \
+    purchasesouvenirs.h \
+    tripplanner.h
 
 FORMS += \
     databasenameview.ui \
     admin.ui \
     databaseviewform.ui \
     logindialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    purchasesouvenirs.ui \
+    tripplanner.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
