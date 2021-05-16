@@ -129,13 +129,14 @@ void MainWindow::on_simpleStartButton_clicked()
         teams.push_back(teamName);
     }
 
-    // display total distance
-    QMessageBox msgBox;
-    msgBox.setText("Total distance: " + QString::number(distance) + " miles");
-    msgBox.exec();
+//    // display total distance
+//    QMessageBox msgBox;
+//    msgBox.setText("Total distance: " + QString::number(distance) + " miles");
+//    msgBox.exec();
 
     // start trip planner
     tripWindow = new tripPlanner(teams, database, this);
+    tripWindow->setDist(distance);
     tripWindow->exec();
     delete tripWindow;
 }

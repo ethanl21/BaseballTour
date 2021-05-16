@@ -23,6 +23,8 @@ public:
 
     //void setPath(const vector<QString> &stadiums) {stadiumNames = stadiums;}
 
+    void setDist(const int &dist) {totalDistance = dist;}
+
 private slots:
     void on_teamsroute_listWidget_currentTextChanged(const QString &currentText);
 
@@ -48,6 +50,8 @@ private:
     vector<shoppingCartItem> shoppingCart;
 
     double totalSpent;
+
+    int totalDistance;
 };
 
 #endif // TRIPPLANNER_H

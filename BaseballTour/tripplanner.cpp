@@ -92,6 +92,13 @@ void tripPlanner::on_endTripButton_clicked()
 
     on_stadiumComboBox_currentIndexChanged(ui->stadiumComboBox->currentText());
 
+    // set start and end campus
+    ui->startLineEdit->setText(stadiumNames[0]);
+    ui->endLineEdit->setText(*(stadiumNames.end()-1));
+
+    ui->totalPriceSpinBox->setValue(totalSpent);
+    ui->distanceSpinBox->setValue(totalDistance);
+
 }
 
 void tripPlanner::on_tabWidget_currentChanged(int index)
@@ -100,9 +107,13 @@ void tripPlanner::on_tabWidget_currentChanged(int index)
     case 0: // all souvenirs
         ui->totalPriceSpinBox->setValue(totalSpent);
         break;
-//    case 1: // by stadium
-
-//        break;
+    case 1: // by stadium
+        double subtotal = 0.0;
+        for(int i = 0; i < ui->souvenirsPurchasedTableWidget_2->rowCount(); i++) {
+            subtotal += ui->souvenirsPurchasedTableWidget_2->item(i, 2)->text().toDouble();
+        }
+        ui->totalPriceSpinBox->setValue(subtotal);
+        break;
     }
 }
 
@@ -136,7 +147,7 @@ void tripPlanner::on_stadiumComboBox_currentIndexChanged(const QString &arg1)
 
     // recount subtotal for just one stadium
     qDebug() << "counting subtotal, rowCount:" << ui->souvenirsPurchasedTableWidget_2->rowCount();
-    for(int i = 0; i < ui->souvenirsPurchasedTableWidget_2->rowCount()-1; i++) {
+    for(int i = 0; i < ui->souvenirsPurchasedTableWidget_2->rowCount(); i++) {
         qDebug() << i << subtotal << "+" << ui->souvenirsPurchasedTableWidget_2->item(i, 2)->text().toDouble();
         subtotal += ui->souvenirsPurchasedTableWidget_2->item(i, 2)->text().toDouble();
         qDebug() << i << subtotal;
