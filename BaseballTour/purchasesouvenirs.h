@@ -20,7 +20,7 @@ class PurchaseSouvenirs : public QDialog
     Q_OBJECT
 
 public:
-    explicit PurchaseSouvenirs(const QString &stadium, dbManager *db = nullptr, QWidget *parent = nullptr);
+    explicit PurchaseSouvenirs(const QString &team, dbManager *db = nullptr, QWidget *parent = nullptr);
     ~PurchaseSouvenirs();
 
     std::vector<shoppingCartItem> getShoppingCart() const {return shoppingCart;}
@@ -47,7 +47,7 @@ private:
 
     bool acceptPurchase;
 
-    QString stadiumName;
+    QString teamName;
 };
 
 #endif // PURCHASESOUVENIRS_H

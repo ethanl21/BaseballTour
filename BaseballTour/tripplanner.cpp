@@ -116,14 +116,17 @@ void tripPlanner::on_stadiumComboBox_currentIndexChanged(const QString &arg1)
     ui->souvenirsPurchasedTableWidget_2->setColumnWidth(0, 250);
     ui->souvenirsPurchasedTableWidget_2->setHorizontalHeaderLabels(QStringList{"Souvenir", "Qty", "Price"});
 
+
     for(const auto&i : shoppingCart) {
-        qDebug() << "arg1" << arg1 << "compare:" << std::get<0>(i);
+        qDebug() << "Souvenir in cart: " << std::get<0>(i) << std::get<1>(i) << std::get<2>(i);
         if(std::get<0>(i) == arg1) {
             qDebug() << "adding" << std::get<1>(i);
             ui->souvenirsPurchasedTableWidget_2->insertRow(ui->souvenirsPurchasedTableWidget_2->rowCount());
             ui->souvenirsPurchasedTableWidget_2->setItem(ui->souvenirsPurchasedTableWidget_2->rowCount()-1, 0, new QTableWidgetItem(std::get<1>(i)));
             ui->souvenirsPurchasedTableWidget_2->setItem(ui->souvenirsPurchasedTableWidget_2->rowCount()-1, 1, new QTableWidgetItem(QString::number(std::get<2>(i))));
             ui->souvenirsPurchasedTableWidget_2->setItem(ui->souvenirsPurchasedTableWidget_2->rowCount()-1, 2, new QTableWidgetItem(QString::number(std::get<3>(i))));
+        }else {
+            qDebug() << "NOT adding" << std::get<0>(i) << std::get<1>(i);
         }
     }
 

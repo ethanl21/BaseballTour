@@ -30,6 +30,9 @@ teamData dbManager::getTeamData(const QString& teamName) const
     query.prepare("SELECT * FROM teams WHERE team_name=:teamname");
     query.bindValue(":teamname", teamName);
 
+    qDebug() << "finding data from team:" << teamName;
+    if(teamName == "") {qDebug() << "(teamName is empty)";}
+
     query.exec();
     query.first();
 
@@ -45,8 +48,9 @@ teamData dbManager::getTeamData(const QString& teamName) const
         team.stadium_typology = query.value(8).toString();
         team.stadium_roof_type = query.value(9).toString();
     }else {
-        qDebug() << "team not found";
+        qDebug() << "team not found:" << teamName;
         team.team_name = "ERROR";
+        team.stadium_name = "ERROR";
     }
 
     return team;
@@ -153,14 +157,14 @@ void dbManager::removeSouvenir(const QString &souvenirName, const QString &teamN
 
 }
 
-vector<std::pair<QString, double> > dbManager::getSouvenirs(const QString &stadium) const
+vector<std::pair<QString, double> > dbManager::getSouvenirs(const QString &team) const
 {
     QSqlQuery query;
 
     vector<std::pair<QString, double> > souvenirs;
 
-    query.prepare("SELECT * FROM Souvenirs WHERE (Stadium) = (:stadium)");
-    query.bindValue(":stadium", stadium);
+    query.prepare("SELECT * FROM Souvenirs WHERE (team) = (:team)");
+    query.bindValue(":team", team);
 
     query.exec();
     query.first();
@@ -186,7 +190,7 @@ void dbManager::addSouvenir(const QString &team, const QString &souvenirName, co
     {
         if(m_db.open())
         {
-            query.prepare("INSERT INTO souvenirs(college, souvenirs, cost) VALUES(:team, :souvenirs, :cost)");
+            query.prepare("INSERT INTO souvenirs(team, souvenirs, cost) VALUES(:team, :souvenirs, :cost)");
             query.bindValue(":team", team);
             query.bindValue(":souvenirs", souvenirName);
             query.bindValue(":cost", cost);
@@ -356,7 +360,7 @@ bool dbManager::souvenirExists(const QString &name, const QString &teams)
 
     QSqlQuery checkQuery;
 
-    checkQuery.prepare("SELECT souvenirs FROM souvenirs WHERE (teams, souvenirs) = (:teams, :souvenirs)");
+    checkQuery.prepare("SELECT souvenirs FROM souvenirs WHERE (team, souvenirs) = (:teams, :souvenirs)");
     checkQuery.bindValue(":souvenirs", name);
     checkQuery.bindValue(":teams", teams);
 
@@ -487,15 +491,17 @@ vector<teamData> dbManager::getTeamsWithOpenRoof(const QString& roofType) const
 
 QString dbManager::getStadium(const QString& teamName) const
 {
-    QString stadiumName;
     QSqlQuery query;
     query.prepare("SELECT stadium_name FROM teams WHERE team_name=:teamName");
     query.bindValue(":teamName", teamName);
-    query.exec();
+    if(query.exec()) {
+        query.first();
+        return query.value(0).toString();
+    }else {
+        qDebug() << "[getStadium] team does not have a stadium in db";
+        return "STADIUM NOT FOUND";
+    }
 
-    query.first();
-
-    return query.value(0).toString();
 }
 
 vector<QString> dbManager::getStadiumNames() const

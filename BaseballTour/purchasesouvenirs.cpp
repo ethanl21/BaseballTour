@@ -1,18 +1,18 @@
 #include "purchasesouvenirs.h"
 #include "ui_purchasesouvenirs.h"
 
-PurchaseSouvenirs::PurchaseSouvenirs(const QString &stadium, dbManager *db, QWidget *parent) :
+PurchaseSouvenirs::PurchaseSouvenirs(const QString &team, dbManager *db, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PurchaseSouvenirs)
 {
     ui->setupUi(this);
     database = db;
-    ui->stadiumname_label->setText("Purchasing from: " + stadium);
-    stadiumName = stadium;
+    ui->stadiumname_label->setText("Purchasing from: " + team);
+    teamName = team;
 
     // populate souvenirs
-    auto souvenirs = database->getSouvenirs(stadium);
-    qDebug() << "getting souvenirs from" << stadium;
+    auto souvenirs = database->getSouvenirs(team);
+    qDebug() << "[PurchaseSouvenirs ctor] getting souvenirs from" << team;
 
     ui->souvenirsListTableWidget->setHorizontalHeaderLabels(QStringList{"Souvenir", "Price"});
     ui->purchasedCartTableWidget->setHorizontalHeaderLabels(QStringList{"Souvenir", "Qty", "Price"});
@@ -88,6 +88,6 @@ void PurchaseSouvenirs::on_buttonBox_accepted()
     acceptPurchase = true;
 
     for(int i = 0; i < ui->purchasedCartTableWidget->rowCount(); i++) {
-        shoppingCart.push_back(std::make_tuple(stadiumName, ui->purchasedCartTableWidget->item(i,0)->text(), ui->purchasedCartTableWidget->item(i,1)->text().toInt(), ui->purchasedCartTableWidget->item(i,2)->text().toDouble()));
+        shoppingCart.push_back(std::make_tuple(teamName, ui->purchasedCartTableWidget->item(i,0)->text(), ui->purchasedCartTableWidget->item(i,1)->text().toInt(), ui->purchasedCartTableWidget->item(i,2)->text().toDouble()));
     }
 }

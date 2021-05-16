@@ -233,7 +233,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Purchase Souvenirs For Selected Campus</string>
+      <string>Purchase Souvenirs For Selected Stadium</string>
      </property>
     </widget>
    </widget>
@@ -248,7 +248,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="byPurchaseTab">
       <attribute name="title">

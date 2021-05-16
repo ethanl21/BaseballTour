@@ -106,10 +106,10 @@ public:
 
     //!
     //! \brief getSouvenirs gets the souvenirs for a given stadium
-    //! \param stadium stadium to return souvenirs from
+    //! \param team team to return souvenirs from
     //! \return souvenir name, souvenir price vector
     //!
-    vector<std::pair<QString, double>> getSouvenirs(const QString& stadium) const;
+    vector<std::pair<QString, double>> getSouvenirs(const QString& team) const;
 
     /**
     * @brief Method to update a Souvenir

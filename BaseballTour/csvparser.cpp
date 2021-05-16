@@ -18,14 +18,20 @@ vector<teamData> csvParser::parseTeamsFromFile() const {
   while (!csvStream.atEnd()) {
     QString s = csvStream.readLine();
 
-    s.replace("\\,", QChar(QChar::SoftHyphen));
+    s.replace("\\,", "\\comma");
 
     row.append(s.split(","));
 
+    qDebug() << s;
+
     for(auto &i : row) {
-        i.replace(QChar(QChar::SoftHyphen), ',');
+        i.replace("\\comma", ",");
         i.replace("\"", "");
     }
+
+//    for(int i = 0; i <= 9; i++) {
+//        qDebug() << i << row[i];
+//    }
 
     temp.team_name = row[0];
     temp.stadium_name = row[1];
@@ -66,12 +72,12 @@ vector<distanceEdge> csvParser::parseDistancesFromFile() const
     while (!csvStream.atEnd()) {
       QString s = csvStream.readLine();
 
-      s.replace("\\,", QChar(QChar::SoftHyphen));
+      s.replace("\\,", QChar(QChar::ReplacementCharacter));
 
       row.append(s.split(","));
 
       for(auto &i : row) {
-          i.replace(QChar(QChar::SoftHyphen), ',');
+          i.replace(QChar(QChar::ReplacementCharacter), ',');
           i.replace("\"", "");
       }
 

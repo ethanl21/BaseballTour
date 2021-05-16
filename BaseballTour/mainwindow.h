@@ -59,6 +59,9 @@ private slots:
     void on_startPushButton_clicked();
 
 private:
+
+    void rebuildGraph();
+
     Ui::MainWindow *ui;
 
     // forms
