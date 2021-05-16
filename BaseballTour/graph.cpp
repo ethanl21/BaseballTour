@@ -168,6 +168,42 @@ int Graph<Type>::startMST() {
 }
 
 template<class Type>
+int Graph<Type>::startDijkstra(const Type& start, const Type& dest) {
+    vector<vector<int>> T;
+    T = DijkstraPaths(start);
+    return T[getIndex(dest)][1];
+}
+
+template<class Type>
+int Graph<Type>::multiDijkstra(vector<Type>& nodes, const Type& start) {
+
+    // base case
+    if (nodes.size() <= 1)
+        return 0;
+
+    vector<vector<int>> T;
+    T = DijkstraPaths(start);
+
+    // find closest in selected nodes
+    int distance = INT_MAX;
+    int closest = getIndex(start);
+    for (unsigned int i = 0; i < T.size(); i++) {
+        if (T[i][1] < distance) {
+            closest = i;
+            distance = T[i][1];
+        }
+    }
+
+    // remove starting point from nodes
+    auto pos = std::find(nodes.begin(), nodes.end(), start);
+    if (pos != nodes.end())
+        nodes.erase(pos);
+
+    distance += multiDijkstra(nodes, nodeList[closest]);
+    return distance;
+}
+
+template<class Type>
 vector<vector<int>> Graph<Type>::DijkstraPaths(const Type& start) {
     vector<vector<int>> T(size);
     for (auto it = T.begin(); it != T.end(); it++)
@@ -236,16 +272,21 @@ int Graph<Type>::shortestPath(const Type& start) {
     vector<bool> visited(size, false);
     visited[u] = true;
     shortestOrder.clear();
+    shortestOrder.push_back(start);
     int distance = 0;
     int min;
     for (int i = 0; i < size - 1; i++) {
         min = INT_MAX;
         for (int j = 0; j < size; j++) {
-            if (adjMatrix[u][v].weight > 0 && !visited[v]
-                    && adjMatrix[u][v].weight < min)
+            if (adjMatrix[u][j].weight > 0 && !visited[j]
+                    && adjMatrix[u][j].weight < min) {
                 v = j;
+                min = adjMatrix[u][v].weight;
+            }
         }
+        visited[v] = true;
         distance += adjMatrix[u][v].weight;
+        shortestOrder.push_back(nodeList[v]);
         u = v;
     }
     return distance;

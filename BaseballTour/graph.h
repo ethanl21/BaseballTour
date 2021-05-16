@@ -60,6 +60,11 @@ public:
     vector<Type> shortestOrder;
 
     /**
+     * @brief dijkstraOrder Order of nodes for multiDijkstra()
+     */
+    vector<Type> dijkstraOrder;
+
+    /**
      * @brief Output edges in MST
      */
     QString mstString;
@@ -97,6 +102,18 @@ public:
      * @return Total cost (distance)
      */
     int startBFS(const Type& start);
+
+    int startDijkstra(const Type& start, const Type& dest);
+
+    int multiDijkstra(vector<Type>& nodes, const Type& start);
+
+    /**
+     * @brief Finds shortest path to all nodes
+     * Saves path in shortestOrder
+     * @param start Starting node
+     * @return Distance travelled
+     */
+    int shortestPath(const Type& start);
 
 private:
 
@@ -136,14 +153,6 @@ private:
      * @return Two dimentional array hold data for paths
      */
     vector<vector<int>> DijkstraPaths(const Type& start);
-
-    /**
-     * @brief Finds shortest path to all nodes
-     * Saves path in shortestOrder
-     * @param start Starting node
-     * @return Distance travelled
-     */
-    int shortestPath(const Type& start);
 
     /**
      * @brief Compares Edges (sorts in increasing order)
