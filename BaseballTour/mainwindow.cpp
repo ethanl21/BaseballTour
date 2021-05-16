@@ -130,8 +130,11 @@ void MainWindow::on_simpleStartButton_clicked()
     int distance = 0;
     vector<QString> route;
     if (ui->simpleToComboBox->currentIndex() == 0) { // visit all option
-        distance = graph->shortestPath(ui->simpleFromComboBox->currentText());
-        route = graph->shortestOrder;
+        //distance = graph->startShortestPath(ui->simpleFromComboBox->currentText());
+        distance = graph->startMultiDijkstra(nameList,
+                                         ui->simpleFromComboBox->currentText());
+        //route = graph->shortestOrder;
+        route = graph->dijkstraOrder;
     } else {
         QString start = ui->simpleFromComboBox->currentText();
         QString dest = ui->simpleToComboBox->currentText();

@@ -126,7 +126,7 @@ public:
      * @param start Starting node
      * @return Distance travelled
      */
-    int shortestPath(const Type& start);
+    int startShortestPath(const Type& start);
 
 private:
 
@@ -174,6 +174,13 @@ private:
      * @return Total distance
      */
     int multiDijkstra(vector<Type> nodes, const Type& start);
+
+    /**
+     * @brief Finds shortest path from node to node
+     * @param start Starting node
+     * @return Total distance
+     */
+    int shortestPath(const Type& start);
 
     /**
      * @brief Compares Edges (sorts in increasing order)

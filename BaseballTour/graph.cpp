@@ -276,28 +276,34 @@ vector<vector<int>> Graph<Type>::DijkstraPaths(const Type& start) {
 }
 
 template<class Type>
-int Graph<Type>::shortestPath(const Type& start) {
-    int u = getIndex(start);
-    int v = 0;
-    vector<bool> visited(size, false);
+int Graph<Type>::startShortestPath(const Type& start) {
     shortestOrder.clear();
-    shortestOrder.push_back(start);
+    return shortestPath(start);
+}
+
+template<class Type>
+int Graph<Type>::shortestPath(const Type& start) {
+
+    int curr = getIndex(start);
+    int next = 0;
+    vector<bool> visited(size, false);
+
     int distance = 0;
     int min;
     do {
-        visited[u] = true;
+        visited[curr] = true;
+        shortestOrder.push_back(nodeList[curr]);
         min = INT_MAX;
         for (int j = 0; j < size; j++) {
-            if (adjMatrix[u][j].weight > 0 && !visited[j]
-                    && adjMatrix[u][j].weight < min) {
-                v = j;
-                min = adjMatrix[u][v].weight;
+            if (adjMatrix[curr][j].weight > 0 && !visited[j]
+                    && adjMatrix[curr][j].weight < min) {
+                next = j;
+                min = adjMatrix[curr][next].weight;
             }
         }
-        distance += adjMatrix[u][v].weight;
-        shortestOrder.push_back(nodeList[v]);
-        u = v;
-    } while(!visited[u]);
+        distance += adjMatrix[curr][next].weight;
+        curr = next;
+    } while(!visited[curr]);
     return distance;
 }
 
