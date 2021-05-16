@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addsouvenir.cpp \
     csvparser.cpp \
     databasenameview.cpp \
     admin.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    addsouvenir.h \
     csvparser.h \
     databasenameview.h \
     admin.h \
@@ -30,6 +32,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    addsouvenir.ui \
     databasenameview.ui \
     admin.ui \
     databaseviewform.ui \
