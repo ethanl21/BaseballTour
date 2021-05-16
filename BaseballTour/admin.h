@@ -53,14 +53,16 @@ private slots:
     */
     void on_souvenir_tableView_clicked(const QModelIndex &index);
 
-//    /**
-//    * @brief Button Method to show addSouvenir UI window
-//    *
-//    * calls constructor for addSouvenir UI window
-//    * opens addSouvenir UI window
-//    */
-//    void on_pushButton_addSouvenir_clicked();
+    /**
+    * @brief Button Method to show addSouvenir UI window
+    *
+    * calls constructor for addSouvenir UI window
+    * opens addSouvenir UI window
+    */
+    void on_pushButton_addNewSouvenir_clicked();
 
+    void updateSearchResults(const QString &souvenirName, const QString &team);
+    void on_pushButton_search_clicked();
     /**
     * @brief Button Method to take input from admin and update team
     *

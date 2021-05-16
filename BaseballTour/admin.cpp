@@ -1,6 +1,7 @@
 #include "admin.h"
 #include "ui_admin.h"
 #include "dbmanager.h"
+#include "addsouvenir.h"
 //#include "fileselector.h"
 
 Admin::Admin(dbManager* db, QWidget *parent) :
@@ -117,6 +118,7 @@ void Admin::on_pushButton_removeSouvenir_clicked()
 
     if(m_db->souvenirExists(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text()) && success)
     {
+        qDebug() << "Checking if souvenir exists";
         m_db->removeSouvenir(ui->lineEdit_souvenirName->text(), ui->label_stadiumName->text());
         ui->lineEdit_souvenirName->setText("");
         ui->lineEdit_souvenirName->setPlaceholderText("souvenir name");
@@ -144,6 +146,77 @@ void Admin::on_souvenir_tableView_clicked(const QModelIndex &index)
         ui->lineEdit_souvenirName->setText(souvenirName);
         ui->label_stadiumName->setText(teams);
         ui->doubleSpinBox_cost->setValue(thirdText);
+    }
+}
+
+void Admin::on_pushButton_addNewSouvenir_clicked()
+{
+    addSouvenir adding;
+    adding.setModal(true);
+    adding.exec();
+    updateSouvenirs();
+    qDebug() << "Add souvenir button pressed";
+}
+
+void Admin::updateSearchResults(const QString &souvenirName, const QString &team)
+{
+    QSqlQueryModel* model=new QSqlQueryModel();
+
+    QSqlQuery qry;
+
+    qDebug() << "The souvenir name is: " << souvenirName;
+
+    if(souvenirName == "" && team != "")
+    {
+        qry.prepare("SELECT teams, souvenirs, cost FROM Souvenirs WHERE (Teams) = (:teams)");
+        qry.bindValue(":teams", team);
+    }
+    else if(souvenirName != "" && team == "")
+    {
+        qry.prepare("SELECT teams, souvenirs, cost FROM Souvenirs WHERE (Souvenirs) = (:souvenirName)");
+        qry.bindValue(":souvenirName", souvenirName);
+    }
+    else
+    {
+        qry.prepare("SELECT teams, souvenirs, cost FROM Souvenirs WHERE (Souvenirs, Teams) = (:souvenirName, :teams)");
+        qry.bindValue(":souvenirName", souvenirName);
+        qry.bindValue(":teams", team);
+    }
+
+    if(qry.exec())
+    {
+        qDebug() << "Search updated";
+    }
+
+    model->setQuery(qry);
+
+    QSortFilterProxyModel *m=new QSortFilterProxyModel(this);
+
+    m->setDynamicSortFilter(true);
+    m->setSourceModel(model);
+    ui->souvenir_tableView->setModel(m);
+    ui->souvenir_tableView->setColumnWidth(0,180);
+}
+
+void Admin::on_pushButton_search_clicked()
+{
+    QString teamName = ui->lineEdit_teamName->text();
+    QString souvenirName = ui->lineEdit_souvenirName->text();
+
+    qDebug() << "TEAM: " << teamName;
+    qDebug() << "ITEM: " << souvenirName;
+
+    if(teamName != "" && souvenirName == "")
+    {
+        updateSearchResults(NULL, teamName);
+    }
+    else if(teamName == "" && souvenirName != "")
+    {
+        updateSearchResults(souvenirName, NULL);
+    }
+    else if(teamName !=  NULL && souvenirName != NULL)
+    {
+        updateSearchResults(souvenirName, teamName);
     }
 }
 
