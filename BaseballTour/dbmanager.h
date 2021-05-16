@@ -31,7 +31,11 @@ struct teamData {
     QString stadium_roof_type;
 };
 
-static const QString PROJECT_PATH = "D:/Qt Projects/CS1D/BaseballTour";         // Alan's Path
+struct distanceEdge {
+    QString team_name_origin;
+    QString team_name_destination;
+    int distance;
+};
 
 class dbManager
 {
@@ -56,6 +60,10 @@ public:
     //!
     bool authenticate(const QString& username, const QString& password) const;
 
+    //!
+    //! \brief getTeamNames
+    //! \return vector of team names from database
+    //!
     vector<QString> getTeamNames() const;
   
     //!
@@ -66,6 +74,18 @@ public:
     teamData getTeamData(const QString& teamName) const;
 
     void addSouvenir(const QString &college, const QString &souvenirName, const QString &cost);
+
+    //!
+    //! \brief addTeam adds a new team from a teamData object
+    //! \param newTeam - populated teamData object containing a team's data
+    //!
+    void addTeam(const teamData& newTeam);
+
+    //!
+    //! \brief addDist adds a distance between stadiums (edge)
+    //! \param newDist obj containing edge information (origin, dest, dist)
+    //!
+    void addDist(const distanceEdge& newDist);
 
     /**
     * @brief Method to remove a Souvenir
@@ -98,6 +118,11 @@ public:
     * @param &college - name of college
     */
 
+    void updateTeam(QString teamName, QString stadiumName, int capacity,
+                        QString location,QString playingSurface,
+                        QString teamLeague,int dateOpen,QString distCenterField,
+                        QString typology,QString roofType);
+
     bool souvenirExists(const QString &name, const QString &college);
 
     //!
@@ -119,12 +144,31 @@ public:
     //!
     vector<teamData> getTeamsByMinCtrField() const;
 
-    //!
+
     //! \brief getTeamsWithOpenRoof
     //! \param roof type to return
     //! \return vector containing team(s) with open roof type
     //!
     vector<teamData> getTeamsWithOpenRoof(const QString& roofType="Open") const;
+
+    //!
+    //! \brief getStadium
+    //! \param teamName Name of team
+    //! \return name of stadium
+    //!
+    QString getStadium(const QString& teamName) const;
+
+    //!
+    //! \brief getStadiumNames
+    //! \return vector of stadium names from database
+    //!
+    vector<QString> getStadiumNames() const;
+
+    //!
+    //! \brief getDistances
+    //! \return vector containing distances to other stadiums
+    //!
+    vector<distanceEdge> getDistances(const QString& teamName) const;
 
 private:
     //!

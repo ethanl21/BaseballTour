@@ -7,19 +7,24 @@ Admin::Admin(dbManager* db, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Admin)
 {
-//    m_db = QSqlDatabase::addDatabase("QSQLITE");
-//    m_db.setDatabaseName(path);
+    m_db = db;
 
     ui->setupUi(this);
     m_db = db;
+
+    nameList = database->getTeamNames();
+    tempList = nameList;
+
+    for (const auto &teamName : nameList)
+    {
+        ui->comboBox->addItem(teamName);
+    }
+
+    // populate the fields on init
+    populateInformation(ui->comboBox->currentText());
+
     updateSouvenirs();
 }
-
-//Admin::Admin(const QString& path)
-//{
-//    m_db = QSqlDatabase::addDatabase("QSQLITE");
-//    m_db.setDatabaseName(path);
-//}
 
 Admin::~Admin()
 {
@@ -142,23 +147,49 @@ void Admin::on_souvenir_tableView_clicked(const QModelIndex &index)
     }
 }
 
-//void Admin::on_pushButton_addSouvenir_clicked()
-//{
-//    addSouvenir adding;
-//    adding.setModal(true);
-//    adding.exec();
-//    updateSouvenirs();
-//}
+void Admin::on_pushButton_clicked()
+{
+    QString teamName = ui->comboBox->currentText();
+    QString stadiumName = ui->stadiumName_field->text();
+    int capacity = ui->seatingCapacity->text().toInt();
+    QString location = ui->stadiumLocation_field->text();
+    QString playingSurface = ui->playingSurface_field->text();
+    QString league = ui->listWidget->currentItem()->text();
+    int date = ui->dateOpened_spinbox->value();
+    QString distCenterField = ui->distance_field->text();
+    QString typology = ui->typology_field->text();
+    QString roofType = ui->roof_field->text();
 
-//void Admin::on_pushButton_addNewColleges_clicked()
-//{
-//    fileSelector* browse = new fileSelector();
-//    browse->show();
-//    hide();
-//}
+    m_db->updateTeam(teamName,stadiumName,capacity,location,playingSurface,league,date,distCenterField,typology,roofType);
 
-//void Admin::on_pushButton_clearColleges_clicked()
-//{
-//    m_db.clearColleges();
-//    updateColleges();
-//}
+    QMessageBox::information(this, "Success", "Modified team in database.");
+
+
+}
+
+void Admin::populateInformation(const QString &teamName)
+{
+    teamData data = m_db->getTeamData(teamName);
+
+    ui->stadiumName_field->setText(data.stadium_name);
+    ui->seatingCapacity->setValue(data.stadium_seating_capacity);
+    ui->stadiumLocation_field->setText(data.stadium_location);
+    ui->playingSurface_field->setText(data.stadium_playing_surface);
+
+    if(data.team_league == "American") {
+        ui->listWidget->setCurrentRow(0);
+    }else {
+        ui->listWidget->setCurrentRow(1);
+    }
+
+    ui->dateOpened_spinbox->setValue(data.stadium_date_opened);
+    ui->distance_field->setText(data.stadium_dist_ctrfield);
+    ui->typology_field->setText(data.stadium_typology);
+    ui->roof_field->setText(data.stadium_roof_type);
+}
+
+void Admin::on_comboBox_currentIndexChanged(const QString &arg1)
+{
+    qDebug() << "populating information from:" << arg1;
+    populateInformation(arg1);
+}
