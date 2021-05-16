@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <queue>
 #include <limits.h>
+#include <QString>
 
 using namespace std;
 
@@ -53,6 +54,11 @@ public:
     vector<Type> bfsOrder;
 
     /**
+     * @brief Output edges in MST
+     */
+    QString mstString;
+
+    /**
      * @brief Adds node to graph
      * @param obj Object to add to graph
      */
@@ -94,14 +100,14 @@ private:
     int size;
 
     /**
-     * @brief Adjacency matrix
-     */
-    vector<vector<Edge>> adjMatrix;
-
-    /**
      * @brief List of data associated with index
      */
     vector<Type> nodeList;
+
+    /**
+     * @brief Adjacency matrix
+     */
+    vector<vector<Edge>> adjMatrix;
 
     /**
      * @brief Helper function to get index of node

@@ -212,7 +212,7 @@ void MainWindow::on_DFSpushButton_clicked()
     }
 
     QMessageBox msgBox;
-    msgBox.setText("DFS: Starting from Oracle Park (San Francisco Giants)");
+    msgBox.setText("DFS starting from Oracle Park (San Francisco Giants)");
     msgBox.setInformativeText("Total distance: " + QString::number(distance));
     msgBox.setDetailedText(pathStr);
     msgBox.exec();
@@ -227,7 +227,7 @@ void MainWindow::on_BFSpushButton_clicked()
     }
 
     QMessageBox msgBox;
-    msgBox.setText("BFS: Starting from Target Field (Minnesota Twins)");
+    msgBox.setText("BFS starting from Target Field (Minnesota Twins)");
     msgBox.setInformativeText("Total distance: " + QString::number(distance));
     msgBox.setDetailedText(pathStr);
     msgBox.exec();
@@ -236,10 +236,13 @@ void MainWindow::on_BFSpushButton_clicked()
 void MainWindow::on_MSTpushButton_clicked()
 {
     int distance = graph->startMST();
+    QString pathStr = "MST Edges:\n";
+    pathStr += graph->mstString;
 
     QMessageBox msgBox;
+    msgBox.setStyleSheet("QLabel{min-width: 400px;}");
     msgBox.setText("MST");
     msgBox.setInformativeText("Total distance: " + QString::number(distance));
-    //msgBox.setDetailedText(pathStr);
+    msgBox.setDetailedText(pathStr);
     msgBox.exec();
 }
