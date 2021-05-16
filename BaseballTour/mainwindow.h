@@ -56,6 +56,8 @@ private slots:
 
     void on_MSTpushButton_clicked();
 
+    void on_startPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

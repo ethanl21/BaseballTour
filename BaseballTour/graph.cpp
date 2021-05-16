@@ -175,10 +175,23 @@ int Graph<Type>::startDijkstra(const Type& start, const Type& dest) {
 }
 
 template<class Type>
-int Graph<Type>::multiDijkstra(vector<Type>& nodes, const Type& start) {
+int Graph<Type>::startMultiDijkstra(vector<Type> nodes, const Type& start) {
+    dijkstraOrder.clear();
+    return multiDijkstra(nodes, start);
+}
+
+template<class Type>
+int Graph<Type>::multiDijkstra(vector<Type> nodes, const Type& start) {
+
+    dijkstraOrder.push_back(start);
+
+    // remove starting point from nodes
+    auto pos = find(nodes.begin(), nodes.end(), start);
+    if (pos != nodes.end())
+        nodes.erase(pos);
 
     // base case
-    if (nodes.size() <= 1)
+    if (nodes.size() < 1)
         return 0;
 
     vector<vector<int>> T;
@@ -187,17 +200,14 @@ int Graph<Type>::multiDijkstra(vector<Type>& nodes, const Type& start) {
     // find closest in selected nodes
     int distance = INT_MAX;
     int closest = getIndex(start);
-    for (unsigned int i = 0; i < T.size(); i++) {
+    int i = 0;
+    for (Type node : nodes) {
+        i = getIndex(node);
         if (T[i][1] < distance) {
             closest = i;
             distance = T[i][1];
         }
     }
-
-    // remove starting point from nodes
-    auto pos = std::find(nodes.begin(), nodes.end(), start);
-    if (pos != nodes.end())
-        nodes.erase(pos);
 
     distance += multiDijkstra(nodes, nodeList[closest]);
     return distance;
@@ -270,12 +280,12 @@ int Graph<Type>::shortestPath(const Type& start) {
     int u = getIndex(start);
     int v = 0;
     vector<bool> visited(size, false);
-    visited[u] = true;
     shortestOrder.clear();
     shortestOrder.push_back(start);
     int distance = 0;
     int min;
-    for (int i = 0; i < size - 1; i++) {
+    do {
+        visited[u] = true;
         min = INT_MAX;
         for (int j = 0; j < size; j++) {
             if (adjMatrix[u][j].weight > 0 && !visited[j]
@@ -284,11 +294,10 @@ int Graph<Type>::shortestPath(const Type& start) {
                 min = adjMatrix[u][v].weight;
             }
         }
-        visited[v] = true;
         distance += adjMatrix[u][v].weight;
         shortestOrder.push_back(nodeList[v]);
         u = v;
-    }
+    } while(!visited[u]);
     return distance;
 }
 

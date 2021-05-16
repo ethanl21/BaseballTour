@@ -148,10 +148,47 @@ void MainWindow::on_simpleStartButton_clicked()
         teams.push_back(teamName);
     }
 
-    qDebug() << "Total distance:" << distance;
+    // display total distance
+    QMessageBox msgBox;
+    msgBox.setText("Total distance: " + QString::number(distance) + " miles");
+    msgBox.exec();
+
+    // start trip planner
     tripWindow = new tripPlanner(teams, database, this);
     tripWindow->exec();
+    delete tripWindow;
+}
 
+void MainWindow::on_startPushButton_clicked()
+{
+    QString start = ui->startComboBox->currentText();
+    vector<QString> stadiumNames;
+
+    // get all stadium names selected
+    for (int i = 0; i < ui->teamListWidget->count(); i++) {
+        stadiumNames.push_back(ui->teamListWidget->item(i)->text());
+    }
+
+    // perform dijkstra recursively
+    int distance = graph->startMultiDijkstra(stadiumNames, start);
+
+    // convert stadium names to team names
+    vector<QString> route = graph->dijkstraOrder;
+    vector<QString> teams;
+    QString teamName;
+    for (QString stadium : route) {
+        teamName = database->getStadiumData(stadium).team_name;
+        teams.push_back(teamName);
+    }
+
+    // display total distance
+    QMessageBox msgBox;
+    msgBox.setText("Total distance: " + QString::number(distance) + " miles");
+    msgBox.exec();
+
+    // start trip planner
+    tripWindow = new tripPlanner(teams, database, this);
+    tripWindow->exec();
     delete tripWindow;
 }
 

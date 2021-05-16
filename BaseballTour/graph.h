@@ -103,9 +103,22 @@ public:
      */
     int startBFS(const Type& start);
 
+    /**
+     * @brief Start Dijkstra from starting point to destination
+     * @param start Starting node
+     * @param dest Destination
+     * @return Total distance travelled
+     */
     int startDijkstra(const Type& start, const Type& dest);
 
-    int multiDijkstra(vector<Type>& nodes, const Type& start);
+    /**
+     * @brief Start recursive Dijkstra (visits all given nodes)
+     * Saves path order to dijkstraOrder
+     * @param nodes All nodes to visit
+     * @param start Starting node
+     * @return Total distance travelled
+     */
+    int startMultiDijkstra(vector<Type> nodes, const Type& start);
 
     /**
      * @brief Finds shortest path to all nodes
@@ -153,6 +166,14 @@ private:
      * @return Two dimentional array hold data for paths
      */
     vector<vector<int>> DijkstraPaths(const Type& start);
+
+    /**
+     * @brief Recursively runs Dijkstra over nodes
+     * @param nodes List of nodes to visit
+     * @param start Starting node
+     * @return Total distance
+     */
+    int multiDijkstra(vector<Type> nodes, const Type& start);
 
     /**
      * @brief Compares Edges (sorts in increasing order)
