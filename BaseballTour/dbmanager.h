@@ -80,7 +80,8 @@ public:
     //!
     teamData getStadiumData(const QString& stadium) const;
 
-    void addSouvenir(const QString &college, const QString &souvenirName, const QString &cost);
+    void addSouvenir(const QString &team, const QString &souvenirName, const QString &cost);
+
 
     //!
     //! \brief addTeam adds a new team from a teamData object
