@@ -65,8 +65,10 @@ void Admin::on_pushButton_updateSouvenir_clicked()
         {
             double costToString = ui->doubleSpinBox_cost->value();
             QString cost = QString::number(costToString);
-            cost = "$" + cost;
-            m_db->updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
+            // cost = cost;
+            m_db->updateSouvenir(tempSouvenir, ui->label_stadiumName->text(), cost, ui->lineEdit_souvenirName->text());
+            qDebug() << "Souvenir Name: " << ui->lineEdit_souvenirName->text();
+            qDebug() << "Temp: " << tempSouvenir;
         }
         else
         {
@@ -79,7 +81,8 @@ void Admin::on_pushButton_updateSouvenir_clicked()
         {
             double costToString = ui->doubleSpinBox_cost->value();
             QString cost = QString::number(costToString);
-            m_db->updateSouvenir(tempSouvenir, ui->label_stadiumName->text(),cost, ui->lineEdit_souvenirName->text());
+            m_db->updateSouvenir(tempSouvenir, ui->label_stadiumName->text(), cost, ui->lineEdit_souvenirName->text());
+            qDebug() << ui->lineEdit_souvenirName->text();
         }
         else
         {
@@ -87,6 +90,7 @@ void Admin::on_pushButton_updateSouvenir_clicked()
         }
         updateSouvenirs();
     }
+    updateSouvenirs();
 }
 
 void Admin::on_pushButton_removeSouvenir_clicked()
@@ -125,14 +129,15 @@ void Admin::on_souvenir_tableView_clicked(const QModelIndex &index)
     {
         int row = index.row();
         qDebug() << row;
-        QString firstText = index.sibling(row, 0).data().toString();
-        qDebug() << firstText;
-        QString secondText = index.sibling(row, 1).data().toString();
+        QString teams = index.sibling(row, 0).data().toString();
+        qDebug() << teams;
+        QString souvenirName = index.sibling(row, 1).data().toString();
+        qDebug() << souvenirName;
         tempSouvenir = index.sibling(row, 1).data().toString();
         double thirdText = index.sibling(row, 2).data().toString().replace("$", "").toDouble();
 
-        ui->lineEdit_souvenirName->setText(secondText);
-        ui->label_stadiumName->setText(firstText);
+        ui->lineEdit_souvenirName->setText(souvenirName);
+        ui->label_stadiumName->setText(teams);
         ui->doubleSpinBox_cost->setValue(thirdText);
     }
 }

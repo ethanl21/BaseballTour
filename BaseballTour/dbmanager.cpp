@@ -150,20 +150,22 @@ void dbManager::addSouvenir(const QString &team, const QString &souvenirName, co
     }
 }
 
-void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &spin, const QString &newsouvenir)
+void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &newCost, const QString &newsouvenir)
 {
     QSqlQuery query;
 
 
     if(m_db.open())
     {
-        query.prepare("UPDATE souvenirs SET (souvenirs, cost) = (:newsouvenirName, :cost) "
-                       "WHERE (teams, souvenirs) = (:teams, :souvenirs)");
-        query.bindValue(":teams", team);
-        query.bindValue(":newsouvenirName", newsouvenir);
+        query.prepare("UPDATE Souvenirs SET (Souvenirs, Cost) = (:newSouvenir, :newCost)"
+            "WHERE (teams, souvenirs) = (:team, :souvenirs)");
         query.bindValue(":souvenirs", souvenirName);
-        query.bindValue(":cost", spin);
+        query.bindValue(":team", team);
+        query.bindValue(":newSouvenir", newsouvenir);
+        query.bindValue(":newCost", newCost);
 
+        qDebug() << souvenirName;
+        qDebug() << newCost;
         if(query.exec())
         {
             qDebug() << "UPDATE WORKED" << Qt::endl;
