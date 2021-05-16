@@ -144,7 +144,7 @@ void dbManager::removeSouvenir(const QString &souvenirName, const QString &teamN
     {
         if(m_db.open())
         {
-            query.prepare("DELETE FROM Souvenirs WHERE (Souvenirs) = (:souvenirs) AND Teams = (:teamName)");
+            query.prepare("DELETE FROM Souvenirs WHERE (Souvenirs, Teams) = (:souvenirs, :teamName)");
             query.bindValue(":souvenirs", souvenirName);
             query.bindValue(":teamName", teamName);
 
@@ -185,6 +185,7 @@ vector<std::pair<QString, double> > dbManager::getSouvenirs(const QString &team)
 void dbManager::addSouvenir(const QString &team, const QString &souvenirName, const QString &cost)
 {
     QSqlQuery query;
+    qDebug() << "Adding souvenir debug";
 
     if(!souvenirExists(souvenirName, team))
     {
@@ -195,11 +196,10 @@ void dbManager::addSouvenir(const QString &team, const QString &souvenirName, co
             query.bindValue(":souvenirs", souvenirName);
             query.bindValue(":cost", cost);
 
-            if(query.exec())
-                qDebug() << "souvenir add success!";
-            else
-                qDebug() << "souvenir add failed!";
-        }
+        if(query.exec())
+            qDebug() << "souvenir add success!";
+        else
+            qDebug() << "souvenir add failed!";
     }
     else
     {

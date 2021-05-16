@@ -80,7 +80,8 @@ public:
     //!
     teamData getStadiumData(const QString& stadium) const;
 
-    void addSouvenir(const QString &college, const QString &souvenirName, const QString &cost);
+    void addSouvenir(const QString &team, const QString &souvenirName, const QString &cost);
+
 
     //!
     //! \brief addTeam adds a new team from a teamData object
@@ -123,6 +124,7 @@ public:
     */
     void updateSouvenir(const QString &souvenirName, const QString &college, const QString &newCost, const QString &newsouvenir);
 
+//    void searchTeamOrSouvenir(const QString &souvenirName, const QString &team);
     /**
     * @brief Method to check if souvenir exists
     *
