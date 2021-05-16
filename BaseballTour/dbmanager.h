@@ -121,7 +121,7 @@ public:
     * @param &spin - cost of souvenir
     * @param &newsouvenir - name of new souvenir
     */
-    void updateSouvenir(const QString &souvenirName, const QString &college, const QString &spin, const QString &newsouvenir);
+    void updateSouvenir(const QString &souvenirName, const QString &college, const QString &newCost, const QString &newsouvenir);
 
     /**
     * @brief Method to check if souvenir exists
