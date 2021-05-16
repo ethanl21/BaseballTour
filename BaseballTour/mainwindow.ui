@@ -239,7 +239,6 @@
     <addaction name="actionImport_Teams"/>
     <addaction name="actionImport_Distances"/>
     <addaction name="separator"/>
-    <addaction name="actionImport_Souvenirs"/>
    </widget>
    <widget class="QMenu" name="menuDatabase">
     <property name="title">
@@ -257,7 +256,6 @@
     <addaction name="actionLog_Out"/>
     <addaction name="actionModify_Database"/>
     <addaction name="separator"/>
-    <addaction name="actionDBG_Is_User_Admin"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDatabase"/>
