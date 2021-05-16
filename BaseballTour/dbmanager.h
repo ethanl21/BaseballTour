@@ -123,6 +123,7 @@ public:
     */
     void updateSouvenir(const QString &souvenirName, const QString &college, const QString &newCost, const QString &newsouvenir);
 
+//    void searchTeamOrSouvenir(const QString &souvenirName, const QString &team);
     /**
     * @brief Method to check if souvenir exists
     *
