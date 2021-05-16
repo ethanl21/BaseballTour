@@ -58,7 +58,8 @@ int Graph<Type>::dfs(int v, vector<bool>& visited) {
     sort(adjList.begin(), adjList.end(), compareWeight);
 
     for (auto it = adjList.begin(); it != adjList.end(); it++) {
-         distTraveled += it->weight + dfs(it->v, visited);
+        distTraveled += it->weight;
+        distTraveled += dfs(it->v, visited);
     }
     return distTraveled;
 }
@@ -226,6 +227,28 @@ vector<vector<int>> Graph<Type>::DijkstraPaths(const Type& start) {
     }
 
     return T;
+}
+
+template<class Type>
+int Graph<Type>::shortestPath(const Type& start) {
+    int u = getIndex(start);
+    int v = 0;
+    vector<bool> visited(size, false);
+    visited[u] = true;
+    shortestOrder.clear();
+    int distance = 0;
+    int min;
+    for (int i = 0; i < size - 1; i++) {
+        min = INT_MAX;
+        for (int j = 0; j < size; j++) {
+            if (adjMatrix[u][v].weight > 0 && !visited[v]
+                    && adjMatrix[u][v].weight < min)
+                v = j;
+        }
+        distance += adjMatrix[u][v].weight;
+        u = v;
+    }
+    return distance;
 }
 
 

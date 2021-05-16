@@ -54,6 +54,12 @@ public:
     vector<Type> bfsOrder;
 
     /**
+     * @brief shortestOrder Visit all nodes in shortest order.
+     * Populated by shortestPath()
+     */
+    vector<Type> shortestOrder;
+
+    /**
      * @brief Output edges in MST
      */
     QString mstString;
@@ -130,6 +136,14 @@ private:
      * @return Two dimentional array hold data for paths
      */
     vector<vector<int>> DijkstraPaths(const Type& start);
+
+    /**
+     * @brief Finds shortest path to all nodes
+     * Saves path in shortestOrder
+     * @param start Starting node
+     * @return Distance travelled
+     */
+    int shortestPath(const Type& start);
 
     /**
      * @brief Compares Edges (sorts in increasing order)
