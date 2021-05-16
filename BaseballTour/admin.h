@@ -2,7 +2,8 @@
 #define ADMIN_H
 
 #include <QDialog>
-#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QMessageBox>
 #include "dbmanager.h"
 
 namespace Ui {
@@ -60,10 +61,45 @@ private slots:
 //    */
 //    void on_pushButton_addSouvenir_clicked();
 
+    /**
+    * @brief Button Method to take input from admin and update team
+    *
+    * executes process for changing team data according to what
+    * the admin input
+    */
+    void on_pushButton_clicked();
+
+    /**
+    * @brief Method to fill the input options with info
+    * of team
+    *
+    * fills the input boxes with team info
+    * of currently selected team
+    *
+    * @param &teamName - name of currently selected team
+    * in the combo box
+    */
+    void populateInformation(const QString& teamName);
+
+    /**
+    * @brief Combo box option selected method to fill input
+    * with team data when option selected
+    *
+    * calls populateInformation method in order to fill input
+    * with team data
+    *
+    * @param &arg1 - current name of team selected that is
+    * passed into populateInformation method
+    */
+    void on_comboBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::Admin *ui;
-    dbManager* m_db;
+    dbManager* database;
+    dbManager *m_db;
     QString tempSouvenir;
+    vector<QString> nameList;
+    vector<QString> tempList;
 };
 
 #endif // ADMIN_H

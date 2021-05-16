@@ -19,8 +19,6 @@ QSqlTableModel* dbManager::getTeams() const
     model->setTable("teams");
     model->select();
 
-    model->removeColumn(0);
-
     return model;
 }
 
@@ -36,16 +34,16 @@ teamData dbManager::getTeamData(const QString& teamName) const
     query.first();
 
     if(query.isValid()) { // if matching team found
-        team.team_name = query.value(1).toString();
-        team.stadium_name = query.value(2).toString();
-        team.stadium_seating_capacity = query.value(3).toInt();
-        team.stadium_location = query.value(4).toString();
-        team.stadium_playing_surface = query.value(5).toString();
-        team.team_league = query.value(6).toString();
-        team.stadium_date_opened = query.value(7).toInt();
-        team.stadium_dist_ctrfield = query.value(8).toString();
-        team.stadium_typology = query.value(9).toString();
-        team.stadium_roof_type = query.value(10).toString();
+        team.team_name = query.value(0).toString();
+        team.stadium_name = query.value(1).toString();
+        team.stadium_seating_capacity = query.value(2).toInt();
+        team.stadium_location = query.value(3).toString();
+        team.stadium_playing_surface = query.value(4).toString();
+        team.team_league = query.value(5).toString();
+        team.stadium_date_opened = query.value(6).toInt();
+        team.stadium_dist_ctrfield = query.value(7).toString();
+        team.stadium_typology = query.value(8).toString();
+        team.stadium_roof_type = query.value(9).toString();
     }else {
         qDebug() << "team not found";
         team.team_name = "ERROR";
@@ -150,7 +148,64 @@ void dbManager::addSouvenir(const QString &team, const QString &souvenirName, co
     }
 }
 
+<<<<<<< HEAD
 void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &newCost, const QString &newsouvenir)
+=======
+void dbManager::addTeam(const teamData &newTeam)
+{
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO teams VALUES(:teamname, :stadname, :stadiumcap, :location, :playsurface, :league, :dateopened, :distctr, :typology, :rooftype)");
+    query.bindValue(":teamname", newTeam.team_name);
+    query.bindValue(":stadname", newTeam.stadium_name);
+    query.bindValue(":stadiumcap", newTeam.stadium_seating_capacity);
+    query.bindValue(":location", newTeam.stadium_location);
+    query.bindValue(":playsurface", newTeam.stadium_playing_surface);
+    query.bindValue(":league", newTeam.team_league);
+    query.bindValue(":dateopened", newTeam.stadium_date_opened);
+    query.bindValue(":distctr", newTeam.stadium_dist_ctrfield);
+    query.bindValue(":typology", newTeam.stadium_typology);
+    query.bindValue(":rooftype", newTeam.stadium_roof_type);
+
+    if(query.exec()) {
+        qDebug() << "added:" << newTeam.team_name;
+    } else {
+        qDebug() << "could not add:" << newTeam.team_name;
+    }
+
+}
+
+void dbManager::addDist(const distanceEdge &newDist)
+{
+    QSqlQuery query;
+    int rowCount;
+
+    query.prepare("SELECT Count(*) FROM distances");
+
+    if(query.exec()) {
+        query.first();
+        qDebug() << "row count:" << query.value(0).toInt();
+    }else {
+        qDebug() << "could not get count:" << query.lastError();
+    }
+    rowCount = query.value(0).toInt();
+
+    query.prepare("INSERT INTO distances VALUES(:id, :origin, :dest, :dist)");
+    query.bindValue(":id", rowCount);
+    query.bindValue(":origin", newDist.team_name_origin);
+    query.bindValue(":dest", newDist.team_name_destination);
+    query.bindValue(":dist", newDist.distance);
+
+    if(query.exec()) {
+        qDebug() << "added:" << newDist.team_name_origin << "to" << newDist.team_name_destination;
+    } else {
+        qDebug() << "could not add:" << newDist.team_name_origin << "to" << newDist.team_name_destination;
+        qDebug() << "reason:" << query.lastError();
+    }
+}
+
+void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &spin, const QString &newsouvenir)
+>>>>>>> 750a546260fd572d3ae7554e39fb08327284e7cf
 {
     QSqlQuery query;
 
@@ -174,6 +229,72 @@ void dbManager::updateSouvenir(const QString &souvenirName, const QString &team,
         {
             qDebug() << "UPDATE failed: " << query.lastError() << Qt::endl;
         }
+    }
+}
+
+void dbManager::updateTeam(QString teamName, QString stadiumName, int capacity,
+                           QString location,QString playingSurface,
+                           QString teamLeague,int dateOpen,QString distCenterField,
+                           QString typology,QString roofType)
+{
+
+    QSqlQuery query;
+
+    query.prepare("UPDATE teams SET stadium_name=:stadiumName WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":stadiumName",stadiumName);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_seating_capacity=:stadiumSeatingCapacity WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":stadiumSeatingCapacity",capacity);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_location=:stadiumLocation WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":stadiumLocation",location);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_playing_surface=:stadiumPlayingSurface WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":stadiumPlayingSurface",playingSurface);
+    query.exec();
+
+    query.prepare("UPDATE teams SET team_league=:teamLeague WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":teamLeague",teamLeague);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_date_opened=:dateOpen WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":dateOpen",dateOpen);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_dist_ctrfield=:distCenterField WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":distCenterField",distCenterField);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_typology=:typology WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":typology",typology);
+    query.exec();
+
+    query.prepare("UPDATE teams SET stadium_rooftype=:roofType WHERE team_name=:teamName");
+    query.bindValue(":teamName",teamName);
+    query.bindValue(":roofType",roofType);
+    query.exec();
+
+
+    if(query.exec())
+    {
+        qDebug() << "UPDATE WORKED" << Qt::endl;
+    }
+    else
+    {
+        qDebug() << "UPDATE failed: " << query.lastError() << Qt::endl;
+        qDebug() << query.executedQuery();
+        qDebug() << query.boundValues();
     }
 }
 
@@ -287,6 +408,7 @@ vector<teamData> dbManager::getTeamsByMinCtrField() const
     return teams;
 }
 
+
 vector<teamData> dbManager::getTeamsWithOpenRoof(const QString& roofType) const
 {
     QSqlQuery query;
@@ -309,4 +431,54 @@ vector<teamData> dbManager::getTeamsWithOpenRoof(const QString& roofType) const
 
 
     return teams;
+}
+
+QString dbManager::getStadium(const QString& teamName) const
+{
+    QString stadiumName;
+    QSqlQuery query;
+    query.prepare("SELECT stadium_name FROM teams WHERE team_name=:teamName");
+    query.bindValue(":teamName", teamName);
+    query.exec();
+
+    query.first();
+
+    return query.value(0).toString();
+}
+
+vector<QString> dbManager::getStadiumNames() const
+{
+    vector<QString> stadiums;
+
+    // query database for names
+    QSqlQuery query("SELECT DISTINCT origin FROM distances");
+
+    while(query.next()) {
+        QString out = query.value(0).toString();
+        stadiums.push_back(out);
+    }
+
+    return stadiums;
+}
+
+vector<distanceEdge> dbManager::getDistances(const QString& teamName) const
+{
+    QSqlQuery query;
+    vector<distanceEdge> distances;
+    distanceEdge edge;
+    query.prepare("SELECT destination, distance FROM distances WHERE origin=:origin");
+    query.bindValue(":origin", teamName);
+    query.exec();
+
+    query.first();
+    edge.team_name_origin = teamName;
+    while (query.isValid()) {
+        edge.team_name_destination = query.value(0).toString();
+        edge.distance = query.value(1).toInt();
+        distances.push_back(edge);
+
+        query.next();
+    }
+
+    return distances;
 }

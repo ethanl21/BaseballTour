@@ -3,11 +3,16 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QFileDialog>
+#include <QStandardPaths>
 
 #include "dbmanager.h"
 #include "databaseviewform.h"
 #include "databasenameview.h"
 #include "logindialog.h"
+#include "csvparser.h"
+
+#include "graph.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -39,6 +44,16 @@ private slots:
     void on_simpleStartButton_clicked();
 
     void on_actionModify_Database_triggered();
+    
+    void on_actionImport_Teams_triggered();
+
+    void on_actionImport_Distances_triggered();
+
+    void on_DFSpushButton_clicked();
+
+    void on_BFSpushButton_clicked();
+
+    void on_MSTpushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -56,5 +71,7 @@ private:
     vector<QString> selectedList;
 
     bool isAdmin;
+
+    Graph<QString>* graph;
 };
 #endif // MAINWINDOW_H
