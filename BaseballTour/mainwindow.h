@@ -12,6 +12,8 @@
 #include "logindialog.h"
 #include "csvparser.h"
 
+#include "graph.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -47,6 +49,12 @@ private slots:
 
     void on_actionImport_Distances_triggered();
 
+    void on_DFSpushButton_clicked();
+
+    void on_BFSpushButton_clicked();
+
+    void on_MSTpushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -63,5 +71,7 @@ private:
     vector<QString> selectedList;
 
     bool isAdmin;
+
+    Graph<QString>* graph;
 };
 #endif // MAINWINDOW_H

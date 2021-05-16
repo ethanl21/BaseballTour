@@ -30,10 +30,27 @@ MainWindow::MainWindow(QWidget *parent)
         ui->simpleToComboBox->addItem(teamName);
         ui->addComboBox->addItem(teamName);
     }
+
+    // populate graph
+    graph = new Graph<QString>();
+    vector<distanceEdge> edges;
+    vector<QString> stadiumList = database->getStadiumNames();
+    for (QString stadium : stadiumList)
+        graph->addNode(stadium);
+    for (QString stadium : stadiumList) {
+        edges = database->getDistances(stadium);
+        for (auto edge : edges) {
+            graph->addEdge(edge.team_name_origin, edge.team_name_destination,
+                           edge.distance);
+        }
+    }
+
+
 }
 
 MainWindow::~MainWindow()
 {
+    delete graph;
     delete ui;
 }
 
@@ -59,9 +76,9 @@ void MainWindow::on_actionLog_In_triggered()
 
 void MainWindow::on_actionDBG_Is_User_Admin_triggered()
 {
-    if(isAdmin) {
+    if (isAdmin) {
         QMessageBox::information(this, "Success", "User is admin.");
-    }else {
+    } else {
         QMessageBox::information(this, "Error", "User is NOT admin.");
     }
 }
@@ -184,4 +201,45 @@ void MainWindow::on_actionImport_Distances_triggered()
         }
 
     }
+}
+
+void MainWindow::on_DFSpushButton_clicked()
+{
+    int distance = graph->startDFS("Oracle Park");
+    QString pathStr;
+    for (auto dest : graph->dfsOrder) {
+        pathStr += dest + "\n";
+    }
+
+    QMessageBox msgBox;
+    msgBox.setText("DFS: Starting from Oracle Park (San Francisco Giants)");
+    msgBox.setInformativeText("Total distance: " + QString::number(distance));
+    msgBox.setDetailedText(pathStr);
+    msgBox.exec();
+}
+
+void MainWindow::on_BFSpushButton_clicked()
+{
+    int distance = graph->startBFS("Target Field");
+    QString pathStr;
+    for (auto dest : graph->bfsOrder) {
+        pathStr += dest + "\n";
+    }
+
+    QMessageBox msgBox;
+    msgBox.setText("BFS: Starting from Target Field (Minnesota Twins)");
+    msgBox.setInformativeText("Total distance: " + QString::number(distance));
+    msgBox.setDetailedText(pathStr);
+    msgBox.exec();
+}
+
+void MainWindow::on_MSTpushButton_clicked()
+{
+    int distance = graph->startMST();
+
+    QMessageBox msgBox;
+    msgBox.setText("MST");
+    msgBox.setInformativeText("Total distance: " + QString::number(distance));
+    //msgBox.setDetailedText(pathStr);
+    msgBox.exec();
 }
