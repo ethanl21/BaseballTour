@@ -109,7 +109,7 @@
        <rect>
         <x>20</x>
         <y>260</y>
-        <width>71</width>
+        <width>91</width>
         <height>16</height>
        </rect>
       </property>
@@ -303,7 +303,7 @@
    <property name="text">
     <string>Modify Database</string>
    </property>
-   </action>
+  </action>
   <action name="actionImport_Distances">
    <property name="text">
     <string>Import Distances</string>
