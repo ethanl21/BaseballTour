@@ -1,6 +1,5 @@
 #include "graph.h"
 #include <QDebug>
-#include <QString>
 
 template<class Type>
 Graph<Type>::Graph()
@@ -148,6 +147,17 @@ int Graph<Type>::startMST() {
         }
 
         adjList.clear();
+    }
+
+    int weight;
+    mstString = "";
+    for (int i = 0; i < size; i++) {
+        if (parent[i] != -1) {
+            mstString += nodeList[parent[i]] + " - " + nodeList[i];
+            weight = adjMatrix[parent[i]][i].weight;
+            mstString += ": " + QString::number(weight);
+            mstString += "\n";
+        }
     }
 
     int total = 0;
