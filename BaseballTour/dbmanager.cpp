@@ -210,6 +210,7 @@ void dbManager::addSouvenir(const QString &team, const QString &souvenirName, co
         qDebug() << "name exists!";
     }
 }
+}
 
 void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &newCost, const QString &newsouvenir)
 {
