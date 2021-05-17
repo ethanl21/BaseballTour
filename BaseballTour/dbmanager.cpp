@@ -420,13 +420,16 @@ vector<teamData> dbManager::getTeamsByMaxCtrField() const
     QSqlQuery query;
     teamData temp;
     vector<teamData> teams;
+    vector<teamData> out;
 
     qDebug() << "getTeamsByMaxCtrField";
 
-    query.prepare("SELECT team_name, stadium_name, MAX(stadium_dist_ctrfield) FROM teams");
+    query.prepare("SELECT team_name, stadium_name, stadium_dist_ctrfield FROM teams");
     query.exec();
 
     query.first();
+
+    // add all teams to the vector
     while(query.isValid()) {
         temp.team_name = query.value(0).toString();
         temp.stadium_name = query.value(1).toString();
@@ -434,10 +437,28 @@ vector<teamData> dbManager::getTeamsByMaxCtrField() const
 
         teams.push_back(temp);
 
+        qDebug() << "pushed back:" << temp.stadium_name;
+
         query.next();
     }
 
-    return teams;
+    sort(teams.begin(), teams.end(), [] (teamData a, teamData b)
+    {
+        return a.stadium_dist_ctrfield < b.stadium_dist_ctrfield;
+    }
+    );
+
+    QString max = teams[teams.size()-1].stadium_dist_ctrfield;
+    qDebug() << "max value:" << max;
+
+    for(unsigned long long i = 0; i < teams.size(); i++) {
+        if(teams[i].stadium_dist_ctrfield == max) {
+            out.push_back(teams[i]);
+        }
+    }
+
+
+    return out;
 }
 
 vector<teamData> dbManager::getTeamsByMinCtrField() const
@@ -445,10 +466,11 @@ vector<teamData> dbManager::getTeamsByMinCtrField() const
     QSqlQuery query;
     teamData temp;
     vector<teamData> teams;
+    vector<teamData> out;
 
     qDebug() << "getTeamsByMinCtrField";
 
-    query.prepare("SELECT team_name, stadium_name, MIN(stadium_dist_ctrfield) FROM teams");
+    query.prepare("SELECT team_name, stadium_name, stadium_dist_ctrfield FROM teams");
     query.exec();
 
     query.first();
@@ -463,7 +485,23 @@ vector<teamData> dbManager::getTeamsByMinCtrField() const
         query.next();
     }
 
-    return teams;
+    sort(teams.begin(), teams.end(), [] (teamData a, teamData b)
+    {
+        return a.stadium_dist_ctrfield < b.stadium_dist_ctrfield;
+    }
+    );
+
+    QString min = teams[0].stadium_dist_ctrfield;
+    qDebug() << "min value:" << min;
+
+    for(unsigned long long i = 0; i < teams.size(); i++) {
+        if(teams[i].stadium_dist_ctrfield == min) {
+            out.push_back(teams[i]);
+        }
+    }
+
+
+    return out;
 }
 
 
@@ -541,4 +579,18 @@ vector<distanceEdge> dbManager::getDistances(const QString& teamName) const
     }
 
     return distances;
+}
+
+int dbManager::calcTotalCapacity()
+{
+    QSqlQuery query("select stadium_seating_capacity from teams");
+    int capacity = 0;
+
+    while(query.next())
+    {
+        capacity+=query.value(0).toInt();
+    }
+    return capacity;
+
+
 }

@@ -22,6 +22,9 @@ databaseviewform::databaseviewform(dbManager* db, QWidget *parent) :
 
     // view teams with open roof
     populateOpenRoofTeamsTable(db->getTeamsWithOpenRoof("Open"));
+
+    ui->totalCapacitySpinBox->setValue(db->calcTotalCapacity());
+
 }
 
 databaseviewform::~databaseviewform()

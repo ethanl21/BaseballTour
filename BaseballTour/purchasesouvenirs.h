@@ -23,10 +23,16 @@ public:
     explicit PurchaseSouvenirs(const QString &team, dbManager *db = nullptr, QWidget *parent = nullptr);
     ~PurchaseSouvenirs();
 
+    //!
+    //! \brief getShoppingCart returns the shopping cart after purchasing is complete
+    //! \return items purchased
+    //!
     std::vector<shoppingCartItem> getShoppingCart() const {return shoppingCart;}
 
-    void updateSubtotal();
-
+    //!
+    //! \brief amountSpent
+    //! \return amount spent after purchase is complete
+    //!
     double amountSpent() const {return subtotalOut;}
 
 private slots:
@@ -40,6 +46,11 @@ private:
     Ui::PurchaseSouvenirs *ui;
 
     std::vector<shoppingCartItem> shoppingCart;
+
+    //!
+    //! \brief updateSubtotal updates the subtotal displayed in UI
+    //!
+    void updateSubtotal();
 
     dbManager *database;
 
