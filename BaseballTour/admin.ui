@@ -68,7 +68,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="ModifyStadiums">
     <attribute name="title">
@@ -90,14 +90,14 @@
     <widget class="QLabel" name="stadiumName_label">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>60</x>
        <y>100</y>
-       <width>131</width>
+       <width>181</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>New Stadium Name</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;New Stadium Name&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="stadiumName_field">
@@ -113,14 +113,14 @@
     <widget class="QLabel" name="seatingCapacity_label">
      <property name="geometry">
       <rect>
-       <x>100</x>
+       <x>70</x>
        <y>150</y>
-       <width>101</width>
+       <width>161</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Seating Capacity</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Seating Capacity&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QDoubleSpinBox" name="seatingCapacity">
@@ -142,14 +142,14 @@
     <widget class="QLabel" name="stadiumLocation_label">
      <property name="geometry">
       <rect>
-       <x>100</x>
+       <x>20</x>
        <y>210</y>
-       <width>101</width>
+       <width>241</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Stadium Location</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Stadium Location&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="stadiumLocation_field">
@@ -158,21 +158,21 @@
        <x>60</x>
        <y>230</y>
        <width>171</width>
-       <height>20</height>
+       <height>31</height>
       </rect>
      </property>
     </widget>
     <widget class="QLabel" name="playingSurface_label">
      <property name="geometry">
       <rect>
-       <x>100</x>
+       <x>30</x>
        <y>270</y>
-       <width>101</width>
+       <width>231</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Playing Surface</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Playing Surface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="playingSurface_field">
@@ -181,7 +181,7 @@
        <x>60</x>
        <y>290</y>
        <width>171</width>
-       <height>20</height>
+       <height>31</height>
       </rect>
      </property>
     </widget>
@@ -189,7 +189,7 @@
      <property name="geometry">
       <rect>
        <x>430</x>
-       <y>50</y>
+       <y>30</y>
        <width>101</width>
        <height>21</height>
       </rect>
@@ -201,10 +201,10 @@
     <widget class="QListWidget" name="listWidget">
      <property name="geometry">
       <rect>
-       <x>420</x>
-       <y>70</y>
-       <width>101</width>
-       <height>51</height>
+       <x>400</x>
+       <y>50</y>
+       <width>161</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="currentRow">
@@ -224,27 +224,27 @@
     <widget class="QLabel" name="dateOpened_label">
      <property name="geometry">
       <rect>
-       <x>430</x>
+       <x>380</x>
        <y>130</y>
-       <width>101</width>
+       <width>181</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Date Opened</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Date Opened&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLabel" name="distanceCenter_label">
      <property name="geometry">
       <rect>
-       <x>410</x>
+       <x>360</x>
        <y>180</y>
-       <width>141</width>
+       <width>251</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Distance to Center Field</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Distance to Center Field&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="distance_field">
@@ -253,53 +253,53 @@
        <x>390</x>
        <y>200</y>
        <width>171</width>
-       <height>20</height>
+       <height>31</height>
       </rect>
      </property>
     </widget>
     <widget class="QLabel" name="stadiumTopology_label">
      <property name="geometry">
       <rect>
-       <x>420</x>
+       <x>370</x>
        <y>230</y>
-       <width>111</width>
-       <height>21</height>
+       <width>211</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Stadium Typology</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Stadium Typology&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="typology_field">
      <property name="geometry">
       <rect>
        <x>390</x>
-       <y>250</y>
+       <y>260</y>
        <width>171</width>
-       <height>20</height>
+       <height>31</height>
       </rect>
      </property>
     </widget>
     <widget class="QLabel" name="stadiumRooftype_label">
      <property name="geometry">
       <rect>
-       <x>410</x>
-       <y>280</y>
-       <width>101</width>
-       <height>21</height>
+       <x>370</x>
+       <y>290</y>
+       <width>201</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Stadium Rooftype</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Stadium Rooftype&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="roof_field">
      <property name="geometry">
       <rect>
        <x>390</x>
-       <y>300</y>
+       <y>320</y>
        <width>171</width>
-       <height>20</height>
+       <height>31</height>
       </rect>
      </property>
     </widget>
@@ -319,10 +319,10 @@
     <widget class="QComboBox" name="comboBox">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>30</x>
        <y>70</y>
-       <width>171</width>
-       <height>22</height>
+       <width>241</width>
+       <height>31</height>
       </rect>
      </property>
     </widget>
@@ -379,7 +379,7 @@
        <x>10</x>
        <y>60</y>
        <width>251</width>
-       <height>20</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
