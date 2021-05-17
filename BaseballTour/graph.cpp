@@ -21,9 +21,9 @@ void Graph<Type>::addEdge(const Type& objU, const Type& objV, int weight) {
     int u = getIndex(objU);
     int v = getIndex(objV);
     Edge uEdge = {u, v, weight};
-    Edge vEdge = {v, u, weight};
     adjMatrix[u][v] = uEdge;
-    adjMatrix[v][u] = vEdge;
+    //Edge vEdge = {v, u, weight};
+    //adjMatrix[v][u] = vEdge;
 
 }
 
@@ -36,8 +36,9 @@ int Graph<Type>::getIndex(const Type& obj) {
 template<class Type>
 int Graph<Type>::startDFS(const Type& start) {
     vector<bool> visited(size, false);
-    dfsOrder.resize(0);
-    return dfs(getIndex(start), visited);
+    dfsOrder.clear();
+
+    return dfs(getIndex(start), visited);;
 }
 
 template<class Type>
@@ -52,14 +53,16 @@ int Graph<Type>::dfs(int v, vector<bool>& visited) {
     vector<Edge> adjList;
     for (auto it = adjMatrix[v].begin(); it != adjMatrix[v].end(); it++) {
         // find valid edge
-        if (it->weight != 0 && !visited[it->v])
+        if (!visited[it->v] && it->weight > 0)
             adjList.push_back(*it);
     }
     sort(adjList.begin(), adjList.end(), compareWeight);
 
     for (auto it = adjList.begin(); it != adjList.end(); it++) {
-        distTraveled += it->weight;
-        distTraveled += dfs(it->v, visited);
+        if (!visited[it->v]) {
+            distTraveled += it->weight;
+            distTraveled += dfs(it->v, visited);
+        }
     }
     return distTraveled;
 }

@@ -34,7 +34,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>40</y>
+        <y>130</y>
         <width>171</width>
         <height>22</height>
        </rect>
@@ -44,7 +44,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>100</y>
+        <y>200</y>
         <width>171</width>
         <height>22</height>
        </rect>
@@ -54,7 +54,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>20</y>
+        <y>110</y>
         <width>47</width>
         <height>13</height>
        </rect>
@@ -67,7 +67,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>80</y>
+        <y>180</y>
         <width>81</width>
         <height>16</height>
        </rect>
@@ -80,13 +80,48 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>150</y>
+        <y>250</y>
         <width>80</width>
-        <height>21</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>Start</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resources.qrc">:/img/baseball-diamond-outline.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>10</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Simple Trip&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -98,7 +133,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>280</y>
+        <y>370</y>
         <width>211</width>
         <height>22</height>
        </rect>
@@ -108,8 +143,8 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>260</y>
-        <width>91</width>
+        <y>350</y>
+        <width>211</width>
         <height>16</height>
        </rect>
       </property>
@@ -121,7 +156,7 @@
       <property name="geometry">
        <rect>
         <x>240</x>
-        <y>220</y>
+        <y>310</y>
         <width>80</width>
         <height>21</height>
        </rect>
@@ -134,7 +169,7 @@
       <property name="geometry">
        <rect>
         <x>330</x>
-        <y>280</y>
+        <y>370</y>
         <width>80</width>
         <height>21</height>
        </rect>
@@ -147,7 +182,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>20</y>
+        <y>110</y>
         <width>391</width>
         <height>192</height>
        </rect>
@@ -157,7 +192,7 @@
       <property name="geometry">
        <rect>
         <x>330</x>
-        <y>220</y>
+        <y>310</y>
         <width>80</width>
         <height>21</height>
        </rect>
@@ -170,10 +205,45 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>220</y>
+        <y>310</y>
         <width>211</width>
         <height>22</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resources.qrc">:/img/wrench-outline.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>10</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Custom Trip&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -185,9 +255,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>20</y>
-        <width>80</width>
-        <height>21</height>
+        <y>130</y>
+        <width>111</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -198,9 +268,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>60</y>
-        <width>80</width>
-        <height>21</height>
+        <y>180</y>
+        <width>111</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -211,13 +281,48 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>100</y>
-        <width>80</width>
-        <height>21</height>
+        <y>230</y>
+        <width>111</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>BFS</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>51</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resources.qrc">:/img/graph-outline.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>10</y>
+        <width>121</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Other&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -229,7 +334,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -308,6 +413,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

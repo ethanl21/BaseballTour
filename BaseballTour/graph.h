@@ -35,7 +35,7 @@ struct Edge {
 typedef pair<int, int> node;
 
 /**
- * @brief Graph class based on undirected adjacency matrix
+ * @brief Graph class based on directed adjacency matrix
  */
 template <class Type>
 class Graph
