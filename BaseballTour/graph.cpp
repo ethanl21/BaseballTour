@@ -22,8 +22,8 @@ void Graph<Type>::addEdge(const Type& objU, const Type& objV, int weight) {
     int v = getIndex(objV);
     Edge uEdge = {u, v, weight};
     adjMatrix[u][v] = uEdge;
-    //Edge vEdge = {v, u, weight};
-    //adjMatrix[v][u] = vEdge;
+    Edge vEdge = {v, u, weight};
+    adjMatrix[v][u] = vEdge;
 
 }
 
