@@ -168,17 +168,17 @@ void Admin::updateSearchResults(const QString &souvenirName, const QString &team
 
     if(souvenirName == "" && team != "")
     {
-        qry.prepare("SELECT team, souvenirs, cost FROM Souvenirs WHERE (team) = (:teams)");
+        qry.prepare("SELECT teams, souvenirs, cost FROM Souvenirs WHERE (teams) = (:teams)");
         qry.bindValue(":teams", team);
     }
     else if(souvenirName != "" && team == "")
     {
-        qry.prepare("SELECT team, souvenirs, cost FROM Souvenirs WHERE (Souvenirs) = (:souvenirName)");
+        qry.prepare("SELECT teams, souvenirs, cost FROM Souvenirs WHERE (Souvenirs) = (:souvenirName)");
         qry.bindValue(":souvenirName", souvenirName);
     }
     else
     {
-        qry.prepare("SELECT team, souvenirs, cost FROM Souvenirs WHERE (Souvenirs, team) = (:souvenirName, :teams)");
+        qry.prepare("SELECT teams, souvenirs, cost FROM Souvenirs WHERE (Souvenirs, teams) = (:souvenirName, :teams)");
         qry.bindValue(":souvenirName", souvenirName);
         qry.bindValue(":teams", team);
     }

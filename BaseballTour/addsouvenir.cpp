@@ -1,6 +1,7 @@
 #include "addsouvenir.h"
 #include "ui_addsouvenir.h"
 #include "dbmanager.h"
+#include <QString>
 
 addSouvenir::addSouvenir(dbManager* db, QWidget *parent) :
     QDialog(parent),
@@ -62,8 +63,11 @@ void addSouvenir::on_pushButton_addNewSouvenir_clicked()
     if(success)
     {
         double costToString = ui->doubleSpinBox_cost->value();
-        QString cost = QString::number(costToString);
-        m_db->addSouvenir(teamName, ui->lineEdit_addSouvenirName->text(), cost);
+        QString costTwoDecimal = QString::number(costToString, 'f', 2);
+        qDebug() << costTwoDecimal;
+//        QString cost = QString::number(costToString);
+        qDebug() << "Cost when adding Souvenir: " << costTwoDecimal;
+        m_db->addSouvenir(teamName, ui->lineEdit_addSouvenirName->text(), costTwoDecimal);
         qDebug() << "Success here";
         hide();
     }

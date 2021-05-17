@@ -144,7 +144,7 @@ void dbManager::removeSouvenir(const QString &souvenirName, const QString &teamN
     {
         if(m_db.open())
         {
-            query.prepare("DELETE FROM Souvenirs WHERE (Souvenirs, team) = (:souvenirs, :teamName)");
+            query.prepare("DELETE FROM Souvenirs WHERE (Souvenirs, Teams) = (:souvenirs, :teamName)");
             query.bindValue(":souvenirs", souvenirName);
             query.bindValue(":teamName", teamName);
 
@@ -189,27 +189,24 @@ void dbManager::addSouvenir(const QString &team, const QString &souvenirName, co
 
     if(!souvenirExists(souvenirName, team))
     {
-        if(m_db.open())
-        {
+        qDebug() << "Testing if souvenir exists in addSouvenir";
+        qDebug() << "Database is open";
+        qDebug() << "Team: " << team << " Souvenir: " << souvenirName << " Cost: " << cost;
 
-            qDebug() << "Database is open";
-            qDebug() << "Team: " << team << " Souvenir: " << souvenirName << " Cost: " << cost;
+        query.prepare("INSERT INTO Souvenirs(Teams, Souvenirs, Cost) VALUES(:teams, :souvenirs, :cost)");
+        query.bindValue(":teams", team);
+        query.bindValue(":souvenirs", souvenirName);
+        query.bindValue(":cost", cost);
 
-            query.prepare("INSERT INTO Souvenirs(team, Souvenirs, Cost) VALUES(:team, :souvenirs, :cost)");
-            query.bindValue(":team", team);
-            query.bindValue(":souvenirs", souvenirName);
-            query.bindValue(":cost", cost);
-
-            if(query.exec())
-                qDebug() << "souvenir add success!";
-            else
-                qDebug() << "souvenir add failed!";
+        if(query.exec())
+            qDebug() << "souvenir add success!";
+        else
+            qDebug() << "souvenir add failed!";
     }
     else
     {
-        qDebug() << "name exists!";
+        qDebug() << "Souvenir already exists!";
     }
-}
 }
 
 void dbManager::updateSouvenir(const QString &souvenirName, const QString &team, const QString &newCost, const QString &newsouvenir)
@@ -365,7 +362,7 @@ bool dbManager::souvenirExists(const QString &name, const QString &teams)
 
     QSqlQuery checkQuery;
 
-    checkQuery.prepare("SELECT souvenirs FROM souvenirs WHERE (team, souvenirs) = (:teams, :souvenirs)");
+    checkQuery.prepare("SELECT souvenirs FROM Souvenirs WHERE (teams, souvenirs) = (:teams, :souvenirs)");
     checkQuery.bindValue(":souvenirs", name);
     checkQuery.bindValue(":teams", teams);
 
