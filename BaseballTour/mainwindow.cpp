@@ -143,36 +143,82 @@ void MainWindow::on_simpleStartButton_clicked()
 
 void MainWindow::on_startPushButton_clicked()
 {
-    QString start = ui->startComboBox->currentText();
-    vector<QString> stadiumNames;
+    if (ui->mostEfficientRadioButton->isChecked())
+    {
+        QString start = ui->startComboBox->currentText();
+        vector<QString> stadiumNames;
 
-    // get all stadium names selected
-    for (int i = 0; i < ui->teamListWidget->count(); i++) {
-        stadiumNames.push_back(ui->teamListWidget->item(i)->text());
+        // get all stadium names selected
+        for (int i = 0; i < ui->teamListWidget->count(); i++) {
+            stadiumNames.push_back(ui->teamListWidget->item(i)->text());
+        }
+
+        // perform dijkstra recursively
+        int distance = graph->startMultiDijkstra(stadiumNames, start);
+
+        // convert stadium names to team names
+        vector<QString> route = graph->dijkstraOrder;
+        vector<QString> teams;
+        QString teamName;
+        for (const QString &stadium : route) {
+            qDebug() << "[startPushButton] stadium name: " << stadium;
+            teamName = database->getStadiumData(stadium).team_name;
+            teams.push_back(teamName);
+        }
+
+        // display total distance
+        QMessageBox msgBox;
+        msgBox.setText("Total distance: " + QString::number(distance) + " miles");
+        msgBox.exec();
+
+        // start trip planner
+        tripWindow = new tripPlanner(teams, database, this);
+        tripWindow->exec();
+        delete tripWindow;
+
+    } else if (ui->shortestTripsRadioButton->isChecked()) {
+
+        QString start = ui->startComboBox->currentText();
+        vector<QString> stadiumNames;
+
+        // get all stadium names selected
+        for (int i = 0; i < ui->teamListWidget->count(); i++) {
+            stadiumNames.push_back(ui->teamListWidget->item(i)->text());
+        }
+
+        int distance = 0;
+
+        for (unsigned int i = 1; i < stadiumNames.size(); i++) {
+            int distanceToAdd = graph->startDijkstra(ui->teamListWidget->item(i - 1)->text(), ui->teamListWidget->item(i)->text());
+            qDebug() << "start:  " << ui->teamListWidget->item(i - 1)->text() << endl;
+            qDebug() << "end: " << ui->teamListWidget->item(i)->text() << endl;
+            qDebug() << "Distance to add: " << distanceToAdd << endl;
+            distance += distanceToAdd;
+        }
+
+        // convert stadium names to team names
+        vector<QString> teams;
+        QString teamName;
+        for (const QString &stadium : stadiumNames) {
+            qDebug() << "[startPushButton] stadium name: " << stadium;
+            teamName = database->getStadiumData(stadium).team_name;
+            teams.push_back(teamName);
+        }
+
+        // display total distance
+        QMessageBox msgBox;
+        msgBox.setText("Total distance: " + QString::number(distance) + " miles");
+        msgBox.exec();
+
+        // start trip planner
+        tripWindow = new tripPlanner(teams, database, this);
+        tripWindow->exec();
+        delete tripWindow;
+    } else {
+        QMessageBox::information(this, "Error", "Please select a trip order.");
     }
 
-    // perform dijkstra recursively
-    int distance = graph->startMultiDijkstra(stadiumNames, start);
 
-    // convert stadium names to team names
-    vector<QString> route = graph->dijkstraOrder;
-    vector<QString> teams;
-    QString teamName;
-    for (const QString &stadium : route) {
-        qDebug() << "[startPushButton] stadium name: " << stadium;
-        teamName = database->getStadiumData(stadium).team_name;
-        teams.push_back(teamName);
-    }
-
-    // display total distance
-    QMessageBox msgBox;
-    msgBox.setText("Total distance: " + QString::number(distance) + " miles");
-    msgBox.exec();
-
-    // start trip planner
-    tripWindow = new tripPlanner(teams, database, this);
-    tripWindow->exec();
-    delete tripWindow;
 }
 
 void MainWindow::rebuildGraph()
