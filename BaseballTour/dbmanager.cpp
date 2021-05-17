@@ -580,3 +580,17 @@ vector<distanceEdge> dbManager::getDistances(const QString& teamName) const
 
     return distances;
 }
+
+int dbManager::calcTotalCapacity()
+{
+    QSqlQuery query("select stadium_seating_capacity from teams");
+    int capacity = 0;
+
+    while(query.next())
+    {
+        capacity+=query.value(0).toInt();
+    }
+    return capacity;
+
+
+}

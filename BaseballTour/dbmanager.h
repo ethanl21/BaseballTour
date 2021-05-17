@@ -198,6 +198,12 @@ public:
     //!
     vector<distanceEdge> getDistances(const QString& teamName) const;
 
+    //!
+    //! \brief calcTotalCapacity calculates the total capacity of the stadiums
+    //! \return total number of stadium compacities
+    //!
+    int calcTotalCapacity();
+
 private:
     //!
     //! \brief m_db
