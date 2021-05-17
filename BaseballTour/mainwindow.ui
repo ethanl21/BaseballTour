@@ -102,7 +102,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/img/baseball-diamond-outline.png</pixmap>
+       <pixmap>:/img/baseball-diamond-outline.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>false</bool>
@@ -140,7 +140,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/img/baseball-pic.png</pixmap>
+       <pixmap>:/img/baseball-pic.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>false</bool>
@@ -154,7 +154,6 @@
      <zorder>simpleStartButton</zorder>
      <zorder>label_4</zorder>
      <zorder>label_5</zorder>
-     <zorder>horizontalSpacer</zorder>
     </widget>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -264,7 +263,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/img/wrench-outline.png</pixmap>
+       <pixmap>:/img/wrench-outline.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>false</bool>
@@ -292,15 +291,29 @@
      <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>420</x>
-        <y>110</y>
-        <width>160</width>
+        <x>410</x>
+        <y>120</y>
+        <width>217</width>
         <height>80</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QRadioButton" name="mostEfficientRadioButton">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(211, 211, 211);</string>
+         </property>
          <property name="text">
           <string>Most Efficient Order</string>
          </property>
@@ -308,6 +321,20 @@
        </item>
        <item>
         <widget class="QRadioButton" name="shortestTripsRadioButton">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(211, 211, 211);</string>
+         </property>
          <property name="text">
           <string>In Order</string>
          </property>
@@ -331,13 +358,14 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/img/Fenway-park.png</pixmap>
+       <pixmap>:/img/Fenway-park.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
       </property>
      </widget>
      <zorder>label_11</zorder>
+     <zorder>verticalLayoutWidget</zorder>
      <zorder>startComboBox</zorder>
      <zorder>label</zorder>
      <zorder>addPushButton</zorder>
@@ -404,7 +432,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/img/graph-outline.png</pixmap>
+       <pixmap>:/img/graph-outline.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>false</bool>
@@ -439,7 +467,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/img/ball-bat-helmet.png</pixmap>
+       <pixmap>:/img/ball-bat-helmet.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -454,7 +482,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -533,8 +561,6 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
