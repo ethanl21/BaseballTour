@@ -208,13 +208,13 @@ void Admin::on_pushButton_search_clicked()
 
     if(teamName != "" && souvenirName == "")
     {
-        updateSearchResults(NULL, teamName);
+        updateSearchResults(nullptr, teamName);
     }
     else if(teamName == "" && souvenirName != "")
     {
-        updateSearchResults(souvenirName, NULL);
+        updateSearchResults(souvenirName, nullptr);
     }
-    else if(teamName !=  NULL && souvenirName != NULL)
+    else if(teamName !=  nullptr && souvenirName != nullptr)
     {
         updateSearchResults(souvenirName, teamName);
     }

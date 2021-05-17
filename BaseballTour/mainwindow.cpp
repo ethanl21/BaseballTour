@@ -173,6 +173,7 @@ void MainWindow::on_startPushButton_clicked()
 
         // start trip planner
         tripWindow = new tripPlanner(teams, database, this);
+        tripWindow->setDist(distance);
         tripWindow->exec();
         delete tripWindow;
 
@@ -212,6 +213,7 @@ void MainWindow::on_startPushButton_clicked()
 
         // start trip planner
         tripWindow = new tripPlanner(teams, database, this);
+        tripWindow->setDist(distance);
         tripWindow->exec();
         delete tripWindow;
     } else {
