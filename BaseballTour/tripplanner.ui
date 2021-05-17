@@ -48,9 +48,9 @@
     <widget class="QWidget" name="formLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>290</x>
+       <x>300</x>
        <y>10</y>
-       <width>421</width>
+       <width>411</width>
        <height>311</height>
       </rect>
      </property>
@@ -201,21 +201,45 @@
      <property name="geometry">
       <rect>
        <x>470</x>
-       <y>450</y>
+       <y>480</y>
        <width>241</width>
-       <height>80</height>
+       <height>41</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
       <item>
        <widget class="QPushButton" name="cancelTripButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Cancel Trip</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="endTripButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>End Trip</string>
         </property>
@@ -226,9 +250,9 @@
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>300</x>
+       <x>310</x>
        <y>330</y>
-       <width>261</width>
+       <width>391</width>
        <height>41</height>
       </rect>
      </property>

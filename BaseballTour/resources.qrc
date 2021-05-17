@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>stylesheets/MaterialDark.qss</file>
+        <file>font/Roboto.ttf</file>
+        <file>img/baseball-diamond-outline.png</file>
+        <file>img/graph-outline.png</file>
+        <file>img/wrench-outline.png</file>
+    </qresource>
+</RCC>
