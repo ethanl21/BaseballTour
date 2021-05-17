@@ -51,7 +51,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="allTeamsPage">
     <property name="sizePolicy">
@@ -110,8 +110,8 @@
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>220</x>
-       <y>30</y>
+       <x>0</x>
+       <y>0</y>
        <width>1071</width>
        <height>61</height>
       </rect>
@@ -120,43 +120,21 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt; font-weight:600;&quot;&gt;MLB Teams by League&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_4">
+    <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>100</y>
-       <width>1021</width>
-       <height>531</height>
+       <x>10</x>
+       <y>60</y>
+       <width>1061</width>
+       <height>561</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_5">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;American&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;National&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QTableWidget" name="americanTeamsTableWidget"/>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QTableWidget" name="americanTeamsTableWidget"/>
-        </item>
-        <item>
-         <widget class="QTableWidget" name="nationalTeamsTableWidget"/>
-        </item>
-       </layout>
+       <widget class="QTableWidget" name="nationalTeamsTableWidget"/>
       </item>
      </layout>
     </widget>
@@ -347,7 +325,7 @@ font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="1">
-     <widget class="QSpinBox" name="totalCapacitySpinBox">
+     <widget class="QSpinBox" name="spinBox">
       <property name="readOnly">
        <bool>true</bool>
       </property>

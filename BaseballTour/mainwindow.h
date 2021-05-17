@@ -60,9 +60,6 @@ private slots:
 
 private:
 
-    //!
-    //! \brief rebuildGraph recreates the graph
-    //!
     void rebuildGraph();
 
     Ui::MainWindow *ui;
