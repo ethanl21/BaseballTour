@@ -51,7 +51,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="allTeamsPage">
     <property name="sizePolicy">
@@ -110,8 +110,8 @@
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>0</y>
+       <x>220</x>
+       <y>30</y>
        <width>1071</width>
        <height>61</height>
       </rect>
@@ -120,21 +120,43 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt; font-weight:600;&quot;&gt;MLB Teams by League&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget">
+    <widget class="QWidget" name="verticalLayoutWidget_4">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>60</y>
-       <width>1061</width>
-       <height>561</height>
+       <x>260</x>
+       <y>100</y>
+       <width>1021</width>
+       <height>531</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
-       <widget class="QTableWidget" name="americanTeamsTableWidget"/>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;American&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;National&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="nationalTeamsTableWidget"/>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QTableWidget" name="americanTeamsTableWidget"/>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="nationalTeamsTableWidget"/>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -325,7 +347,7 @@ font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
    </property>
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="1">
-     <widget class="QSpinBox" name="spinBox">
+     <widget class="QSpinBox" name="totalCapacitySpinBox">
       <property name="readOnly">
        <bool>true</bool>
       </property>
