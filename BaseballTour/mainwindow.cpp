@@ -191,9 +191,9 @@ void MainWindow::on_startPushButton_clicked()
 
         for (unsigned int i = 1; i < stadiumNames.size(); i++) {
             int distanceToAdd = graph->startDijkstra(ui->teamListWidget->item(i - 1)->text(), ui->teamListWidget->item(i)->text());
-            qDebug() << "start:  " << ui->teamListWidget->item(i - 1)->text() << endl;
-            qDebug() << "end: " << ui->teamListWidget->item(i)->text() << endl;
-            qDebug() << "Distance to add: " << distanceToAdd << endl;
+            qDebug() << "start:  " << ui->teamListWidget->item(i - 1)->text();
+            qDebug() << "end: " << ui->teamListWidget->item(i)->text();
+            qDebug() << "Distance to add: " << distanceToAdd;
             distance += distanceToAdd;
         }
 
