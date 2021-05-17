@@ -222,58 +222,57 @@ vector<vector<int>> Graph<Type>::DijkstraPaths(const Type& start) {
     for (auto it = T.begin(); it != T.end(); it++)
         it->resize(3);
 
-    for (unsigned int i = 0; i < nodeList.size(); i++) {
-        T[i][0] = -1;       // parent node
-        T[i][1] = INT_MAX;  // distance
-        T[i][2] = 0;        // in SPT set (0=false, 1=true)
+    int src = getIndex(start);
+
+    vector<int> distance(size);
+    vector<int> parent(size);
+    vector<bool> sptSet(size);
+
+    for(int i = 0; i < size; i++)
+    {
+        distance[i] = INT_MAX;
+        sptSet[i] = false;
     }
 
-    int startIndex = getIndex(start);
-    T[startIndex][0] = startIndex;
-    T[startIndex][1] = 0;
-    T[startIndex][2] = 1;
+    distance[src] = 0;
+    parent[src] = -1;
 
-    for (unsigned int i = 0; i < adjMatrix[startIndex].size(); i++) {
-        T[adjMatrix[startIndex][i].v][0] = startIndex;
-        T[adjMatrix[startIndex][i].v][1] = adjMatrix[startIndex][i].weight;
-    }
+    // Find the shortest path for all vertices
+    for (int count = 0; count < size; count++)
+    {
+        // find node with minimum distance
+        int u = 0;
+        int minDist = INT_MAX;
+        for (int i = 0; i < size; i++)
+        {
+            if (!sptSet[i] && distance[i] <= minDist)
+            {
+                u = i;
+                minDist = distance[u];
+            }
+        }
 
-    int shortestIndex = -1;
-    int shortest = INT_MAX;
-    for (int i = 0; i < (int)nodeList.size(); i++) {
-        if (T[i][2] == 0){
-            if (T[i][1] < shortest) {
-                shortestIndex = i;
-                shortest = T[i][1];
+        sptSet[u] = true;
+
+        // Update distance value
+        for (int v = 0; v < size; v++) {
+            if (!sptSet[v] && adjMatrix[u][v].weight > 0
+                    && distance[u] != INT_MAX
+                    && distance[u] + adjMatrix[u][v].weight < distance[v])
+            {
+                distance[v] = distance[u] + adjMatrix[u][v].weight;
+                parent[v] = u;
             }
         }
     }
 
-    while (shortestIndex != -1) {
-        for (unsigned int i = 0; i < adjMatrix[shortestIndex].size(); i++) {
-            int current = adjMatrix[shortestIndex][i].v;
+    for (int i = 0; i < size; i++)
+        T[i][0] = parent[i];
+    for (int i = 0; i < size; i++)
+        T[i][1] = distance[i];
+    for (int i = 0; i < size; i++)
+        T[i][2] = sptSet[i];
 
-            if (T[current][2] == 0) {
-                if ((T[shortestIndex][1] + adjMatrix[shortestIndex][i].weight) < T[current][1]) {
-                    T[current][1] = T[shortestIndex][1] + adjMatrix[shortestIndex][i].weight;
-                    T[current][0] = shortestIndex;
-                }
-            }
-        }
-
-        T[shortestIndex][2] = 1;
-
-        shortestIndex = -1;
-        shortest = INT_MAX;
-        for (int i  = 0; i < (int)nodeList.size(); i++) {
-            if (T[i][2] == 0){
-                if (T[i][1] < shortest) {
-                    shortestIndex = i;
-                    shortest = T[i][1];
-                }
-            }
-        }
-    }
 
     return T;
 }
