@@ -80,6 +80,12 @@ public:
     //!
     teamData getStadiumData(const QString& stadium) const;
 
+    //!
+    //! \brief addSouvenir adds a souvenir to the database
+    //! \param team souvenir's team
+    //! \param souvenirName souvenir's name
+    //! \param cost souvenir's price
+    //!
     void addSouvenir(const QString &team, const QString &souvenirName, const QString &cost);
 
 
@@ -139,7 +145,13 @@ public:
                         QString teamLeague,int dateOpen,QString distCenterField,
                         QString typology,QString roofType);
 
-    bool souvenirExists(const QString &name, const QString &college);
+    //!
+    //! \brief souvenirExists checks if a souvenir exists
+    //! \param name souvenir's name
+    //! \param team souvenir's team
+    //! \return
+    //!
+    bool souvenirExists(const QString &name, const QString &team);
 
     //!
     //! \brief getTeamsByLeague

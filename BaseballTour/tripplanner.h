@@ -23,6 +23,10 @@ public:
 
     //void setPath(const vector<QString> &stadiums) {stadiumNames = stadiums;}
 
+    //!
+    //! \brief setDist sets the total distance travelled
+    //! \param dist total distance travelled
+    //!
     void setDist(const int &dist) {totalDistance = dist;}
 
 private slots:
