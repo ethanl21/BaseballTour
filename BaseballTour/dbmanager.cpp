@@ -163,7 +163,7 @@ vector<std::pair<QString, double> > dbManager::getSouvenirs(const QString &team)
 
     vector<std::pair<QString, double> > souvenirs;
 
-    query.prepare("SELECT * FROM Souvenirs WHERE (team) = (:team)");
+    query.prepare("SELECT * FROM Souvenirs WHERE (teams) = (:team)");
     query.bindValue(":team", team);
 
     query.exec();
