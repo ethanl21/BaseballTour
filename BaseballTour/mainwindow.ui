@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_5">
      <attribute name="title">
@@ -36,7 +36,7 @@
         <x>20</x>
         <y>130</y>
         <width>171</width>
-        <height>22</height>
+        <height>31</height>
        </rect>
       </property>
      </widget>
@@ -46,7 +46,7 @@
         <x>20</x>
         <y>200</y>
         <width>171</width>
-        <height>22</height>
+        <height>31</height>
        </rect>
       </property>
      </widget>
@@ -54,9 +54,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>110</y>
+        <y>102</y>
         <width>47</width>
-        <height>13</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
@@ -67,9 +67,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>180</y>
+        <y>175</y>
         <width>81</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
@@ -116,12 +116,12 @@
        <rect>
         <x>80</x>
         <y>10</y>
-        <width>161</width>
-        <height>41</height>
+        <width>491</width>
+        <height>81</height>
        </rect>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Simple Trip&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Simple Trip&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Plan a trip through every stadium from the selected starting and ending stadiums.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -246,6 +246,32 @@
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Custom Trip&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>110</y>
+        <width>160</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QRadioButton" name="mostEfficientRadioButton">
+         <property name="text">
+          <string>Most Efficient Order</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="shortestTripsRadioButton">
+         <property name="text">
+          <string>In Order</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -334,7 +360,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

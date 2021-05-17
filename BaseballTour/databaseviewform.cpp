@@ -177,4 +177,3 @@ void databaseviewform::populateOpenRoofTeamsTable(const vector<teamData>& openRo
 
     ui->label_8->setText(QString::number(openRoofTeams.size()));
 }
-
