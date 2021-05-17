@@ -43,6 +43,15 @@ void databaseviewform::populateAllTeamsTable(QSqlTableModel* model) const
     }
 
     ui->teamviewModel->setModel(model);
+
+    ui->teamviewModel->setColumnWidth(0, 225);
+    ui->teamviewModel->setColumnWidth(1, 200);
+    ui->teamviewModel->setColumnWidth(2, 75);
+    ui->teamviewModel->setColumnWidth(3, 225);
+    ui->teamviewModel->setColumnWidth(6, 75);
+    ui->teamviewModel->setColumnWidth(7, 150);
+    ui->teamviewModel->setColumnWidth(8, 150);
+
 }
 
 void databaseviewform::populateLeaguesTables(const vector<teamData>& americanTeams, const vector<teamData>& nationalTeams) const
