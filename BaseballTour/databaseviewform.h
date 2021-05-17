@@ -45,6 +45,9 @@ private slots:
     //!
     void on_distCtrButton_clicked();
 
+    //!
+    //! \brief on_roofTypeButton_clicked view stadiums by roof type
+    //!
     void on_roofTypeButton_clicked();
 
 private:
